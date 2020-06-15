@@ -1,1 +1,1 @@
-console.log('Library-Crypto-Typescript');
+export { generateEccKeyPair } from './generateKeyPair';
