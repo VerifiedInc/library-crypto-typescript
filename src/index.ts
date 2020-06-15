@@ -1,1 +1,1 @@
-export { generateEccKeyPair } from './generateKeyPair';
+export { generateEccKeyPair } from './generateEccKeyPair';
