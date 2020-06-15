@@ -7,6 +7,9 @@
   "author": "jacobleesinger <jacobleesinger@gmail.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "build": "rm -rf build/ && tsc"
+  },
   "devDependencies": {
     "typescript": "^3.9.5"
   }
