@@ -11,6 +11,8 @@
     "build": "rm -rf build/ && tsc"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.0",
+    "jest": "^26.0.1",
     "typescript": "^3.9.5"
   }
 }
