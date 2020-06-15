@@ -1,11 +1,11 @@
 import { promisifiedGenerateKeyPair } from './helpers';
 
-export interface Keypair {
+export interface KeyPair {
   privateKey: string;
   publicKey: string;
 }
 
-export async function generateEccKeypair (): Promise<Keypair> {
+export async function generateEccKeyPair (): Promise<KeyPair> {
   const { publicKey, privateKey } = await promisifiedGenerateKeyPair(
     'ec',
     {

@@ -1,12 +1,12 @@
 import * as helpers from '../src/helpers';
 
-import { generateEccKeypair, Keypair } from '../src/generateEccKeypair';
+import { generateEccKeyPair, KeyPair } from '../src/generateKeyPair';
 
 describe('generateEccKeypair', () => {
-  let result: Keypair;
+  let result: KeyPair;
   beforeEach(async () => {
     jest.spyOn(helpers, 'promisifiedGenerateKeyPair');
-    result = await generateEccKeypair();
+    result = await generateEccKeyPair();
   });
 
   afterEach(() => {
