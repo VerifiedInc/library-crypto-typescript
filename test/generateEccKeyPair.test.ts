@@ -1,6 +1,7 @@
 import * as helpers from '../src/helpers';
 
-import { generateEccKeyPair, KeyPair } from '../src/generateEccKeyPair';
+import { generateEccKeyPair } from '../src/generateEccKeyPair';
+import { KeyPair } from '../src/types';
 
 describe('generateEccKeypair', () => {
   let result: KeyPair;
