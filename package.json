@@ -2,19 +2,18 @@
   "name": "Library-Crypto-TypeScript",
   "version": "0.0.1",
   "description": "A TypeScript library for Unum ID crypto operations",
-  "main": "index.js",
+  "main": "build/index.js",
   "repository": "git@github.com:UnumID/Library-Crypto-TypeScript",
   "author": "jacobleesinger <jacobleesinger@gmail.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "rm -rf build/ && tsc",
+    "build": "rm -rf build/ && tsc && cp src/types.d.ts build/",
     "jest": "jest --forceExit --runInBand",
     "test": "yarn run build && yarn run jest",
     "lint": "eslint \"src/**\" \"test/**\""
   },
   "devDependencies": {
-    "@types/bs58": "^4.0.1",
     "@types/jest": "^26.0.0",
     "@typescript-eslint/eslint-plugin": "^3.3.0",
     "@typescript-eslint/parser": "^3.3.0",
@@ -31,6 +30,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "@types/bs58": "^4.0.1",
     "bs58": "^4.0.1",
     "fast-json-stable-stringify": "^2.1.0"
   }

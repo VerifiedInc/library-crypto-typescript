@@ -109,7 +109,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # Others
-build/
 data/
 temp/
 
