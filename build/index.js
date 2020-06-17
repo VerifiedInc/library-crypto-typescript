@@ -1,10 +1,4 @@
 "use strict";
-// export { generateEccKeyPair } from './generateEccKeyPair';
-// export { generateRsaKeyPair } from './generateRsaKeyPair';
-// export { sign } from './sign';
-// export { verify } from './verify';
-// export { encrypt } from './encrypt';
-// export { decrypt } from './decrypt';
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.decrypt = exports.encrypt = exports.verify = exports.sign = exports.generateRsaKeyPair = exports.generateEccKeyPair = void 0;
 var generateEccKeyPair_1 = require("./generateEccKeyPair");
