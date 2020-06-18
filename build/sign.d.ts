@@ -1,1 +1,1 @@
-export declare function sign(data: Record<string, unknown>, privateKey: string): string;
+export declare function sign(data: any, privateKey: string): string;

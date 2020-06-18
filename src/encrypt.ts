@@ -5,7 +5,7 @@ import bs58 from 'bs58';
 
 import { EncryptedData } from './types';
 
-export function encrypt (did: string, publicKey: string, data: Record<string, unknown>): EncryptedData {
+export function encrypt (did: string, publicKey: string, data: any): EncryptedData {
   const stringifiedData = stringify(data);
 
   // create aes key
