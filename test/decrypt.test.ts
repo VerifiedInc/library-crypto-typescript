@@ -3,18 +3,20 @@ import crypto from 'crypto';
 import { decrypt } from '../src/decrypt';
 import { encrypt } from '../src/encrypt';
 import { generateRsaKeyPair } from '../src/generateRsaKeyPair';
+import { EncryptedData } from '../src/types';
 
 describe('decrypt', () => {
   let publicKey: string;
   let privateKey: string;
   const data = { test: 'test' };
-  let encryptedData: string;
+  const subjectDid = 'did:unum:c92aed65-21c1-438f-b723-d2ee4a637a47#e939fbf0-7c81-49c9-b369-8ca502fcd19f';
+  let encryptedData: EncryptedData;
 
   beforeAll(async () => {
     const keypair = await generateRsaKeyPair();
     privateKey = keypair.privateKey;
     publicKey = keypair.publicKey;
-    encryptedData = encrypt(publicKey, data);
+    encryptedData = encrypt(subjectDid, publicKey, data);
   });
 
   beforeEach(() => {
