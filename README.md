@@ -62,7 +62,7 @@ generateRsaKeyPair().then(({ privateKey, publicKey }) => {
 Signs data with a `secp256r1` private key.
 
 ```typescript
-(data: Record<string, unknown>, privateKey: string) => string;
+(data: any, privateKey: string) => string;
 
 ```
 - arguments
@@ -88,7 +88,7 @@ const signature = sign(data, privateKey);
 Verifies a signature with a `secp256r1` private key using the corresponding public key.
 
 ```typescript
-(signature: string, data: Record<string, unknown>, publicKey: string) => boolean;
+(signature: string, data: any, publicKey: string) => boolean;
 ```
 
 - arguments
@@ -117,20 +117,34 @@ const isValid = verify(signature, data, publicKey);
 ```
 
 ### encrypt
-Encrypts data with an `RSA` public key. Returns the encrypted data encoded as a base58 string.
+Encrypts data with a single-use AES key. Returns an object contianing the encrypted data encoded as a base58 string along with information about the AES key, encrypted with an RSA public key and encoded as base58 strings
 
 ```typescript
-(publicKey: string, data: Record<string, unknown>) => string;
+(did: string, publicKey: string, data: any) => { data: string, key: { iv: string, key: string, algorithm: string, did: string } };
 ```
 
 - arguments
+  - did
+    - a did (with fragment) which resolves to the public key
   - publicKey
     - a pem-encoded RSA public key
   - data
     - a TypeScript object
     - the data to encrypt
 - returns
-  - data encrypted with the public key and encoded as a base58 string
+  - EncryptedData
+    - data
+      - the encrypted data, encoded as a base58 string
+    - key
+      - information to allow the recipient to decrypt the encrypted data
+      - iv
+        - the initial vector of the AES key, encrypted with the public key and encoded as a base58 string
+      - key
+        - the AES key, encrypted with the public key and encoded as a base58 string
+      - algorithm
+        - the exact algorithm used to create the AES key, encrypted with the public key and encoded as a base58 string
+      - did
+        - did + fragment which resolves to the public key used to encrypt `iv`, `key`, and `algorithm`
 
 ### Usage
 ```typescript
@@ -147,15 +161,15 @@ const encryptedData = encrypt(publicKey, data);
 Decrypts data encrypted with an `RSA` public key using the corresponding private key.
 
 ```typescript
-(privateKey: string, encryptedData: string) => Record<string, unknown>;
+(privateKey: string, encryptedData: { data: string, key: { iv: string, key: string, algorithm: string, did: string } }) => any;
 ```
 
 - arguments
   - privateKey
     - a pem-encoded RSA private key
-    - should correspond to the public key that encrypted the data
+    - should correspond to the public key used to encrypt the AES key contained in `encryptedData`
   - encryptedData
-    - base58 encoded encrypted data
+    - an object containing the encrypted data and information to decrypt it
 - returns
   - a TypeScript object
   - the decrypted data
