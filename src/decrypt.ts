@@ -2,7 +2,7 @@ import { privateDecrypt, createDecipheriv } from 'crypto';
 import bs58 from 'bs58';
 import { EncryptedData } from './types';
 
-export function decrypt (privateKey: string, encryptedData: EncryptedData): Record<string, unknown> {
+export function decrypt (privateKey: string, encryptedData: EncryptedData): any {
   // decode aes key info
   const { iv, key, algorithm } = encryptedData.key;
 

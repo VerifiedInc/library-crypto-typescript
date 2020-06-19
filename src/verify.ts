@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import stringify from 'fast-json-stable-stringify';
 import bs58 from 'bs58';
 
-export function verify (signature: string, data: Record<string, unknown>, publicKey: string): boolean {
+export function verify (signature: string, data: any, publicKey: string): boolean {
   const hash = crypto.createHash('sha256');
   const stringifiedData = stringify(data);
   const dataBuf = Buffer.from(stringifiedData);
