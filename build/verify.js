@@ -8,12 +8,10 @@ var crypto_1 = __importDefault(require("crypto"));
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
 var bs58_1 = __importDefault(require("bs58"));
 function verify(signature, data, publicKey) {
-    var hash = crypto_1.default.createHash('sha256');
     var stringifiedData = fast_json_stable_stringify_1.default(data);
     var dataBuf = Buffer.from(stringifiedData);
-    hash.update(dataBuf);
     var signatureBuf = bs58_1.default.decode(signature);
-    var result = crypto_1.default.verify(null, hash.digest(), publicKey, signatureBuf);
+    var result = crypto_1.default.verify(null, dataBuf, publicKey, signatureBuf);
     return result;
 }
 exports.verify = verify;
