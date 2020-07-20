@@ -6,22 +6,26 @@ import bs58 from 'bs58';
 import { EncryptedData } from './types';
 
 export function encrypt (did: string, publicKey: string, data: any): EncryptedData {
+  // serialize data as a deterministic JSON string
   const stringifiedData = stringify(data);
 
-  // create aes key
+  // create aes key for encryption
   const key = randomBytes(32);
   const iv = randomBytes(16);
   const algorithm = 'aes-256-cbc';
   const cipher = createCipheriv(algorithm, key, iv);
 
   // encrypt data with aes key
-  cipher.update(stringifiedData);
-  const encrypted = cipher.final();
+  const encrypted1 = cipher.update(stringifiedData);
+  const encrypted2 = cipher.final();
+  const encrypted = Buffer.concat([encrypted1, encrypted2]);
 
   // encrypt aes key with public key
   const encryptedIv = publicEncrypt(publicKey, iv);
   const encryptedKey = publicEncrypt(publicKey, key);
   const encryptedAlgo = publicEncrypt(publicKey, Buffer.from(algorithm));
+
+  // return EncryptedData object with encrypted data and aes key info
   return {
     data: bs58.encode(encrypted),
     key: {
