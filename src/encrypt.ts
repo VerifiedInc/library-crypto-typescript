@@ -5,6 +5,13 @@ import bs58 from 'bs58';
 
 import { EncryptedData } from './types';
 
+/**
+ * @param {string} did the DID and key identifier fragment resolving to the public key
+ * @param {string} publicKey RSA public key (pem or der)
+ * @param {object} data data to encrypt (JSON-serializable object)
+ * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ */
 export function encrypt (did: string, publicKey: string, data: any): EncryptedData {
   // serialize data as a deterministic JSON string
   const stringifiedData = stringify(data);

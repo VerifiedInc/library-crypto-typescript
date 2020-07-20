@@ -2,6 +2,13 @@ import { privateDecrypt, createDecipheriv } from 'crypto';
 import bs58 from 'bs58';
 import { EncryptedData } from './types';
 
+/**
+ * @param {string} privateKey RSA private key (pem or der) corresponding to the public key used for encryption
+ * @param {EncryptedData} encryptedData EncryptedData object, like one returned from encrypt()
+ *                                      contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                                      key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ * @returns {object} the decrypted object
+ */
 export function decrypt (privateKey: string, encryptedData: EncryptedData): any {
   const { data } = encryptedData;
   const { iv, key, algorithm } = encryptedData.key;
