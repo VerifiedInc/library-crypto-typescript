@@ -4,17 +4,25 @@ import stringify from 'fast-json-stable-stringify';
 import bs58 from 'bs58';
 
 import { EncryptedData } from './types';
+import { decodeKey, derToPem } from './helpers';
 
 /**
  * @param {string} did the DID and key identifier fragment resolving to the public key
- * @param {string} publicKey RSA public key (pem or der)
+ * @param {string} publicKey RSA public key (pem or base58)
  * @param {object} data data to encrypt (JSON-serializable object)
+ * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-export function encrypt (did: string, publicKey: string, data: any): EncryptedData {
+export function encrypt (did: string, publicKey: string, data: unknown, encoding: 'base58' | 'pem' = 'pem'): EncryptedData {
   // serialize data as a deterministic JSON string
   const stringifiedData = stringify(data);
+
+  // decode the public key, if necessary
+  const decodedPublicKey = decodeKey(publicKey, encoding);
+
+  // node can only encrypt with pem-encoded keys
+  const publicKeyPem = derToPem(decodedPublicKey, 'public', 'rsa');
 
   // create aes key for encryption
   const key = randomBytes(32);
@@ -28,9 +36,9 @@ export function encrypt (did: string, publicKey: string, data: any): EncryptedDa
   const encrypted = Buffer.concat([encrypted1, encrypted2]);
 
   // encrypt aes key with public key
-  const encryptedIv = publicEncrypt(publicKey, iv);
-  const encryptedKey = publicEncrypt(publicKey, key);
-  const encryptedAlgo = publicEncrypt(publicKey, Buffer.from(algorithm));
+  const encryptedIv = publicEncrypt(publicKeyPem, iv);
+  const encryptedKey = publicEncrypt(publicKeyPem, key);
+  const encryptedAlgo = publicEncrypt(publicKeyPem, Buffer.from(algorithm));
 
   // return EncryptedData object with encrypted data and aes key info
   return {

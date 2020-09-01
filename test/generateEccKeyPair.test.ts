@@ -1,3 +1,5 @@
+import bs58 from 'bs58';
+
 import * as helpers from '../src/helpers';
 
 import { generateEccKeyPair } from '../src/generateEccKeyPair';
@@ -5,23 +7,76 @@ import { KeyPair } from '../src/types';
 
 describe('generateEccKeypair', () => {
   let result: KeyPair;
-  beforeEach(async () => {
-    jest.spyOn(helpers, 'promisifiedGenerateKeyPair');
-    result = await generateEccKeyPair();
+
+  describe('default', () => {
+    beforeEach(async () => {
+      jest.spyOn(helpers, 'promisifiedGenerateKeyPair');
+      result = await generateEccKeyPair();
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('generates a secp256r1 keypair', () => {
+      expect(helpers.promisifiedGenerateKeyPair).toBeCalled();
+      expect((helpers.promisifiedGenerateKeyPair as jest.Mock).mock.calls[0][0]).toEqual('ec');
+      expect((helpers.promisifiedGenerateKeyPair as jest.Mock).mock.calls[0][1].namedCurve).toEqual('prime256v1');
+    });
+
+    it('returns a pem-encoded keypair by default', () => {
+      expect(result.privateKey).toBeDefined();
+      expect(result.publicKey).toBeDefined();
+      expect(result.privateKey.startsWith('-----BEGIN EC PRIVATE KEY-----')).toBe(true);
+      expect(result.publicKey.startsWith('-----BEGIN PUBLIC KEY-----')).toBe(true);
+    });
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
+  describe('pem encoding', () => {
+    beforeEach(async () => {
+      jest.spyOn(helpers, 'promisifiedGenerateKeyPair');
+      result = await generateEccKeyPair('pem');
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('generates a secp256r1 keypair', () => {
+      expect(helpers.promisifiedGenerateKeyPair).toBeCalled();
+      expect((helpers.promisifiedGenerateKeyPair as jest.Mock).mock.calls[0][0]).toEqual('ec');
+      expect((helpers.promisifiedGenerateKeyPair as jest.Mock).mock.calls[0][1].namedCurve).toEqual('prime256v1');
+    });
+
+    it('returns a pem-encoded keypair', () => {
+      expect(result.privateKey).toBeDefined();
+      expect(result.publicKey).toBeDefined();
+      expect(result.privateKey.startsWith('-----BEGIN EC PRIVATE KEY-----')).toBe(true);
+      expect(result.publicKey.startsWith('-----BEGIN PUBLIC KEY-----')).toBe(true);
+    });
   });
 
-  it('generates a secp256r1 keypair', () => {
-    expect(helpers.promisifiedGenerateKeyPair).toBeCalled();
-    expect((helpers.promisifiedGenerateKeyPair as jest.Mock).mock.calls[0][0]).toEqual('ec');
-    expect((helpers.promisifiedGenerateKeyPair as jest.Mock).mock.calls[0][1].namedCurve).toEqual('prime256v1');
-  });
+  describe('base58', () => {
+    beforeEach(async () => {
+      jest.spyOn(helpers, 'promisifiedGenerateKeyPair');
+      result = await generateEccKeyPair('base58');
+    });
 
-  it('returns the keypair', () => {
-    expect(result.privateKey).toBeDefined();
-    expect(result.publicKey).toBeDefined();
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('generates a secp256r1 keypair', () => {
+      expect(helpers.promisifiedGenerateKeyPair).toBeCalled();
+      expect((helpers.promisifiedGenerateKeyPair as jest.Mock).mock.calls[0][0]).toEqual('ec');
+      expect((helpers.promisifiedGenerateKeyPair as jest.Mock).mock.calls[0][1].namedCurve).toEqual('prime256v1');
+    });
+
+    it('returns a base58-encoded keypair', () => {
+      expect(result.privateKey).toBeDefined();
+      expect(result.publicKey).toBeDefined();
+      expect(() => bs58.decode(result.privateKey)).not.toThrow();
+      expect(() => bs58.decode(result.publicKey)).not.toThrow();
+    });
   });
 });

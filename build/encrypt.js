@@ -7,9 +7,23 @@ exports.encrypt = void 0;
 var crypto_1 = require("crypto");
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
 var bs58_1 = __importDefault(require("bs58"));
-function encrypt(did, publicKey, data) {
+var helpers_1 = require("./helpers");
+/**
+ * @param {string} did the DID and key identifier fragment resolving to the public key
+ * @param {string} publicKey RSA public key (pem or base58)
+ * @param {object} data data to encrypt (JSON-serializable object)
+ * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ */
+function encrypt(did, publicKey, data, encoding) {
+    if (encoding === void 0) { encoding = 'pem'; }
     // serialize data as a deterministic JSON string
     var stringifiedData = fast_json_stable_stringify_1.default(data);
+    // decode the public key, if necessary
+    var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
+    // node can only encrypt with pem-encoded keys
+    var publicKeyPem = helpers_1.derToPem(decodedPublicKey, 'public', 'rsa');
     // create aes key for encryption
     var key = crypto_1.randomBytes(32);
     var iv = crypto_1.randomBytes(16);
@@ -20,9 +34,9 @@ function encrypt(did, publicKey, data) {
     var encrypted2 = cipher.final();
     var encrypted = Buffer.concat([encrypted1, encrypted2]);
     // encrypt aes key with public key
-    var encryptedIv = crypto_1.publicEncrypt(publicKey, iv);
-    var encryptedKey = crypto_1.publicEncrypt(publicKey, key);
-    var encryptedAlgo = crypto_1.publicEncrypt(publicKey, Buffer.from(algorithm));
+    var encryptedIv = crypto_1.publicEncrypt(publicKeyPem, iv);
+    var encryptedKey = crypto_1.publicEncrypt(publicKeyPem, key);
+    var encryptedAlgo = crypto_1.publicEncrypt(publicKeyPem, Buffer.from(algorithm));
     // return EncryptedData object with encrypted data and aes key info
     return {
         data: bs58_1.default.encode(encrypted),
