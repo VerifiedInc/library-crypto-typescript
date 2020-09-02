@@ -6,18 +6,32 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.decrypt = void 0;
 var crypto_1 = require("crypto");
 var bs58_1 = __importDefault(require("bs58"));
-function decrypt(privateKey, encryptedData) {
+var helpers_1 = require("./helpers");
+/**
+ * @param {string} privateKey RSA private key (pem or base58) corresponding to the public key used for encryption
+ * @param {EncryptedData} encryptedData EncryptedData object, like one returned from encrypt()
+ *                                      contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                                      key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @returns {object} the decrypted object
+ */
+function decrypt(privateKey, encryptedData, encoding) {
+    if (encoding === void 0) { encoding = 'pem'; }
     var data = encryptedData.data;
     var _a = encryptedData.key, iv = _a.iv, key = _a.key, algorithm = _a.algorithm;
+    // decode the private key, if necessary
+    var decodedPrivateKey = helpers_1.decodeKey(privateKey, encoding);
+    // node can only decrypt with pem-encoded keys
+    var privateKeyPem = helpers_1.derToPem(decodedPrivateKey, 'private', 'rsa');
     // decode aes key info and encrypted data from base58 to Buffers
     var decodedEncryptedIv = bs58_1.default.decode(iv);
     var decodedEncryptedKey = bs58_1.default.decode(key);
     var decodedEncryptedAlgorithm = bs58_1.default.decode(algorithm);
     var decodedEncryptedData = bs58_1.default.decode(data);
     // decrypt aes key info with private key
-    var decryptedIv = crypto_1.privateDecrypt(privateKey, decodedEncryptedIv);
-    var decryptedKey = crypto_1.privateDecrypt(privateKey, decodedEncryptedKey);
-    var decryptedAlgorithm = crypto_1.privateDecrypt(privateKey, decodedEncryptedAlgorithm);
+    var decryptedIv = crypto_1.privateDecrypt(privateKeyPem, decodedEncryptedIv);
+    var decryptedKey = crypto_1.privateDecrypt(privateKeyPem, decodedEncryptedKey);
+    var decryptedAlgorithm = crypto_1.privateDecrypt(privateKeyPem, decodedEncryptedAlgorithm);
     // create aes key
     var decipher = crypto_1.createDecipheriv(decryptedAlgorithm.toString(), decryptedKey, decryptedIv);
     // decrypt data with aes key

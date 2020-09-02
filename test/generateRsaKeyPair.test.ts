@@ -1,27 +1,79 @@
+import bs58 from 'bs58';
+
 import * as helpers from '../src/helpers';
 
 import { generateRsaKeyPair } from '../src/generateRsaKeyPair';
 import { KeyPair } from '../src/types';
 
-describe('generateRsaKeyPair', () => {
-  let keypair: KeyPair;
+describe('generateRsaKeypair', () => {
+  let result: KeyPair;
 
-  beforeEach(async () => {
-    jest.spyOn(helpers, 'promisifiedGenerateKeyPair');
-    keypair = await generateRsaKeyPair();
+  describe('default', () => {
+    beforeEach(async () => {
+      jest.spyOn(helpers, 'promisifiedGenerateKeyPair');
+      result = await generateRsaKeyPair();
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('generates an RSA keypair', () => {
+      expect(helpers.promisifiedGenerateKeyPair).toBeCalled();
+      expect((helpers.promisifiedGenerateKeyPair as jest.Mock).mock.calls[0][0]).toEqual('rsa');
+    });
+
+    it('returns a pem-encoded keypair by default', () => {
+      expect(result.privateKey).toBeDefined();
+      expect(result.publicKey).toBeDefined();
+      expect(result.privateKey.startsWith('-----BEGIN RSA PRIVATE KEY-----')).toBe(true);
+      expect(result.publicKey.startsWith('-----BEGIN RSA PUBLIC KEY-----')).toBe(true);
+    });
   });
 
-  afterEach(() => {
-    jest.restoreAllMocks();
+  describe('pem encoding', () => {
+    beforeEach(async () => {
+      jest.spyOn(helpers, 'promisifiedGenerateKeyPair');
+      result = await generateRsaKeyPair('pem');
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('generates an RSA keypair', () => {
+      expect(helpers.promisifiedGenerateKeyPair).toBeCalled();
+      expect((helpers.promisifiedGenerateKeyPair as jest.Mock).mock.calls[0][0]).toEqual('rsa');
+    });
+
+    it('returns a pem-encoded keypair', () => {
+      expect(result.privateKey).toBeDefined();
+      expect(result.publicKey).toBeDefined();
+      expect(result.privateKey.startsWith('-----BEGIN RSA PRIVATE KEY-----')).toBe(true);
+      expect(result.publicKey.startsWith('-----BEGIN RSA PUBLIC KEY-----')).toBe(true);
+    });
   });
 
-  it('generates an rsa keypair', () => {
-    expect(helpers.promisifiedGenerateKeyPair).toBeCalled();
-    expect((helpers.promisifiedGenerateKeyPair as jest.Mock).mock.calls[0][0]).toEqual('rsa');
-  });
+  describe('base58', () => {
+    beforeEach(async () => {
+      jest.spyOn(helpers, 'promisifiedGenerateKeyPair');
+      result = await generateRsaKeyPair('base58');
+    });
 
-  it('returns the keypair', () => {
-    expect(keypair.privateKey).toBeDefined();
-    expect(keypair.publicKey).toBeDefined();
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('generates an RSA keypair', () => {
+      expect(helpers.promisifiedGenerateKeyPair).toBeCalled();
+      expect((helpers.promisifiedGenerateKeyPair as jest.Mock).mock.calls[0][0]).toEqual('rsa');
+    });
+
+    it('returns a base58-encoded keypair', () => {
+      expect(result.privateKey).toBeDefined();
+      expect(result.publicKey).toBeDefined();
+      expect(() => bs58.decode(result.privateKey)).not.toThrow();
+      expect(() => bs58.decode(result.publicKey)).not.toThrow();
+    });
   });
 });

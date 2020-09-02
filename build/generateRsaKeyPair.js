@@ -35,10 +35,37 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateRsaKeyPair = void 0;
+exports.generateRsaBase58KeyPair = exports.generateRsaPemKeyPair = exports.generateRsaKeyPair = void 0;
+var bs58_1 = __importDefault(require("bs58"));
 var helpers_1 = require("./helpers");
-function generateRsaKeyPair() {
+function generateRsaKeyPair(encoding) {
+    if (encoding === void 0) { encoding = 'pem'; }
+    return __awaiter(this, void 0, void 0, function () {
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _a = encoding;
+                    switch (_a) {
+                        case 'base58': return [3 /*break*/, 1];
+                        case 'pem': return [3 /*break*/, 3];
+                    }
+                    return [3 /*break*/, 5];
+                case 1: return [4 /*yield*/, generateRsaBase58KeyPair()];
+                case 2: return [2 /*return*/, _b.sent()];
+                case 3: return [4 /*yield*/, generateRsaPemKeyPair()];
+                case 4: return [2 /*return*/, _b.sent()];
+                case 5: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.generateRsaKeyPair = generateRsaKeyPair;
+function generateRsaPemKeyPair() {
     return __awaiter(this, void 0, void 0, function () {
         var _a, publicKey, privateKey;
         return __generator(this, function (_b) {
@@ -55,4 +82,25 @@ function generateRsaKeyPair() {
         });
     });
 }
-exports.generateRsaKeyPair = generateRsaKeyPair;
+exports.generateRsaPemKeyPair = generateRsaPemKeyPair;
+function generateRsaBase58KeyPair() {
+    return __awaiter(this, void 0, void 0, function () {
+        var _a, publicKey, privateKey;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, helpers_1.promisifiedGenerateKeyPair('rsa', {
+                        modulusLength: 2048,
+                        publicKeyEncoding: { type: 'pkcs1', format: 'der' },
+                        privateKeyEncoding: { type: 'pkcs1', format: 'der' }
+                    })];
+                case 1:
+                    _a = _b.sent(), publicKey = _a.publicKey, privateKey = _a.privateKey;
+                    return [2 /*return*/, {
+                            publicKey: bs58_1.default.encode(publicKey),
+                            privateKey: bs58_1.default.encode(privateKey)
+                        }];
+            }
+        });
+    });
+}
+exports.generateRsaBase58KeyPair = generateRsaBase58KeyPair;

@@ -12,11 +12,15 @@ This library is currently only available from Github. To add it to your project,
 Generates `secp256r1` private and public keys.
 
 ```typescript
-() => Promise<{ privateKey: string; publicKey: string}>;
+(encoding: 'base58' | 'pem' = 'pem') => Promise<{ privateKey: string; publicKey: string}>;
 ```
 
 - arguments
-  - none
+  - encoding
+    - optional
+    - the format the key should be encoded in
+    - 'base58' or 'pem'
+    - defaults to 'pem'
 - returns
   - Promise resolving to pem-encoded privateKey and publicKey
 
@@ -37,11 +41,15 @@ generateEccKeyPair().then(({ privateKey, publicKey }) => {
 Generates `RSA` private and public keys.
 
 ```typescript
-() => Promise<{ privateKey: string; publicKey: string}>
+(encoding: 'base58' | 'pem' = 'pem') => Promise<{ privateKey: string; publicKey: string}>
 
 ```
 - arguments
-  - none
+  - encoding
+    - optional
+    - the format the key should be encoded in
+    - 'base58' or 'pem'
+    - defaults to 'pem'
 - returns
   - Promise resolving to pem-encoded privateKey and publicKey
 
@@ -62,14 +70,20 @@ generateRsaKeyPair().then(({ privateKey, publicKey }) => {
 Signs data with a `secp256r1` private key.
 
 ```typescript
-(data: any, privateKey: string) => string;
+(data: any, privateKey: string, encoding: 'base58' | 'pem' = 'pem') => string;
 
 ```
 - arguments
   - data
     - a TypeScript object
   - privateKey
-    - a pem-encoded private key
+    - a pem or base58-encoded private key
+  - encoding
+    - optional
+    - the key's encoding
+    - 'base58' or 'pem'
+    - defaults to 'pem'
+    - must match the encoding of the provided privateKey (i.e. if you provide a base58-encoded key, this must be set to 'base58')
 - returns
   - a signature encoded as a base58 string
 
@@ -88,7 +102,7 @@ const signature = sign(data, privateKey);
 Verifies a signature with a `secp256r1` private key using the corresponding public key.
 
 ```typescript
-(signature: string, data: any, publicKey: string) => boolean;
+(signature: string, data: any, publicKey: string, encoding: 'base58' | 'pem' = 'pem') => boolean;
 ```
 
 - arguments
@@ -98,8 +112,14 @@ Verifies a signature with a `secp256r1` private key using the corresponding publ
     - a TypeScript object
     - the data signed by the private key
   - publicKey
-    - a pem-encoded public key
+    - a pem or base58-encoded public key
     - should correspond to the private key that signed the data
+  - encoding
+    - optional
+    - the key's encoding
+    - 'base58' or 'pem'
+    - defaults to 'pem'
+    - must match the encoding of the provided publicKey (i.e. if you provide a base58-encoded key, this must be set to 'base58')
 - returns
   - true if the siganture is valid, false if it is not valid
 
@@ -120,7 +140,12 @@ const isValid = verify(signature, data, publicKey);
 Encrypts data with a single-use AES key. Returns an object contianing the encrypted data encoded as a base58 string along with information about the AES key, encrypted with an RSA public key and encoded as base58 strings
 
 ```typescript
-(did: string, publicKey: string, data: any) => { data: string, key: { iv: string, key: string, algorithm: string, did: string } };
+(
+  did: string,
+  publicKey: string,
+  data: any,
+  encoding: 'base58' | 'pem' = 'pem'
+) => { data: string, key: { iv: string, key: string, algorithm: string, did: string } };
 ```
 
 - arguments
@@ -131,6 +156,12 @@ Encrypts data with a single-use AES key. Returns an object contianing the encryp
   - data
     - a TypeScript object
     - the data to encrypt
+  - encoding
+    - optional
+    - the key's encoding
+    - 'base58' or 'pem'
+    - defaults to 'pem'
+    - must match the encoding of the provided publicKey (i.e. if you provide a base58-encoded key, this must be set to 'base58')
 - returns
   - EncryptedData
     - data
@@ -161,7 +192,11 @@ const encryptedData = encrypt(publicKey, data);
 Decrypts data encrypted with an `RSA` public key using the corresponding private key.
 
 ```typescript
-(privateKey: string, encryptedData: { data: string, key: { iv: string, key: string, algorithm: string, did: string } }) => any;
+(
+  privateKey: string,
+  encryptedData: { data: string, key: { iv: string, key: string, algorithm: string, did: string } },
+  encoding: 'base58' | 'pem' = 'pem'
+) => any;
 ```
 
 - arguments
@@ -170,6 +205,12 @@ Decrypts data encrypted with an `RSA` public key using the corresponding private
     - should correspond to the public key used to encrypt the AES key contained in `encryptedData`
   - encryptedData
     - an object containing the encrypted data and information to decrypt it
+  - encoding
+    - optional
+    - the key's encoding
+    - 'base58' or 'pem'
+    - defaults to 'pem'
+    - must match the encoding of the provided privateKey (i.e. if you provide a base58-encoded key, this must be set to 'base58')
 - returns
   - a TypeScript object
   - the decrypted data
