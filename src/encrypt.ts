@@ -1,4 +1,4 @@
-import { publicEncrypt, randomBytes, createCipheriv } from 'crypto';
+import { publicEncrypt, randomBytes, createCipheriv, constants } from 'crypto';
 
 import stringify from 'fast-json-stable-stringify';
 import bs58 from 'bs58';
@@ -35,10 +35,17 @@ export function encrypt (did: string, publicKey: string, data: unknown, encoding
   const encrypted2 = cipher.final();
   const encrypted = Buffer.concat([encrypted1, encrypted2]);
 
+  // we need to use a key object to set non-default padding
+  // for interoperability with android/ios cryptography implementations
+  const publicKeyObj = {
+    key: publicKeyPem,
+    padding: constants.RSA_PKCS1_PADDING
+  };
+
   // encrypt aes key with public key
-  const encryptedIv = publicEncrypt(publicKeyPem, iv);
-  const encryptedKey = publicEncrypt(publicKeyPem, key);
-  const encryptedAlgo = publicEncrypt(publicKeyPem, Buffer.from(algorithm));
+  const encryptedIv = publicEncrypt(publicKeyObj, iv);
+  const encryptedKey = publicEncrypt(publicKeyObj, key);
+  const encryptedAlgo = publicEncrypt(publicKeyObj, Buffer.from(algorithm));
 
   // return EncryptedData object with encrypted data and aes key info
   return {

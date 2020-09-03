@@ -1,4 +1,4 @@
-import { privateDecrypt, createDecipheriv } from 'crypto';
+import { privateDecrypt, createDecipheriv, constants } from 'crypto';
 import bs58 from 'bs58';
 
 import { EncryptedData } from './types';
@@ -28,10 +28,17 @@ export function decrypt (privateKey: string, encryptedData: EncryptedData, encod
   const decodedEncryptedAlgorithm = bs58.decode(algorithm);
   const decodedEncryptedData = bs58.decode(data);
 
+  // we need to use a key object to set non-default padding
+  // for interoperability with android/ios cryptography implementations
+  const privateKeyObj = {
+    key: privateKeyPem,
+    padding: constants.RSA_PKCS1_PADDING
+  };
+
   // decrypt aes key info with private key
-  const decryptedIv = privateDecrypt(privateKeyPem, decodedEncryptedIv);
-  const decryptedKey = privateDecrypt(privateKeyPem, decodedEncryptedKey);
-  const decryptedAlgorithm = privateDecrypt(privateKeyPem, decodedEncryptedAlgorithm);
+  const decryptedIv = privateDecrypt(privateKeyObj, decodedEncryptedIv);
+  const decryptedKey = privateDecrypt(privateKeyObj, decodedEncryptedKey);
+  const decryptedAlgorithm = privateDecrypt(privateKeyObj, decodedEncryptedAlgorithm);
 
   // create aes key
   const decipher = createDecipheriv(decryptedAlgorithm.toString(), decryptedKey, decryptedIv);
