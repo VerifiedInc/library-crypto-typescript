@@ -27,7 +27,7 @@ describe('generateEccKeypair', () => {
     it('returns a pem-encoded keypair by default', () => {
       expect(result.privateKey).toBeDefined();
       expect(result.publicKey).toBeDefined();
-      expect(result.privateKey.startsWith('-----BEGIN EC PRIVATE KEY-----')).toBe(true);
+      expect(result.privateKey.startsWith('-----BEGIN PRIVATE KEY-----')).toBe(true);
       expect(result.publicKey.startsWith('-----BEGIN PUBLIC KEY-----')).toBe(true);
     });
   });
@@ -51,7 +51,7 @@ describe('generateEccKeypair', () => {
     it('returns a pem-encoded keypair', () => {
       expect(result.privateKey).toBeDefined();
       expect(result.publicKey).toBeDefined();
-      expect(result.privateKey.startsWith('-----BEGIN EC PRIVATE KEY-----')).toBe(true);
+      expect(result.privateKey.startsWith('-----BEGIN PRIVATE KEY-----')).toBe(true);
       expect(result.publicKey.startsWith('-----BEGIN PUBLIC KEY-----')).toBe(true);
     });
   });

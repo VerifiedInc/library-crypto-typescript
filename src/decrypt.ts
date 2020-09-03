@@ -20,7 +20,7 @@ export function decrypt (privateKey: string, encryptedData: EncryptedData, encod
   const decodedPrivateKey = decodeKey(privateKey, encoding);
 
   // node can only decrypt with pem-encoded keys
-  const privateKeyPem = derToPem(decodedPrivateKey, 'private', 'rsa');
+  const privateKeyPem = derToPem(decodedPrivateKey, 'private');
 
   // decode aes key info and encrypted data from base58 to Buffers
   const decodedEncryptedIv = bs58.decode(iv);

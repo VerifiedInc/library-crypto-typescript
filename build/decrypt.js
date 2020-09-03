@@ -22,7 +22,7 @@ function decrypt(privateKey, encryptedData, encoding) {
     // decode the private key, if necessary
     var decodedPrivateKey = helpers_1.decodeKey(privateKey, encoding);
     // node can only decrypt with pem-encoded keys
-    var privateKeyPem = helpers_1.derToPem(decodedPrivateKey, 'private', 'rsa');
+    var privateKeyPem = helpers_1.derToPem(decodedPrivateKey, 'private');
     // decode aes key info and encrypted data from base58 to Buffers
     var decodedEncryptedIv = bs58_1.default.decode(iv);
     var decodedEncryptedKey = bs58_1.default.decode(key);

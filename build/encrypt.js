@@ -23,7 +23,7 @@ function encrypt(did, publicKey, data, encoding) {
     // decode the public key, if necessary
     var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
     // node can only encrypt with pem-encoded keys
-    var publicKeyPem = helpers_1.derToPem(decodedPublicKey, 'public', 'rsa');
+    var publicKeyPem = helpers_1.derToPem(decodedPublicKey, 'public');
     // create aes key for encryption
     var key = crypto_1.randomBytes(32);
     var iv = crypto_1.randomBytes(16);

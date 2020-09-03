@@ -73,7 +73,7 @@ function generateEccPemKeyPair() {
                 case 0: return [4 /*yield*/, helpers_1.promisifiedGenerateKeyPair('ec', {
                         namedCurve: 'prime256v1',
                         publicKeyEncoding: { type: 'spki', format: 'pem' },
-                        privateKeyEncoding: { type: 'sec1', format: 'pem' }
+                        privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
                     })];
                 case 1:
                     _a = _b.sent(), publicKey = _a.publicKey, privateKey = _a.privateKey;
@@ -91,7 +91,7 @@ function generateEccBase58KeyPair() {
                 case 0: return [4 /*yield*/, helpers_1.promisifiedGenerateKeyPair('ec', {
                         namedCurve: 'prime256v1',
                         publicKeyEncoding: { type: 'spki', format: 'der' },
-                        privateKeyEncoding: { type: 'sec1', format: 'der' }
+                        privateKeyEncoding: { type: 'pkcs8', format: 'der' }
                     })];
                 case 1:
                     _a = _b.sent(), publicKey = _a.publicKey, privateKey = _a.privateKey;

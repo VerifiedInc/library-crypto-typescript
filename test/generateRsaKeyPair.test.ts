@@ -26,8 +26,8 @@ describe('generateRsaKeypair', () => {
     it('returns a pem-encoded keypair by default', () => {
       expect(result.privateKey).toBeDefined();
       expect(result.publicKey).toBeDefined();
-      expect(result.privateKey.startsWith('-----BEGIN RSA PRIVATE KEY-----')).toBe(true);
-      expect(result.publicKey.startsWith('-----BEGIN RSA PUBLIC KEY-----')).toBe(true);
+      expect(result.privateKey.startsWith('-----BEGIN PRIVATE KEY-----')).toBe(true);
+      expect(result.publicKey.startsWith('-----BEGIN PUBLIC KEY-----')).toBe(true);
     });
   });
 
@@ -49,8 +49,8 @@ describe('generateRsaKeypair', () => {
     it('returns a pem-encoded keypair', () => {
       expect(result.privateKey).toBeDefined();
       expect(result.publicKey).toBeDefined();
-      expect(result.privateKey.startsWith('-----BEGIN RSA PRIVATE KEY-----')).toBe(true);
-      expect(result.publicKey.startsWith('-----BEGIN RSA PUBLIC KEY-----')).toBe(true);
+      expect(result.privateKey.startsWith('-----BEGIN PRIVATE KEY-----')).toBe(true);
+      expect(result.publicKey.startsWith('-----BEGIN PUBLIC KEY-----')).toBe(true);
     });
   });
 

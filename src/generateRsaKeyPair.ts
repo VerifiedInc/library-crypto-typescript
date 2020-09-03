@@ -17,8 +17,8 @@ export async function generateRsaPemKeyPair (): Promise<KeyPair> {
     'rsa',
     {
       modulusLength: 2048,
-      publicKeyEncoding: { type: 'pkcs1', format: 'pem' },
-      privateKeyEncoding: { type: 'pkcs1', format: 'pem' }
+      publicKeyEncoding: { type: 'spki', format: 'pem' },
+      privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
     }
   );
   return { publicKey, privateKey };
@@ -29,8 +29,8 @@ export async function generateRsaBase58KeyPair (): Promise<KeyPair> {
     'rsa',
     {
       modulusLength: 2048,
-      publicKeyEncoding: { type: 'pkcs1', format: 'der' },
-      privateKeyEncoding: { type: 'pkcs1', format: 'der' }
+      publicKeyEncoding: { type: 'spki', format: 'der' },
+      privateKeyEncoding: { type: 'pkcs8', format: 'der' }
     }
   );
   return {
