@@ -223,7 +223,7 @@ describe('decrypt', () => {
     it('decrypts with the private key', () => {
       decrypt(privateKey, encryptedData, encoding);
       const decodedKey = decodeKey(privateKey, encoding);
-      const privateKeyPem = derToPem(decodedKey, 'private', 'rsa');
+      const privateKeyPem = derToPem(decodedKey, 'private');
       expect(crypto.privateDecrypt).toBeCalled();
       expect((crypto.privateDecrypt as jest.Mock).mock.calls[0][0]).toEqual(privateKeyPem);
     });

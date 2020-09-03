@@ -22,7 +22,7 @@ export function encrypt (did: string, publicKey: string, data: unknown, encoding
   const decodedPublicKey = decodeKey(publicKey, encoding);
 
   // node can only encrypt with pem-encoded keys
-  const publicKeyPem = derToPem(decodedPublicKey, 'public', 'rsa');
+  const publicKeyPem = derToPem(decodedPublicKey, 'public');
 
   // create aes key for encryption
   const key = randomBytes(32);

@@ -165,7 +165,7 @@ describe('encrypt', () => {
         .mockImplementationOnce(() => key)
         .mockImplementationOnce(() => iv);
 
-      const publicKeyPem = derToPem(decodeKey(publicKey, 'base58'), 'public', 'rsa');
+      const publicKeyPem = derToPem(decodeKey(publicKey, 'base58'), 'public');
 
       encrypt(subjectDid, publicKey, data, encoding);
       expect(crypto.publicEncrypt).toBeCalledWith(publicKeyPem, iv);

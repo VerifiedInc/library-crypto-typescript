@@ -72,8 +72,8 @@ function generateRsaPemKeyPair() {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, helpers_1.promisifiedGenerateKeyPair('rsa', {
                         modulusLength: 2048,
-                        publicKeyEncoding: { type: 'pkcs1', format: 'pem' },
-                        privateKeyEncoding: { type: 'pkcs1', format: 'pem' }
+                        publicKeyEncoding: { type: 'spki', format: 'pem' },
+                        privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
                     })];
                 case 1:
                     _a = _b.sent(), publicKey = _a.publicKey, privateKey = _a.privateKey;
@@ -90,8 +90,8 @@ function generateRsaBase58KeyPair() {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, helpers_1.promisifiedGenerateKeyPair('rsa', {
                         modulusLength: 2048,
-                        publicKeyEncoding: { type: 'pkcs1', format: 'der' },
-                        privateKeyEncoding: { type: 'pkcs1', format: 'der' }
+                        publicKeyEncoding: { type: 'spki', format: 'der' },
+                        privateKeyEncoding: { type: 'pkcs8', format: 'der' }
                     })];
                 case 1:
                     _a = _b.sent(), publicKey = _a.publicKey, privateKey = _a.privateKey;

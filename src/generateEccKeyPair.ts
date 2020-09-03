@@ -18,7 +18,7 @@ export async function generateEccPemKeyPair (): Promise<KeyPair> {
     {
       namedCurve: 'prime256v1',
       publicKeyEncoding: { type: 'spki', format: 'pem' },
-      privateKeyEncoding: { type: 'sec1', format: 'pem' }
+      privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
     }
   );
   return { publicKey, privateKey };
@@ -30,7 +30,7 @@ export async function generateEccBase58KeyPair (): Promise<KeyPair> {
     {
       namedCurve: 'prime256v1',
       publicKeyEncoding: { type: 'spki', format: 'der' },
-      privateKeyEncoding: { type: 'sec1', format: 'der' }
+      privateKeyEncoding: { type: 'pkcs8', format: 'der' }
     }
   );
 

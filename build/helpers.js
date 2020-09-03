@@ -12,14 +12,14 @@ function decodeKey(publicKey, encoding) {
     return encoding === 'base58' ? bs58_1.default.decode(publicKey) : publicKey;
 }
 exports.decodeKey = decodeKey;
-function derToPem(key, type, algorithm) {
+function derToPem(key, type) {
     if (typeof key === 'string') {
         // it's already pem
         return key;
     }
     var bs64 = key.toString('base64');
-    var header = "-----BEGIN " + algorithm.toUpperCase() + " " + type.toUpperCase() + " KEY-----\n";
-    var footer = "\n-----END " + algorithm.toUpperCase() + " " + type.toUpperCase() + " KEY-----";
-    return "" + header + bs64 + footer;
+    var header = "-----BEGIN " + type.toUpperCase() + " KEY-----";
+    var footer = "-----END " + type.toUpperCase() + " KEY-----";
+    return header + "\n" + bs64 + "\n" + footer;
 }
 exports.derToPem = derToPem;
