@@ -74,8 +74,14 @@ describe('decrypt', () => {
 
     it('decrypts with the private key', () => {
       decrypt(privateKey, encryptedData);
+
+      const privateKeyObj = {
+        key: privateKey,
+        padding: crypto.constants.RSA_PKCS1_PADDING
+      };
+
       expect(crypto.privateDecrypt).toBeCalled();
-      expect((crypto.privateDecrypt as jest.Mock).mock.calls[0][0]).toEqual(privateKey);
+      expect((crypto.privateDecrypt as jest.Mock).mock.calls[0][0]).toEqual(privateKeyObj);
     });
 
     it('returns the decrypted data', () => {
@@ -148,8 +154,14 @@ describe('decrypt', () => {
 
     it('decrypts with the private key', () => {
       decrypt(privateKey, encryptedData, encoding);
+
+      const privateKeyObj = {
+        key: privateKey,
+        padding: crypto.constants.RSA_PKCS1_PADDING
+      };
+
       expect(crypto.privateDecrypt).toBeCalled();
-      expect((crypto.privateDecrypt as jest.Mock).mock.calls[0][0]).toEqual(privateKey);
+      expect((crypto.privateDecrypt as jest.Mock).mock.calls[0][0]).toEqual(privateKeyObj);
     });
 
     it('returns the decrypted data', () => {
@@ -224,8 +236,14 @@ describe('decrypt', () => {
       decrypt(privateKey, encryptedData, encoding);
       const decodedKey = decodeKey(privateKey, encoding);
       const privateKeyPem = derToPem(decodedKey, 'private');
+
+      const privateKeyObj = {
+        key: privateKeyPem,
+        padding: crypto.constants.RSA_PKCS1_PADDING
+      };
+
       expect(crypto.privateDecrypt).toBeCalled();
-      expect((crypto.privateDecrypt as jest.Mock).mock.calls[0][0]).toEqual(privateKeyPem);
+      expect((crypto.privateDecrypt as jest.Mock).mock.calls[0][0]).toEqual(privateKeyObj);
     });
 
     it('returns the decrypted data', () => {

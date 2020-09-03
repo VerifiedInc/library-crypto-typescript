@@ -28,10 +28,16 @@ function decrypt(privateKey, encryptedData, encoding) {
     var decodedEncryptedKey = bs58_1.default.decode(key);
     var decodedEncryptedAlgorithm = bs58_1.default.decode(algorithm);
     var decodedEncryptedData = bs58_1.default.decode(data);
+    // we need to use a key object to set non-default padding
+    // for interoperability with android/ios cryptography implementations
+    var privateKeyObj = {
+        key: privateKeyPem,
+        padding: crypto_1.constants.RSA_PKCS1_PADDING
+    };
     // decrypt aes key info with private key
-    var decryptedIv = crypto_1.privateDecrypt(privateKeyPem, decodedEncryptedIv);
-    var decryptedKey = crypto_1.privateDecrypt(privateKeyPem, decodedEncryptedKey);
-    var decryptedAlgorithm = crypto_1.privateDecrypt(privateKeyPem, decodedEncryptedAlgorithm);
+    var decryptedIv = crypto_1.privateDecrypt(privateKeyObj, decodedEncryptedIv);
+    var decryptedKey = crypto_1.privateDecrypt(privateKeyObj, decodedEncryptedKey);
+    var decryptedAlgorithm = crypto_1.privateDecrypt(privateKeyObj, decodedEncryptedAlgorithm);
     // create aes key
     var decipher = crypto_1.createDecipheriv(decryptedAlgorithm.toString(), decryptedKey, decryptedIv);
     // decrypt data with aes key

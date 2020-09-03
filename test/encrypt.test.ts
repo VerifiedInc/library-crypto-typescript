@@ -47,10 +47,15 @@ describe('encrypt', () => {
         .mockImplementationOnce(() => key)
         .mockImplementationOnce(() => iv);
 
+      const publicKeyObj = {
+        key: publicKey,
+        padding: crypto.constants.RSA_PKCS1_PADDING
+      };
+
       encrypt(subjectDid, publicKey, data);
-      expect(crypto.publicEncrypt).toBeCalledWith(publicKey, iv);
-      expect(crypto.publicEncrypt).toBeCalledWith(publicKey, key);
-      expect(crypto.publicEncrypt).toBeCalledWith(publicKey, Buffer.from('aes-256-cbc'));
+      expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, iv);
+      expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, key);
+      expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, Buffer.from('aes-256-cbc'));
     });
 
     it('returns the encrypted data', () => {
@@ -106,10 +111,15 @@ describe('encrypt', () => {
         .mockImplementationOnce(() => key)
         .mockImplementationOnce(() => iv);
 
+      const publicKeyObj = {
+        key: publicKey,
+        padding: crypto.constants.RSA_PKCS1_PADDING
+      };
+
       encrypt(subjectDid, publicKey, data, encoding);
-      expect(crypto.publicEncrypt).toBeCalledWith(publicKey, iv);
-      expect(crypto.publicEncrypt).toBeCalledWith(publicKey, key);
-      expect(crypto.publicEncrypt).toBeCalledWith(publicKey, Buffer.from('aes-256-cbc'));
+      expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, iv);
+      expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, key);
+      expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, Buffer.from('aes-256-cbc'));
     });
 
     it('returns the encrypted data', () => {
@@ -167,10 +177,15 @@ describe('encrypt', () => {
 
       const publicKeyPem = derToPem(decodeKey(publicKey, 'base58'), 'public');
 
+      const publicKeyObj = {
+        key: publicKeyPem,
+        padding: crypto.constants.RSA_PKCS1_PADDING
+      };
+
       encrypt(subjectDid, publicKey, data, encoding);
-      expect(crypto.publicEncrypt).toBeCalledWith(publicKeyPem, iv);
-      expect(crypto.publicEncrypt).toBeCalledWith(publicKeyPem, key);
-      expect(crypto.publicEncrypt).toBeCalledWith(publicKeyPem, Buffer.from('aes-256-cbc'));
+      expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, iv);
+      expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, key);
+      expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, Buffer.from('aes-256-cbc'));
     });
 
     it('returns the encrypted data', () => {

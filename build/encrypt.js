@@ -33,10 +33,16 @@ function encrypt(did, publicKey, data, encoding) {
     var encrypted1 = cipher.update(stringifiedData);
     var encrypted2 = cipher.final();
     var encrypted = Buffer.concat([encrypted1, encrypted2]);
+    // we need to use a key object to set non-default padding
+    // for interoperability with android/ios cryptography implementations
+    var publicKeyObj = {
+        key: publicKeyPem,
+        padding: crypto_1.constants.RSA_PKCS1_PADDING
+    };
     // encrypt aes key with public key
-    var encryptedIv = crypto_1.publicEncrypt(publicKeyPem, iv);
-    var encryptedKey = crypto_1.publicEncrypt(publicKeyPem, key);
-    var encryptedAlgo = crypto_1.publicEncrypt(publicKeyPem, Buffer.from(algorithm));
+    var encryptedIv = crypto_1.publicEncrypt(publicKeyObj, iv);
+    var encryptedKey = crypto_1.publicEncrypt(publicKeyObj, key);
+    var encryptedAlgo = crypto_1.publicEncrypt(publicKeyObj, Buffer.from(algorithm));
     // return EncryptedData object with encrypted data and aes key info
     return {
         data: bs58_1.default.encode(encrypted),
