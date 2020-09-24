@@ -23,11 +23,19 @@ describe('sign', () => {
   it('signs the data with the private key', () => {
     sign(data, privateKey);
     expect(crypto.sign).toBeCalled();
-    expect((crypto.sign as jest.Mock).mock.calls[0][2]).toEqual(privateKey);
+
+    const privateKeyObj = crypto.createPrivateKey(privateKey);
+    expect((crypto.sign as jest.Mock).mock.calls[0][2]).toEqual(privateKeyObj);
   });
 
   it('returns the signature', () => {
     const signature = sign(data, privateKey);
+    expect(signature).toBeDefined();
+  });
+
+  it('works with a base58 encoded key', async () => {
+    const base58KeyPair = await generateEccKeyPair('base58');
+    const signature = sign(data, base58KeyPair.privateKey, 'base58');
     expect(signature).toBeDefined();
   });
 });

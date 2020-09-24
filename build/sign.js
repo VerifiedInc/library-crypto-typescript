@@ -21,7 +21,12 @@ function sign(data, privateKey, encoding) {
     var decodedPrivateKey = helpers_1.decodeKey(privateKey, encoding);
     // convert to a Buffer and sign with private key
     var buf = Buffer.from(stringifiedData);
-    var signatureValueBuf = crypto_1.default.sign(null, buf, decodedPrivateKey);
+    // if we pass the key to crypto.sign as a buffer, it will assume pem format
+    // we need to convert it to a KeyObject first in order to use der formatted keys
+    var format = encoding === 'pem' ? 'pem' : 'der';
+    var type = encoding === 'pem' ? 'pkcs1' : 'pkcs8';
+    var privateKeyObj = crypto_1.default.createPrivateKey({ key: decodedPrivateKey, format: format, type: type });
+    var signatureValueBuf = crypto_1.default.sign(null, buf, privateKeyObj);
     // return resulting Buffer encoded as a base58 string
     return bs58_1.default.encode(signatureValueBuf);
 }

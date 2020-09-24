@@ -23,7 +23,13 @@ export function verify (signature: string, data: unknown, publicKey: string, enc
   // decode signature from base58 to a Buffer
   const signatureBuf = bs58.decode(signature);
 
+  // if we pass the key to crypto.verify as a buffer, it will assume pem format
+  // we need to convert it to a KeyObject first in order to use der formatted keys
+  const format = encoding === 'pem' ? 'pem' : 'der';
+  const type = encoding === 'pem' ? 'pkcs1' : 'spki';
+  const publicKeyObj = crypto.createPublicKey({ key: decodedPublicKey, format, type });
+
   // verifiy signature with the public key and return whether it succeeded
-  const result = crypto.verify(null, dataBuf, decodedPublicKey, signatureBuf);
+  const result = crypto.verify(null, dataBuf, publicKeyObj, signatureBuf);
   return result;
 }

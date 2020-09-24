@@ -18,7 +18,14 @@ export function sign (data: unknown, privateKey: string, encoding: 'base58' | 'p
 
   // convert to a Buffer and sign with private key
   const buf = Buffer.from(stringifiedData);
-  const signatureValueBuf = crypto.sign(null, buf, decodedPrivateKey);
+
+  // if we pass the key to crypto.sign as a buffer, it will assume pem format
+  // we need to convert it to a KeyObject first in order to use der formatted keys
+  const format = encoding === 'pem' ? 'pem' : 'der';
+  const type = encoding === 'pem' ? 'pkcs1' : 'pkcs8';
+
+  const privateKeyObj = crypto.createPrivateKey({ key: decodedPrivateKey, format, type });
+  const signatureValueBuf = crypto.sign(null, buf, privateKeyObj);
 
   // return resulting Buffer encoded as a base58 string
   return bs58.encode(signatureValueBuf);
