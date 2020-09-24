@@ -40,4 +40,11 @@ describe('verify', () => {
     const isVerified = verify(signature, invalidData, publicKey);
     expect(isVerified).toBe(false);
   });
+
+  it('works with a base58 encoded key', async () => {
+    const base58KeyPair = await generateEccKeyPair('base58');
+    signature = sign(data, base58KeyPair.privateKey, 'base58');
+    const isVerified = verify(signature, data, base58KeyPair.publicKey, 'base58');
+    expect(isVerified).toBe(true);
+  });
 });
