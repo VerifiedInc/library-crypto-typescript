@@ -55,3 +55,4 @@ function encrypt(did, publicKey, data, encoding) {
     };
 }
 exports.encrypt = encrypt;
+//# sourceMappingURL=encrypt.js.map

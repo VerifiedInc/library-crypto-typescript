@@ -8,3 +8,4 @@ import { EncryptedData } from './types';
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
 export declare function encrypt(did: string, publicKey: string, data: unknown, encoding?: 'base58' | 'pem'): EncryptedData;
+//# sourceMappingURL=encrypt.d.ts.map

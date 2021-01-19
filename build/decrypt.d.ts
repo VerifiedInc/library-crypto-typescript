@@ -8,3 +8,4 @@ import { EncryptedData } from './types';
  * @returns {object} the decrypted object
  */
 export declare function decrypt(privateKey: string, encryptedData: EncryptedData, encoding?: 'base58' | 'pem'): unknown;
+//# sourceMappingURL=decrypt.d.ts.map

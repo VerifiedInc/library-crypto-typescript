@@ -35,3 +35,4 @@ function verify(signature, data, publicKey, encoding) {
     return result;
 }
 exports.verify = verify;
+//# sourceMappingURL=verify.js.map
