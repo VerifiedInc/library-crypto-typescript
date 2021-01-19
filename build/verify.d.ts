@@ -6,3 +6,4 @@
  * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
  */
 export declare function verify(signature: string, data: unknown, publicKey: string, encoding?: 'base58' | 'pem'): boolean;
+//# sourceMappingURL=verify.d.ts.map

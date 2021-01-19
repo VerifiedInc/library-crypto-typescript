@@ -31,3 +31,4 @@ function sign(data, privateKey, encoding) {
     return bs58_1.default.encode(signatureValueBuf);
 }
 exports.sign = sign;
+//# sourceMappingURL=sign.js.map

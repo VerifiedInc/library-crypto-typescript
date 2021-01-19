@@ -5,3 +5,4 @@
  * @returns {string} signature with privateKey over data encoded as a base58 string
  */
 export declare function sign(data: unknown, privateKey: string, encoding?: 'base58' | 'pem'): string;
+//# sourceMappingURL=sign.d.ts.map

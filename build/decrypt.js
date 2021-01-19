@@ -50,3 +50,4 @@ function decrypt(privateKey, encryptedData, encoding) {
     return JSON.parse(decryptedStr);
 }
 exports.decrypt = decrypt;
+//# sourceMappingURL=decrypt.js.map
