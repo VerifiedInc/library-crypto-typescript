@@ -4,6 +4,7 @@ import { sign } from './sign';
 import { verify } from './verify';
 import { encrypt } from './encrypt';
 import { decrypt } from './decrypt';
+import { validateKeyInfo } from './validateKey';
 
 export {
   generateEccKeyPair,
@@ -11,5 +12,6 @@ export {
   sign,
   verify,
   encrypt,
-  decrypt
+  decrypt,
+  validateKeyInfo
 };
