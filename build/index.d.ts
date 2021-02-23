@@ -4,6 +4,6 @@ import { sign } from './sign';
 import { verify } from './verify';
 import { encrypt } from './encrypt';
 import { decrypt } from './decrypt';
-import { validateKeyInfo } from './validateKey';
-export { generateEccKeyPair, generateRsaKeyPair, sign, verify, encrypt, decrypt, validateKeyInfo };
+import { validatePublicKeyInfo } from './validateKey';
+export { generateEccKeyPair, generateRsaKeyPair, sign, verify, encrypt, decrypt, validatePublicKeyInfo };
 //# sourceMappingURL=index.d.ts.map

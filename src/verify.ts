@@ -26,7 +26,7 @@ export function verify (signature: string, data: unknown, publicKey: string, enc
   // if we pass the key to crypto.verify as a buffer, it will assume pem format
   // we need to convert it to a KeyObject first in order to use der formatted keys
   // const format = encoding === 'pem' ? 'pem' : 'der';
-  const format = 'der';
+  const format = encoding === 'pem' ? 'pem' : 'der';
   const type = encoding === 'pem' ? 'pkcs1' : 'spki';
   const publicKeyObj = crypto.createPublicKey({ key: decodedPublicKey, format, type });
 

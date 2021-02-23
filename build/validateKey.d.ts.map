@@ -1,1 +1,1 @@
-{"version":3,"file":"validateKey.d.ts","sourceRoot":"","sources":["../src/validateKey.ts"],"names":[],"mappings":"AAGA;;;;GAIG;AACH,wBAAgB,eAAe,CAAE,GAAG,EAAE,MAAM,EAAE,QAAQ,GAAE,QAAQ,GAAG,KAAa,GAAG,OAAO,CAYzF"}
+{"version":3,"file":"validateKey.d.ts","sourceRoot":"","sources":["../src/validateKey.ts"],"names":[],"mappings":"AAGA;;;;GAIG;AACH,wBAAgB,qBAAqB,CAAE,GAAG,EAAE,MAAM,EAAE,QAAQ,GAAE,QAAQ,GAAG,KAAa,GAAG,OAAO,CAY/F"}
