@@ -8,6 +8,7 @@ var crypto_1 = __importDefault(require("crypto"));
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
 var bs58_1 = __importDefault(require("bs58"));
 var helpers_1 = require("./helpers");
+var CryptoError_1 = require("./types/CryptoError");
 /**
  * @param {string} signature base58 signature, like one created with sign()
  * @param {any} data data to verify (JSON-serializable object)
@@ -17,23 +18,28 @@ var helpers_1 = require("./helpers");
  */
 function verify(signature, data, publicKey, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
-    // serialize data as a deterministic JSON string
-    var stringifiedData = fast_json_stable_stringify_1.default(data);
-    // decode public key if necessary
-    var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
-    // convert stringified data to a Buffer
-    var dataBuf = Buffer.from(stringifiedData);
-    // decode signature from base58 to a Buffer
-    var signatureBuf = bs58_1.default.decode(signature);
-    // if we pass the key to crypto.verify as a buffer, it will assume pem format
-    // we need to convert it to a KeyObject first in order to use der formatted keys
-    // const format = encoding === 'pem' ? 'pem' : 'der';
-    var format = encoding === 'pem' ? 'pem' : 'der';
-    var type = encoding === 'pem' ? 'pkcs1' : 'spki';
-    var publicKeyObj = crypto_1.default.createPublicKey({ key: decodedPublicKey, format: format, type: type });
-    // verifiy signature with the public key and return whether it succeeded
-    var result = crypto_1.default.verify(null, dataBuf, publicKeyObj, signatureBuf);
-    return result;
+    try {
+        // serialize data as a deterministic JSON string
+        var stringifiedData = fast_json_stable_stringify_1.default(data);
+        // decode public key if necessary
+        var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
+        // convert stringified data to a Buffer
+        var dataBuf = Buffer.from(stringifiedData);
+        // decode signature from base58 to a Buffer
+        var signatureBuf = bs58_1.default.decode(signature);
+        // if we pass the key to crypto.verify as a buffer, it will assume pem format
+        // we need to convert it to a KeyObject first in order to use der formatted keys
+        // const format = encoding === 'pem' ? 'pem' : 'der';
+        var format = encoding === 'pem' ? 'pem' : 'der';
+        var type = encoding === 'pem' ? 'pkcs1' : 'spki';
+        var publicKeyObj = crypto_1.default.createPublicKey({ key: decodedPublicKey, format: format, type: type });
+        // verifiy signature with the public key and return whether it succeeded
+        var result = crypto_1.default.verify(null, dataBuf, publicKeyObj, signatureBuf);
+        return result;
+    }
+    catch (e) {
+        throw new CryptoError_1.CryptoError(e.message, e.code);
+    }
 }
 exports.verify = verify;
 //# sourceMappingURL=verify.js.map

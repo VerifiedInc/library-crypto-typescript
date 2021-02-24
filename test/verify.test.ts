@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import { verify } from '../src/verify';
 import { generateEccKeyPair } from '../src/generateEccKeyPair';
 import { sign } from '../src/sign';
+import { CryptoError } from '../src/types/CryptoError';
 
 describe('verify', () => {
   const data = { test: 'test' };
@@ -46,5 +47,16 @@ describe('verify', () => {
     signature = sign(data, base58KeyPair.privateKey, 'base58');
     const isVerified = verify(signature, data, base58KeyPair.publicKey, 'base58');
     expect(isVerified).toBe(true);
+  });
+
+  it('throws CryptoError exception if invalid input', async () => {
+    try {
+      const base58KeyPair = await generateEccKeyPair('base58');
+      signature = sign(data, base58KeyPair.privateKey, 'base58');
+      verify(signature, data, base58KeyPair.publicKey, 'pem');
+      fail();
+    } catch (e) {
+      expect(e).toBeInstanceOf(CryptoError);
+    }
   });
 });

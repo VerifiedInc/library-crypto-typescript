@@ -4,6 +4,7 @@ import stringify from 'fast-json-stable-stringify';
 import { encrypt } from '../src/encrypt';
 import { generateRsaKeyPair } from '../src/generateRsaKeyPair';
 import { derToPem, decodeKey } from '../src/helpers';
+import { CryptoError } from '../src/types/CryptoError';
 
 describe('encrypt', () => {
   let publicKey: string;
@@ -200,6 +201,27 @@ describe('encrypt', () => {
       expect(encryptedData.key.key).toBeDefined();
       expect(encryptedData.key.algorithm).toBeDefined();
       expect(encryptedData.key.did).toEqual(subjectDid);
+    });
+  });
+
+  describe('exception handling', () => {
+    const encoding = 'base58';
+    beforeAll(async () => {
+      const keypair = await generateRsaKeyPair(encoding);
+      publicKey = keypair.publicKey;
+    });
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('throws CryptoError exception if the input is invalid', async () => {
+      try {
+        encrypt(subjectDid, publicKey, data, 'pem');
+        fail();
+      } catch (e) {
+        expect(e).toBeInstanceOf(CryptoError);
+      }
     });
   });
 });

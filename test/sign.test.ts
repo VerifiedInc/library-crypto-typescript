@@ -2,6 +2,7 @@ import crypto from 'crypto';
 
 import { sign } from '../src/sign';
 import { generateEccKeyPair } from '../src/generateEccKeyPair';
+import { CryptoError } from '../src/types/CryptoError';
 
 describe('sign', () => {
   const data = { test: 'test' };
@@ -37,5 +38,16 @@ describe('sign', () => {
     const base58KeyPair = await generateEccKeyPair('base58');
     const signature = sign(data, base58KeyPair.privateKey, 'base58');
     expect(signature).toBeDefined();
+  });
+
+  it('throws CryptoError exception if invalid input', async () => {
+    try {
+      const base58KeyPair = await generateEccKeyPair('base58');
+      const signature = sign(data, base58KeyPair.privateKey, 'pem');
+      expect(signature).toBeDefined();
+      fail();
+    } catch (e) {
+      expect(e).toBeInstanceOf(CryptoError);
+    }
   });
 });
