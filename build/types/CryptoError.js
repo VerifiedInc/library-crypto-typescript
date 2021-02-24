@@ -19,11 +19,10 @@ exports.CryptoError = void 0;
  */
 var CryptoError = /** @class */ (function (_super) {
     __extends(CryptoError, _super);
-    // code: number | undefined; // place holder if want to codify the errors
     function CryptoError(message, code) {
         var _newTarget = this.constructor;
         var _this = _super.call(this, message) || this;
-        // this.code = code;
+        _this.code = code;
         // see: typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html
         Object.setPrototypeOf(_this, _newTarget.prototype); // restore prototype chain
         _this.name = CryptoError.name; // stack traces display correctly now

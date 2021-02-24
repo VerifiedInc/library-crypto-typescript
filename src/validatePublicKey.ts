@@ -19,7 +19,7 @@ export function validatePublicKey (key: string, encoding: 'base58' | 'pem' = 'pe
   try {
     crypto.createPublicKey({ key: decodedKey, format, type });
   } catch (e) {
-    throw new CryptoError(e.message);
+    throw new CryptoError(e.message, e.code);
   }
 
   // an exception would be thrown if invalid

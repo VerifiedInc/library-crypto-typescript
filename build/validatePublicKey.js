@@ -24,7 +24,7 @@ function validatePublicKey(key, encoding) {
         crypto_1.default.createPublicKey({ key: decodedKey, format: format, type: type });
     }
     catch (e) {
-        throw new CryptoError_1.CryptoError(e.message);
+        throw new CryptoError_1.CryptoError(e.message, e.code);
     }
     // an exception would be thrown if invalid
     return true;
