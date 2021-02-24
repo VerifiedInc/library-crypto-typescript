@@ -19,7 +19,7 @@ exports.CryptoError = void 0;
  */
 var CryptoError = /** @class */ (function (_super) {
     __extends(CryptoError, _super);
-    function CryptoError(message, code, stack) {
+    function CryptoError(message, code) {
         var _newTarget = this.constructor;
         var _this = _super.call(this, message) || this;
         _this.code = code;

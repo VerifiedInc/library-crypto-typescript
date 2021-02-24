@@ -3,6 +3,6 @@
  */
 export declare class CryptoError extends Error {
     code: number;
-    constructor(message: string, code: number, stack?: string);
+    constructor(message: string, code: number);
 }
 //# sourceMappingURL=CryptoError.d.ts.map
