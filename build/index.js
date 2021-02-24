@@ -15,6 +15,6 @@ var decrypt_1 = require("./decrypt");
 Object.defineProperty(exports, "decrypt", { enumerable: true, get: function () { return decrypt_1.decrypt; } });
 var validatePublicKey_1 = require("./validatePublicKey");
 Object.defineProperty(exports, "validatePublicKey", { enumerable: true, get: function () { return validatePublicKey_1.validatePublicKey; } });
-var errors_1 = require("./errors");
-Object.defineProperty(exports, "CryptoError", { enumerable: true, get: function () { return errors_1.CryptoError; } });
+var CryptoError_1 = require("./types/CryptoError");
+Object.defineProperty(exports, "CryptoError", { enumerable: true, get: function () { return CryptoError_1.CryptoError; } });
 //# sourceMappingURL=index.js.map

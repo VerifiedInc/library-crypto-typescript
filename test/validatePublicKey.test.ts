@@ -2,6 +2,7 @@ import crypto from 'crypto';
 
 import { validatePublicKey } from '../src/validatePublicKey';
 import { generateEccKeyPair } from '../src/generateEccKeyPair';
+import { CryptoError } from '../src/types/CryptoError';
 
 describe('validatePublicKey', () => {
   let publicKey: string;
@@ -35,7 +36,7 @@ describe('validatePublicKey', () => {
       validatePublicKey(base58KeyPair.publicKey, 'pem');
       fail();
     } catch (e) {
-      expect(e).toBeDefined();
+      expect(e).toBeInstanceOf(CryptoError);
     }
   });
 

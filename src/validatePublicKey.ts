@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { CryptoError } from './errors';
+import { CryptoError } from './types/CryptoError';
 import { decodeKey } from './helpers';
 
 /**

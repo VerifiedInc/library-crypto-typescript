@@ -15,19 +15,20 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CryptoError = void 0;
 /**
- * Class to encapsulate custom errors.
+ * Class to encapsulate custom CryptoError.
  */
 var CryptoError = /** @class */ (function (_super) {
     __extends(CryptoError, _super);
-    function CryptoError(errMsg, code, stack) {
-        var _this = _super.call(this) || this;
-        _this.name = 'CryptoError';
-        _this.message = errMsg;
+    function CryptoError(message, code, stack) {
+        var _newTarget = this.constructor;
+        var _this = _super.call(this, message) || this;
         _this.code = code;
-        _this.stack = stack;
+        // see: typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html
+        Object.setPrototypeOf(_this, _newTarget.prototype); // restore prototype chain
+        _this.name = CryptoError.name; // stack traces display correctly now
         return _this;
     }
     return CryptoError;
 }(Error));
 exports.CryptoError = CryptoError;
-//# sourceMappingURL=errors.js.map
+//# sourceMappingURL=CryptoError.js.map

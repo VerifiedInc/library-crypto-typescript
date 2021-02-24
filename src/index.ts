@@ -5,7 +5,7 @@ import { verify } from './verify';
 import { encrypt } from './encrypt';
 import { decrypt } from './decrypt';
 import { validatePublicKey } from './validatePublicKey';
-import { CryptoError } from './errors';
+import { CryptoError } from './types/CryptoError';
 
 export {
   // functions
