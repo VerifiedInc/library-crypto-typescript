@@ -14,13 +14,13 @@ var helpers_1 = require("./helpers");
  */
 function validatePublicKey(key, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
-    // decode public key if necessary
-    var decodedKey = helpers_1.decodeKey(key, encoding);
-    // if we pass the key to crypto.verify as a buffer, it will assume pem format
-    // we need to convert it to a KeyObject first in order to use der formatted keys
-    var format = encoding === 'pem' ? 'pem' : 'der';
-    var type = encoding === 'pem' ? 'pkcs1' : 'spki';
     try {
+        // decode public key if necessary
+        var decodedKey = helpers_1.decodeKey(key, encoding);
+        // if we pass the key to crypto.verify as a buffer, it will assume pem format
+        // we need to convert it to a KeyObject first in order to use der formatted keys
+        var format = encoding === 'pem' ? 'pem' : 'der';
+        var type = encoding === 'pem' ? 'pkcs1' : 'spki';
         crypto_1.default.createPublicKey({ key: decodedKey, format: format, type: type });
     }
     catch (e) {

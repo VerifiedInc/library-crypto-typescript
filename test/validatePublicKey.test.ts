@@ -30,7 +30,7 @@ describe('validatePublicKey', () => {
     expect(isValid).toBe(true);
   });
 
-  it('throws exception if the key is not valid', async () => {
+  it('throws CryptoError exception if the key is not valid', async () => {
     try {
       const base58KeyPair = await generateEccKeyPair('base58');
       validatePublicKey(base58KeyPair.publicKey, 'pem');
