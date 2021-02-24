@@ -1,1 +1,1 @@
-{"version":3,"file":"CryptoError.d.ts","sourceRoot":"","sources":["../../src/types/CryptoError.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,qBAAa,WAAY,SAAQ,KAAK;IAClC,IAAI,EAAE,MAAM,CAAC;gBAEA,OAAO,EAAE,MAAM,EAAE,IAAI,EAAE,MAAM;CAQ7C"}
+{"version":3,"file":"CryptoError.d.ts","sourceRoot":"","sources":["../../src/types/CryptoError.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,qBAAa,WAAY,SAAQ,KAAK;IAClC,IAAI,EAAE,MAAM,GAAG,MAAM,GAAG,SAAS,CAAC;gBAErB,OAAO,EAAE,MAAM,EAAE,IAAI,CAAC,EAAE,MAAM,GAAG,MAAM;CAQvD"}
