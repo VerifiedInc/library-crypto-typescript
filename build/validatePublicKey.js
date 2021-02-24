@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validatePublicKey = void 0;
 var crypto_1 = __importDefault(require("crypto"));
+var errors_1 = require("./errors");
 var helpers_1 = require("./helpers");
 /**
  * @param {string} key key (pem or base58)
@@ -19,7 +20,12 @@ function validatePublicKey(key, encoding) {
     // we need to convert it to a KeyObject first in order to use der formatted keys
     var format = encoding === 'pem' ? 'pem' : 'der';
     var type = encoding === 'pem' ? 'pkcs1' : 'spki';
-    crypto_1.default.createPublicKey({ key: decodedKey, format: format, type: type });
+    try {
+        crypto_1.default.createPublicKey({ key: decodedKey, format: format, type: type });
+    }
+    catch (e) {
+        throw new errors_1.CryptoError(e.message, e.code, e.stack);
+    }
     // an exception would be thrown if invalid
     return true;
 }

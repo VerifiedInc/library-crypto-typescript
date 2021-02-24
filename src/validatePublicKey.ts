@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { CryptoError } from './errors';
 import { decodeKey } from './helpers';
 
 /**
@@ -14,7 +15,12 @@ export function validatePublicKey (key: string, encoding: 'base58' | 'pem' = 'pe
   // we need to convert it to a KeyObject first in order to use der formatted keys
   const format = encoding === 'pem' ? 'pem' : 'der';
   const type = encoding === 'pem' ? 'pkcs1' : 'spki';
-  crypto.createPublicKey({ key: decodedKey, format, type });
+
+  try {
+    crypto.createPublicKey({ key: decodedKey, format, type });
+  } catch (e) {
+    throw new CryptoError(e.message, e.code, e.stack);
+  }
 
   // an exception would be thrown if invalid
   return true;

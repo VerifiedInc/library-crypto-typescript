@@ -5,13 +5,17 @@ import { verify } from './verify';
 import { encrypt } from './encrypt';
 import { decrypt } from './decrypt';
 import { validatePublicKey } from './validatePublicKey';
+import { CryptoError } from './errors';
 
 export {
+  // functions
   generateEccKeyPair,
   generateRsaKeyPair,
   sign,
   verify,
   encrypt,
   decrypt,
-  validatePublicKey
+  validatePublicKey,
+  // types
+  CryptoError
 };
