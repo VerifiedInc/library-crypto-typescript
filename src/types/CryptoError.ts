@@ -2,9 +2,9 @@
  * Class to encapsulate custom CryptoError.
  */
 export class CryptoError extends Error {
-    code: number | string | undefined; // place holder if want to codify the errors
+    code: number | undefined; // place holder if want to codify the errors
 
-    constructor (message: string, code?: number | string) {
+    constructor (message: string, code?: number) {
       super(message);
       this.code = code;
 
