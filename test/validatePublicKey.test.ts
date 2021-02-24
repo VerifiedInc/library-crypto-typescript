@@ -4,12 +4,10 @@ import { validatePublicKey } from '../src/validatePublicKey';
 import { generateEccKeyPair } from '../src/generateEccKeyPair';
 
 describe('validatePublicKey', () => {
-  let privateKey: string;
   let publicKey: string;
 
   beforeAll(async () => {
     const keyPair = await generateEccKeyPair();
-    privateKey = keyPair.privateKey;
     publicKey = keyPair.publicKey;
   });
 
