@@ -6,7 +6,7 @@ import { decodeKey } from './helpers';
  * @param {string} encoding the encoding used for the key ('base58' or 'pem', default 'pem')
  * @returns {boolean} true if valid key information
  */
-export function validatePublicKeyInfo (key: string, encoding: 'base58' | 'pem' = 'pem'): boolean {
+export function validatePublicKey (key: string, encoding: 'base58' | 'pem' = 'pem'): boolean {
   // decode public key if necessary
   const decodedKey = decodeKey(key, encoding);
 

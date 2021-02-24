@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validatePublicKeyInfo = void 0;
+exports.validatePublicKey = void 0;
 var crypto_1 = __importDefault(require("crypto"));
 var helpers_1 = require("./helpers");
 /**
@@ -11,7 +11,7 @@ var helpers_1 = require("./helpers");
  * @param {string} encoding the encoding used for the key ('base58' or 'pem', default 'pem')
  * @returns {boolean} true if valid key information
  */
-function validatePublicKeyInfo(key, encoding) {
+function validatePublicKey(key, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     // decode public key if necessary
     var decodedKey = helpers_1.decodeKey(key, encoding);
@@ -23,5 +23,5 @@ function validatePublicKeyInfo(key, encoding) {
     // an exception would be thrown if invalid
     return true;
 }
-exports.validatePublicKeyInfo = validatePublicKeyInfo;
-//# sourceMappingURL=validateKey.js.map
+exports.validatePublicKey = validatePublicKey;
+//# sourceMappingURL=validatePublicKey.js.map
