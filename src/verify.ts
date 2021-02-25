@@ -15,7 +15,21 @@ export function verify (signature: string, data: unknown, publicKey: string, enc
   try {
     // serialize data as a deterministic JSON string
     const stringifiedData = stringify(data);
+    return verifyString(signature, stringifiedData, publicKey, encoding);
+  } catch (e) {
+    throw new CryptoError(e.message, e.code);
+  }
+}
 
+/**
+ * @param {string} signature base58 signature, like one created with sign()
+ * @param {string} stringifiedData data (JSON-serializable object) as a string to verify
+ * @param {string} publicKey public key corresponding to the private key used to create the signature (pem or base58)
+ * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
+ */
+export function verifyString (signature: string, stringifiedData: string, publicKey: string, encoding: 'base58' | 'pem' = 'pem'): boolean {
+  try {
     // decode public key if necessary
     const decodedPublicKey = decodeKey(publicKey, encoding);
 

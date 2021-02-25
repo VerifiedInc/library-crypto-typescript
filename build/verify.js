@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verify = void 0;
+exports.verifyString = exports.verify = void 0;
 var crypto_1 = __importDefault(require("crypto"));
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
 var bs58_1 = __importDefault(require("bs58"));
@@ -21,6 +21,23 @@ function verify(signature, data, publicKey, encoding) {
     try {
         // serialize data as a deterministic JSON string
         var stringifiedData = fast_json_stable_stringify_1.default(data);
+        return verifyString(signature, stringifiedData, publicKey, encoding);
+    }
+    catch (e) {
+        throw new CryptoError_1.CryptoError(e.message, e.code);
+    }
+}
+exports.verify = verify;
+/**
+ * @param {string} signature base58 signature, like one created with sign()
+ * @param {string} stringifiedData data (JSON-serializable object) as a string to verify
+ * @param {string} publicKey public key corresponding to the private key used to create the signature (pem or base58)
+ * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
+ */
+function verifyString(signature, stringifiedData, publicKey, encoding) {
+    if (encoding === void 0) { encoding = 'pem'; }
+    try {
         // decode public key if necessary
         var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
         // convert stringified data to a Buffer
@@ -41,5 +58,5 @@ function verify(signature, data, publicKey, encoding) {
         throw new CryptoError_1.CryptoError(e.message, e.code);
     }
 }
-exports.verify = verify;
+exports.verifyString = verifyString;
 //# sourceMappingURL=verify.js.map
