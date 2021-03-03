@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CryptoError = exports.validatePublicKey = exports.decrypt = exports.encrypt = exports.verify = exports.sign = exports.generateRsaKeyPair = exports.generateEccKeyPair = void 0;
+exports.CryptoError = exports.validatePublicKey = exports.decrypt = exports.encrypt = exports.verifyString = exports.verify = exports.sign = exports.generateRsaKeyPair = exports.generateEccKeyPair = void 0;
 var generateEccKeyPair_1 = require("./generateEccKeyPair");
 Object.defineProperty(exports, "generateEccKeyPair", { enumerable: true, get: function () { return generateEccKeyPair_1.generateEccKeyPair; } });
 var generateRsaKeyPair_1 = require("./generateRsaKeyPair");
@@ -9,6 +9,7 @@ var sign_1 = require("./sign");
 Object.defineProperty(exports, "sign", { enumerable: true, get: function () { return sign_1.sign; } });
 var verify_1 = require("./verify");
 Object.defineProperty(exports, "verify", { enumerable: true, get: function () { return verify_1.verify; } });
+Object.defineProperty(exports, "verifyString", { enumerable: true, get: function () { return verify_1.verifyString; } });
 var encrypt_1 = require("./encrypt");
 Object.defineProperty(exports, "encrypt", { enumerable: true, get: function () { return encrypt_1.encrypt; } });
 var decrypt_1 = require("./decrypt");
