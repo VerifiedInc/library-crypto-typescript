@@ -2,10 +2,13 @@
 A helper library for common Unum ID cryptographic functions in TypeScript.
 
 ## Installation
-This library is currently only available from Github. To add it to your project, run `yarn add library-crypto-typescript@https://github.com/UnumID/Library-Crypto-TypeScript.git` or add the following to the `dependencies` section of your `package.json` and run `yarn install`.
-```
-"library-crypto-typescript": "https://github.com/UnumID/Library-Crypto-TypeScript.git"
-```
+This library is available from [NPM](https://www.npmjs.com/package/@unumid/library-crypto), [Github packages](https://github.com/orgs/UnumID/packages?repo_name=Library-Crypto-TypeScript) or the [repository](https://github.com/UnumID/Library-Crypto-TypeScript) itself. 
+
+## Releases
+Releases of packages to the package repos, NPM and Github Packages, should be left to the Github actions CI job. The job is triggered by a tag push with a proceeding `v` followed by semver notation, i.e. v1.3.1. This will bumped the version defined in package.json and create a Github release on the semver version, 1.3.1. It will also handle publishing the package to each package repo with that same version. 
+
+## Documentation
+This readme and the auto generated [typedocs](https://docs.unum.id/Library-Crypto-TypeScript/) serve as the official documentation.
 
 ## Functionality
 ### generateEccKeyPair
