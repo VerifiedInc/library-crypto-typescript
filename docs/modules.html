@@ -1,0 +1,444 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@unumid/library-crypto</title>
+	<meta name="description" content="Documentation for @unumid/library-crypto">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@unumid/library-crypto</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>@unumid/library-crypto</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class"><a href="classes/cryptoerror.html" class="tsd-kind-icon">Crypto<wbr>Error</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function"><a href="modules.html#decrypt" class="tsd-kind-icon">decrypt</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#encrypt" class="tsd-kind-icon">encrypt</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#generateecckeypair" class="tsd-kind-icon">generate<wbr>Ecc<wbr>Key<wbr>Pair</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#generatersakeypair" class="tsd-kind-icon">generate<wbr>Rsa<wbr>Key<wbr>Pair</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#sign" class="tsd-kind-icon">sign</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#validatepublickey" class="tsd-kind-icon">validate<wbr>Public<wbr>Key</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#verify" class="tsd-kind-icon">verify</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#verifystring" class="tsd-kind-icon">verify<wbr>String</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="decrypt" class="tsd-anchor"></a>
+					<h3>decrypt</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">decrypt<span class="tsd-signature-symbol">(</span>privateKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, encryptedData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EncryptedData</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/e70c927/src/decrypt.ts#L16">src/decrypt.ts:16</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>privateKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>RSA private key (pem or base58) corresponding to the public key used for encryption</p>
+									</div>
+								</li>
+								<li>
+									<h5>encryptedData: <span class="tsd-signature-type">EncryptedData</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>EncryptedData object, like one returned from encrypt()
+											contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+										key, iv, and algorithm information needed to recreate the AES key actually used for encryption</p>
+									</div>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol"> = &#x27;pem&#x27;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the encoding used for the publicKey (&#39;base58&#39; or &#39;pem&#39;, default &#39;pem&#39;)</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">unknown</span></h4>
+							<p>the decrypted object</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="encrypt" class="tsd-anchor"></a>
+					<h3>encrypt</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">encrypt<span class="tsd-signature-symbol">(</span>did<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EncryptedData</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/e70c927/src/encrypt.ts#L18">src/encrypt.ts:18</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>did: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the DID and key identifier fragment resolving to the public key</p>
+									</div>
+								</li>
+								<li>
+									<h5>publicKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>RSA public key (pem or base58)</p>
+									</div>
+								</li>
+								<li>
+									<h5>data: <span class="tsd-signature-type">unknown</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>data to encrypt (JSON-serializable object)</p>
+									</div>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol"> = &#x27;pem&#x27;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the encoding used for the publicKey (&#39;base58&#39; or &#39;pem&#39;, default &#39;pem&#39;)</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EncryptedData</span></h4>
+							<p>contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+							key, iv, and algorithm information needed to recreate the AES key actually used for encryption</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="generateecckeypair" class="tsd-anchor"></a>
+					<h3>generate<wbr>Ecc<wbr>Key<wbr>Pair</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">generate<wbr>Ecc<wbr>Key<wbr>Pair<span class="tsd-signature-symbol">(</span>encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyPair</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/e70c927/src/generateEccKeyPair.ts#L6">src/generateEccKeyPair.ts:6</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol"> = &#x27;pem&#x27;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyPair</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="generatersakeypair" class="tsd-anchor"></a>
+					<h3>generate<wbr>Rsa<wbr>Key<wbr>Pair</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">generate<wbr>Rsa<wbr>Key<wbr>Pair<span class="tsd-signature-symbol">(</span>encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyPair</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/e70c927/src/generateRsaKeyPair.ts#L6">src/generateRsaKeyPair.ts:6</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol"> = &#x27;pem&#x27;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">KeyPair</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="sign" class="tsd-anchor"></a>
+					<h3>sign</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">sign<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span>, privateKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/e70c927/src/sign.ts#L14">src/sign.ts:14</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>data: <span class="tsd-signature-type">unknown</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>data to sign (JSON-serializable object)</p>
+									</div>
+								</li>
+								<li>
+									<h5>privateKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>private key to sign with (pem or base58)</p>
+									</div>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol"> = &#x27;pem&#x27;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the encoding used for the publicKey (&#39;base58&#39; or &#39;pem&#39;, default &#39;pem&#39;)</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>signature with privateKey over data encoded as a base58 string</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="validatepublickey" class="tsd-anchor"></a>
+					<h3>validate<wbr>Public<wbr>Key</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">validate<wbr>Public<wbr>Key<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/e70c927/src/validatePublicKey.ts#L10">src/validatePublicKey.ts:10</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>key (pem or base58)</p>
+									</div>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol"> = &#x27;pem&#x27;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the encoding used for the key (&#39;base58&#39; or &#39;pem&#39;, default &#39;pem&#39;)</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if valid key information</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="verify" class="tsd-anchor"></a>
+					<h3>verify</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">verify<span class="tsd-signature-symbol">(</span>signature<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/e70c927/src/verify.ts#L14">src/verify.ts:14</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>signature: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>base58 signature, like one created with sign()</p>
+									</div>
+								</li>
+								<li>
+									<h5>data: <span class="tsd-signature-type">unknown</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>data to verify (JSON-serializable object)</p>
+									</div>
+								</li>
+								<li>
+									<h5>publicKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>public key corresponding to the private key used to create the signature (pem or base58)</p>
+									</div>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol"> = &#x27;pem&#x27;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the encoding used for the publicKey (&#39;base58&#39; or &#39;pem&#39;, default &#39;pem&#39;)</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if signature was created by signing data with the private key corresponding to publicKey</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="verifystring" class="tsd-anchor"></a>
+					<h3>verify<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">verify<wbr>String<span class="tsd-signature-symbol">(</span>signature<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, stringifiedData<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/e70c927/src/verify.ts#L31">src/verify.ts:31</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>signature: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>base58 signature, like one created with sign()</p>
+									</div>
+								</li>
+								<li>
+									<h5>stringifiedData: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>data (JSON-serializable object) as a string to verify</p>
+									</div>
+								</li>
+								<li>
+									<h5>publicKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>public key corresponding to the private key used to create the signature (pem or base58)</p>
+									</div>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol"> = &#x27;pem&#x27;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the encoding used for the publicKey (&#39;base58&#39; or &#39;pem&#39;, default &#39;pem&#39;)</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if signature was created by signing data with the private key corresponding to publicKey</p>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="current ">
+						<a href="modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/cryptoerror.html" class="tsd-kind-icon">Crypto<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#decrypt" class="tsd-kind-icon">decrypt</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#encrypt" class="tsd-kind-icon">encrypt</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#generateecckeypair" class="tsd-kind-icon">generate<wbr>Ecc<wbr>Key<wbr>Pair</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#generatersakeypair" class="tsd-kind-icon">generate<wbr>Rsa<wbr>Key<wbr>Pair</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#sign" class="tsd-kind-icon">sign</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#validatepublickey" class="tsd-kind-icon">validate<wbr>Public<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#verify" class="tsd-kind-icon">verify</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#verifystring" class="tsd-kind-icon">verify<wbr>String</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
