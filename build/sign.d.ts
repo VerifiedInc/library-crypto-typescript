@@ -1,8 +1,8 @@
 /// <reference types="node" />
 /**
  * Used to encode the provided data object into a string prior to signing.
- * Should only be used if dealing with projects that run in node's V8 runtime so the string encoding can be replicated.
- * For this reason it deprecated in favor of using protobufs for objects that need to be signed and leveraging signBytes.
+ * Should only be used if dealing with projects can ensure identical data object string encoding.
+ * For this reason it deprecated in favor of using protobufs for objects that need to be signed and verified.
  *
  * @param {*} data data to sign (JSON-serializable object)
  * @param {string} privateKey private key to sign with (pem or base58)
