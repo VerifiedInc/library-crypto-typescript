@@ -33,7 +33,7 @@ export function sign (data: unknown, privateKey: string, encoding: 'base58' | 'p
 }
 
 /**
- * Used to sign a byte array. Exported thanks to the use of Protobufs and being able to encode to bytes and decode back
+ * Used to sign a byte array. Exported thanks to the property of Protobuf's ability to encode to bytes and decode back
  * an object in a deterministic fashion.
  *
  * @param {*} bytes bytes array to sign
