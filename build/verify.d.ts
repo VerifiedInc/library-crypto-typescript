@@ -1,4 +1,3 @@
-/// <reference types="node" />
 /**
  * Used to verify the provide data object against a provided Base58 encode signature.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
@@ -28,10 +27,10 @@ export declare function verifyString(signature: string, stringifiedData: string,
  * an object in a deterministic fashion.
  *
  * @param {string} signature base58 signature, like one created with sign()
- * @param {Buffer} bytes byte array to verify
+ * @param {Uint8Array} bytes byte array to verify
  * @param {string} publicKey public key corresponding to the private key used to create the signature (pem or base58)
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
  * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
  */
-export declare function verifyBytes(signature: string, bytes: Buffer, publicKey: string, encoding?: 'base58' | 'pem'): boolean;
+export declare function verifyBytes(signature: string, bytes: Uint8Array, publicKey: string, encoding?: 'base58' | 'pem'): boolean;
 //# sourceMappingURL=verify.d.ts.map
