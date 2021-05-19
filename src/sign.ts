@@ -6,6 +6,10 @@ import { decodeKey } from './helpers';
 import { CryptoError } from './types/CryptoError';
 
 /**
+ * Used to encode the provided data object into a string prior to signing.
+ * Should only be used if dealing with projects that run in node's V8 runtime so the string encoding can be replicated.
+ * For this reason it deprecated in favor of using protobufs for objects that need to be signed and leveraging signBytes.
+ *
  * @param {*} data data to sign (JSON-serializable object)
  * @param {string} privateKey private key to sign with (pem or base58)
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
@@ -16,10 +20,33 @@ export function sign (data: unknown, privateKey: string, encoding: 'base58' | 'p
     // serialize data as a deterministic JSON string
     const stringifiedData = stringify(data);
 
-    const decodedPrivateKey = decodeKey(privateKey, encoding);
+    // const decodedPrivateKey = decodeKey(privateKey, encoding);
 
     // convert to a Buffer and sign with private key
     const buf = Buffer.from(stringifiedData);
+
+    // return resulting Buffer encoded as a base58 string
+    return signBytes(buf, privateKey, encoding);
+  } catch (e) {
+    throw new CryptoError(e.message, e.code);
+  }
+}
+
+/**
+ * Used to sign a byte array. Exported thanks to the use of Protobufs and being able to encode to bytes and decode back
+ * an object in a deterministic fashion.
+ *
+ * @param {*} bytes bytes array to sign
+ * @param {string} privateKey private key to sign with (pem or base58)
+ * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @returns {string} signature with privateKey over data encoded as a base58 string
+ */
+export function signBytes (bytes: Buffer, privateKey: string, encoding: 'base58' | 'pem' = 'pem'): string {
+  try {
+    // serialize data as a deterministic JSON string
+    // const stringifiedData = stringify(data);
+
+    const decodedPrivateKey = decodeKey(privateKey, encoding);
 
     // if we pass the key to crypto.sign as a buffer, it will assume pem format
     // we need to convert it to a KeyObject first in order to use der formatted keys
@@ -27,7 +54,7 @@ export function sign (data: unknown, privateKey: string, encoding: 'base58' | 'p
     const type = encoding === 'pem' ? 'pkcs1' : 'pkcs8';
 
     const privateKeyObj = crypto.createPrivateKey({ key: decodedPrivateKey, format, type });
-    const signatureValueBuf = crypto.sign(null, buf, privateKeyObj);
+    const signatureValueBuf = crypto.sign(null, bytes, privateKeyObj);
 
     // return resulting Buffer encoded as a base58 string
     return bs58.encode(signatureValueBuf);
