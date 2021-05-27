@@ -12,7 +12,7 @@ var CryptoError_1 = require("./types/CryptoError");
 /**
  * Used to verify the provide data object against a provided Base58 encode signature.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
- * For this reason it deprecated in favor of using protobufs for objects that need to be signed and leveraging signBytes.
+ * For this reason it deprecated in favor of using Protobufs for objects that need to be signed and leveraging signBytes.
  *
  * @param {string} signature base58 signature, like one created with sign()
  * @param {any} data data to verify (JSON-serializable object)
@@ -35,7 +35,7 @@ exports.verify = verify;
 /**
  * Used to verify the provide data string against a provided Base58 encode signature.
  * A less than ideal situation of being handling a string representation of the signed object for reason of then having to convert back to the object.
- * For this reason it deprecated in favor of using protobufs for objects that need to be signed and leveraging signBytes.
+ * For this reason it deprecated in favor of using Protobufs for objects that need to be signed and verified.
  *
  * @param {string} signature base58 signature, like one created with sign()
  * @param {string} stringifiedData data (JSON-serializable object) as a string to verify
@@ -78,7 +78,7 @@ function verifyBytes(signature, bytes, publicKey, encoding) {
         var format = encoding === 'pem' ? 'pem' : 'der';
         var type = encoding === 'pem' ? 'pkcs1' : 'spki';
         var publicKeyObj = crypto_1.default.createPublicKey({ key: decodedPublicKey, format: format, type: type });
-        // verifiy signature with the public key and return whether it succeeded
+        // verify the signature with the public key and return whether it succeeded
         var result = crypto_1.default.verify(null, bytes, publicKeyObj, signatureBytes);
         return result;
     }

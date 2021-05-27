@@ -12,7 +12,7 @@ var CryptoError_1 = require("./types/CryptoError");
 /**
  * Used to encode the provided data object into a string prior to signing.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
- * For this reason it deprecated in favor of using protobufs for objects that need to be signed and verified.
+ * For this reason it deprecated in favor of using Protobufs for objects that need to be signed and verified.
  *
  * @param {*} data data to sign (JSON-serializable object)
  * @param {string} privateKey private key to sign with (pem or base58)
@@ -24,7 +24,6 @@ function sign(data, privateKey, encoding) {
     try {
         // serialize data as a deterministic JSON string
         var stringifiedData = fast_json_stable_stringify_1.default(data);
-        // const decodedPrivateKey = decodeKey(privateKey, encoding);
         // convert to a Buffer and sign with private key
         var buf = Buffer.from(stringifiedData);
         // return resulting Buffer encoded as a base58 string
@@ -47,8 +46,6 @@ exports.sign = sign;
 function signBytes(bytes, privateKey, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
-        // serialize data as a deterministic JSON string
-        // const stringifiedData = stringify(data);
         var decodedPrivateKey = helpers_1.decodeKey(privateKey, encoding);
         // if we pass the key to crypto.sign as a buffer, it will assume pem format
         // we need to convert it to a KeyObject first in order to use der formatted keys

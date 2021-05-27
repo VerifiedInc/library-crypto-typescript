@@ -8,7 +8,7 @@ import { CryptoError } from './types/CryptoError';
 /**
  * Used to encode the provided data object into a string prior to signing.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
- * For this reason it deprecated in favor of using protobufs for objects that need to be signed and verified.
+ * For this reason it deprecated in favor of using Protobufs for objects that need to be signed and verified.
  *
  * @param {*} data data to sign (JSON-serializable object)
  * @param {string} privateKey private key to sign with (pem or base58)
@@ -19,8 +19,6 @@ export function sign (data: unknown, privateKey: string, encoding: 'base58' | 'p
   try {
     // serialize data as a deterministic JSON string
     const stringifiedData = stringify(data);
-
-    // const decodedPrivateKey = decodeKey(privateKey, encoding);
 
     // convert to a Buffer and sign with private key
     const buf = Buffer.from(stringifiedData);
@@ -43,9 +41,6 @@ export function sign (data: unknown, privateKey: string, encoding: 'base58' | 'p
  */
 export function signBytes (bytes: Uint8Array, privateKey: string, encoding: 'base58' | 'pem' = 'pem'): string {
   try {
-    // serialize data as a deterministic JSON string
-    // const stringifiedData = stringify(data);
-
     const decodedPrivateKey = decodeKey(privateKey, encoding);
 
     // if we pass the key to crypto.sign as a buffer, it will assume pem format
