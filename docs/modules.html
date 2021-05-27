@@ -75,8 +75,10 @@
 								<li class="tsd-kind-function"><a href="modules.html#generateecckeypair" class="tsd-kind-icon">generate<wbr>Ecc<wbr>Key<wbr>Pair</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#generatersakeypair" class="tsd-kind-icon">generate<wbr>Rsa<wbr>Key<wbr>Pair</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#sign" class="tsd-kind-icon">sign</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#signbytes" class="tsd-kind-icon">sign<wbr>Bytes</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#validatepublickey" class="tsd-kind-icon">validate<wbr>Public<wbr>Key</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#verify" class="tsd-kind-icon">verify</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#verifybytes" class="tsd-kind-icon">verify<wbr>Bytes</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#verifystring" class="tsd-kind-icon">verify<wbr>String</a></li>
 							</ul>
 						</section>
@@ -95,7 +97,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/7dfa058/src/decrypt.ts#L16">src/decrypt.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/08c34c2/src/decrypt.ts#L16">src/decrypt.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -136,7 +138,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/7dfa058/src/encrypt.ts#L18">src/encrypt.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/08c34c2/src/encrypt.ts#L18">src/encrypt.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -182,7 +184,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/7dfa058/src/generateEccKeyPair.ts#L6">src/generateEccKeyPair.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/08c34c2/src/generateEccKeyPair.ts#L6">src/generateEccKeyPair.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -205,7 +207,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/7dfa058/src/generateRsaKeyPair.ts#L6">src/generateRsaKeyPair.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/08c34c2/src/generateRsaKeyPair.ts#L6">src/generateRsaKeyPair.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -228,15 +230,67 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/7dfa058/src/sign.ts#L14">src/sign.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/08c34c2/src/sign.ts#L18">src/sign.ts:18</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Used to encode the provided data object into a string prior to signing.
+										Should only be used if dealing with projects can ensure identical data object string encoding.
+									For this reason it deprecated in favor of using Protobufs for objects that need to be signed and verified.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>data: <span class="tsd-signature-type">unknown</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>data to sign (JSON-serializable object)</p>
+									</div>
+								</li>
+								<li>
+									<h5>privateKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>private key to sign with (pem or base58)</p>
+									</div>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol"> = &#x27;pem&#x27;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the encoding used for the publicKey (&#39;base58&#39; or &#39;pem&#39;, default &#39;pem&#39;)</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>signature with privateKey over data encoded as a base58 string</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="signbytes" class="tsd-anchor"></a>
+					<h3>sign<wbr>Bytes</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">sign<wbr>Bytes<span class="tsd-signature-symbol">(</span>bytes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Uint8Array</span>, privateKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/08c34c2/src/sign.ts#L42">src/sign.ts:42</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Used to sign a byte array. Exported thanks to the property of Protobuf&#39;s ability to encode to bytes and decode back
+									an object in a deterministic fashion.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>bytes: <span class="tsd-signature-type">Uint8Array</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>bytes array to sign</p>
 									</div>
 								</li>
 								<li>
@@ -267,7 +321,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/7dfa058/src/validatePublicKey.ts#L10">src/validatePublicKey.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/08c34c2/src/validatePublicKey.ts#L10">src/validatePublicKey.ts:10</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -300,9 +354,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/7dfa058/src/verify.ts#L14">src/verify.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/08c34c2/src/verify.ts#L19">src/verify.ts:19</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Used to verify the provide data object against a provided Base58 encode signature.
+										Should only be used if dealing with projects can ensure identical data object string encoding.
+									For this reason it deprecated in favor of using Protobufs for objects that need to be signed and leveraging signBytes.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -336,6 +397,57 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="verifybytes" class="tsd-anchor"></a>
+					<h3>verify<wbr>Bytes</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">verify<wbr>Bytes<span class="tsd-signature-symbol">(</span>signature<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, bytes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Uint8Array</span>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/08c34c2/src/verify.ts#L62">src/verify.ts:62</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Used to verify a byte array. Exported thanks to the property of Protobuf&#39;s ability to encode to bytes and decode back
+									an object in a deterministic fashion.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>signature: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>base58 signature, like one created with sign()</p>
+									</div>
+								</li>
+								<li>
+									<h5>bytes: <span class="tsd-signature-type">Uint8Array</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>byte array to verify</p>
+									</div>
+								</li>
+								<li>
+									<h5>publicKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>public key corresponding to the private key used to create the signature (pem or base58)</p>
+									</div>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol"> = &#x27;pem&#x27;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the encoding used for the publicKey (&#39;base58&#39; or &#39;pem&#39;, default &#39;pem&#39;)</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if signature was created by signing data with the private key corresponding to publicKey</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="verifystring" class="tsd-anchor"></a>
 					<h3>verify<wbr>String</h3>
 					<ul class="tsd-signatures tsd-kind-function">
@@ -345,9 +457,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/7dfa058/src/verify.ts#L31">src/verify.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/Library-Crypto-TypeScript/blob/08c34c2/src/verify.ts#L40">src/verify.ts:40</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Used to verify the provide data string against a provided Base58 encode signature.
+										A less than ideal situation of being handling a string representation of the signed object for reason of then having to convert back to the object.
+									For this reason it deprecated in favor of using Protobufs for objects that need to be signed and verified.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -411,10 +530,16 @@
 						<a href="modules.html#sign" class="tsd-kind-icon">sign</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="modules.html#signbytes" class="tsd-kind-icon">sign<wbr>Bytes</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="modules.html#validatepublickey" class="tsd-kind-icon">validate<wbr>Public<wbr>Key</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#verify" class="tsd-kind-icon">verify</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#verifybytes" class="tsd-kind-icon">verify<wbr>Bytes</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#verifystring" class="tsd-kind-icon">verify<wbr>String</a>
