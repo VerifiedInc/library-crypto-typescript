@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.encrypt = void 0;
+exports.encryptBytes = exports.encrypt = void 0;
 var crypto_1 = require("crypto");
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
 var bs58_1 = __importDefault(require("bs58"));
@@ -22,6 +22,26 @@ function encrypt(did, publicKey, data, encoding) {
     try {
         // serialize data as a deterministic JSON string
         var stringifiedData = fast_json_stable_stringify_1.default(data);
+        return encryptBytes(did, publicKey, stringifiedData, encoding);
+    }
+    catch (e) {
+        throw new CryptoError_1.CryptoError(e.message, e.code);
+    }
+}
+exports.encrypt = encrypt;
+/**
+ * @param {string} did the DID and key identifier fragment resolving to the public key
+ * @param {string} publicKey RSA public key (pem or base58)
+ * @param {BinaryLike} data data to encrypt
+ * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ */
+function encryptBytes(did, publicKey, data, encoding) {
+    if (encoding === void 0) { encoding = 'pem'; }
+    try {
+        // serialize data as a deterministic JSON string
+        // const stringifiedData = stringify(data);
         // decode the public key, if necessary
         var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
         // node can only encrypt with pem-encoded keys
@@ -32,7 +52,7 @@ function encrypt(did, publicKey, data, encoding) {
         var algorithm = 'aes-256-cbc';
         var cipher = crypto_1.createCipheriv(algorithm, key, iv);
         // encrypt data with aes key
-        var encrypted1 = cipher.update(stringifiedData);
+        var encrypted1 = cipher.update(data);
         var encrypted2 = cipher.final();
         var encrypted = Buffer.concat([encrypted1, encrypted2]);
         // we need to use a key object to set non-default padding
@@ -60,5 +80,5 @@ function encrypt(did, publicKey, data, encoding) {
         throw new CryptoError_1.CryptoError(e.message, e.code);
     }
 }
-exports.encrypt = encrypt;
+exports.encryptBytes = encryptBytes;
 //# sourceMappingURL=encrypt.js.map

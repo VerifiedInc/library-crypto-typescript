@@ -7,6 +7,9 @@ import { EncryptedData } from './types';
 import { decodeKey, derToPem } from './helpers';
 import { CryptoError } from './types/CryptoError';
 
+// from node.crypto lib
+type BinaryLike = string | NodeJS.ArrayBufferView;
+
 /**
  * @param {string} did the DID and key identifier fragment resolving to the public key
  * @param {string} publicKey RSA public key (pem or base58)
@@ -19,6 +22,25 @@ export function encrypt (did: string, publicKey: string, data: unknown, encoding
   try {
     // serialize data as a deterministic JSON string
     const stringifiedData = stringify(data);
+
+    return encryptBytes(did, publicKey, stringifiedData, encoding);
+  } catch (e) {
+    throw new CryptoError(e.message, e.code);
+  }
+}
+
+/**
+ * @param {string} did the DID and key identifier fragment resolving to the public key
+ * @param {string} publicKey RSA public key (pem or base58)
+ * @param {BinaryLike} data data to encrypt
+ * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ */
+export function encryptBytes (did: string, publicKey: string, data: BinaryLike, encoding: 'base58' | 'pem' = 'pem'): EncryptedData {
+  try {
+    // serialize data as a deterministic JSON string
+    // const stringifiedData = stringify(data);
 
     // decode the public key, if necessary
     const decodedPublicKey = decodeKey(publicKey, encoding);
@@ -33,7 +55,7 @@ export function encrypt (did: string, publicKey: string, data: unknown, encoding
     const cipher = createCipheriv(algorithm, key, iv);
 
     // encrypt data with aes key
-    const encrypted1 = cipher.update(stringifiedData);
+    const encrypted1 = cipher.update(data);
     const encrypted2 = cipher.final();
     const encrypted = Buffer.concat([encrypted1, encrypted2]);
 
