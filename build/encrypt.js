@@ -10,6 +10,10 @@ var bs58_1 = __importDefault(require("bs58"));
 var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
 /**
+ * Used to encode the provided data object into a string prior to encrypting.
+ * Should only be used if dealing with projects can ensure identical data object string encoding.
+ * For this reason it deprecated in favor of encryptBytes with Protobufs for objects that need to be encrypted.
+ *
  * @param {string} did the DID and key identifier fragment resolving to the public key
  * @param {string} publicKey RSA public key (pem or base58)
  * @param {object} data data to encrypt (JSON-serializable object)
@@ -30,6 +34,8 @@ function encrypt(did, publicKey, data, encoding) {
 }
 exports.encrypt = encrypt;
 /**
+ *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
+ *
  * @param {string} did the DID and key identifier fragment resolving to the public key
  * @param {string} publicKey RSA public key (pem or base58)
  * @param {BinaryLike} data data to encrypt
