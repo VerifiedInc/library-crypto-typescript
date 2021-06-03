@@ -6,6 +6,10 @@ import { decodeKey, derToPem } from './helpers';
 import { CryptoError } from './types/CryptoError';
 
 /**
+ * Used to encode the provided data object into a string after decrypting.
+ * Should only be used if dealing with projects can ensure identical data object string encoding.
+ * For this reason it deprecated in favor of decryptBytes with Protobufs for objects that need to be encrypted and decrypted.
+ *
  * @param {string} privateKey RSA private key (pem or base58) corresponding to the public key used for encryption
  * @param {EncryptedData} encryptedData EncryptedData object, like one returned from encrypt()
  *                                      contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
@@ -14,6 +18,30 @@ import { CryptoError } from './types/CryptoError';
  * @returns {object} the decrypted object
  */
 export function decrypt (privateKey: string, encryptedData: EncryptedData, encoding: 'base58' | 'pem' = 'pem'): unknown {
+  try {
+    const decrypted: Buffer = decryptBytes(privateKey, encryptedData, encoding);
+
+    // re-encode decrypted data as a regular utf-8 string
+    const decryptedStr = decrypted.toString('utf-8');
+
+    // parse original encoded object from decrypted json string
+    return JSON.parse(decryptedStr);
+  } catch (e) {
+    throw new CryptoError(e.message, e.code);
+  }
+}
+
+/**
+ * Used to decrypt a byte array. Exposed for use with Protobuf's byte arrays.
+ *
+ * @param {string} privateKey RSA private key (pem or base58) corresponding to the public key used for encryption
+ * @param {EncryptedData} encryptedData EncryptedData object, like one returned from encrypt()
+ *                                      contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                                      key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @returns {object} the decrypted object
+ */
+export function decryptBytes (privateKey: string, encryptedData: EncryptedData, encoding: 'base58' | 'pem' = 'pem'): Buffer {
   try {
     const { data } = encryptedData;
     const { iv, key, algorithm } = encryptedData.key;
@@ -50,11 +78,7 @@ export function decrypt (privateKey: string, encryptedData: EncryptedData, encod
     const decrypted2 = decipher.final();
     const decrypted = Buffer.concat([decrypted1, decrypted2]);
 
-    // re-encode decrypted data as a regular utf-8 string
-    const decryptedStr = decrypted.toString('utf-8');
-
-    // parse original encoded object from decrypted json string
-    return JSON.parse(decryptedStr);
+    return decrypted;
   } catch (e) {
     throw new CryptoError(e.message, e.code);
   }

@@ -8,7 +8,7 @@ import { CryptoError } from './types/CryptoError';
 /**
  * Used to encode the provided data object into a string prior to signing.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
- * For this reason it deprecated in favor of using Protobufs for objects that need to be signed and verified.
+ * For this reason it deprecated in favor of signBytes for Protobufs for objects that need to be signed and verified.
  *
  * @param {*} data data to sign (JSON-serializable object)
  * @param {string} privateKey private key to sign with (pem or base58)
