@@ -40,8 +40,6 @@ exports.encrypt = encrypt;
 function encryptBytes(did, publicKey, data, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
-        // serialize data as a deterministic JSON string
-        // const stringifiedData = stringify(data);
         // decode the public key, if necessary
         var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
         // node can only encrypt with pem-encoded keys

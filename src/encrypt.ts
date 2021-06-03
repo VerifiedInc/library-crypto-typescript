@@ -39,9 +39,6 @@ export function encrypt (did: string, publicKey: string, data: unknown, encoding
  */
 export function encryptBytes (did: string, publicKey: string, data: BinaryLike, encoding: 'base58' | 'pem' = 'pem'): EncryptedData {
   try {
-    // serialize data as a deterministic JSON string
-    // const stringifiedData = stringify(data);
-
     // decode the public key, if necessary
     const decodedPublicKey = decodeKey(publicKey, encoding);
 
