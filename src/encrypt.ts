@@ -3,7 +3,7 @@ import { publicEncrypt, randomBytes, createCipheriv, constants } from 'crypto';
 import stringify from 'fast-json-stable-stringify';
 import bs58 from 'bs58';
 
-import { EncryptedData } from './types';
+import { EncryptedData } from '@unumid/types';
 import { decodeKey, derToPem } from './helpers';
 import { CryptoError } from './types/CryptoError';
 

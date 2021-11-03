@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { EncryptedData } from './types';
+import { EncryptedData } from '@unumid/types';
 declare type BinaryLike = string | NodeJS.ArrayBufferView;
 /**
  * Used to encode the provided data object into a string prior to encrypting.

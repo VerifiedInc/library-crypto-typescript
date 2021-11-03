@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { EncryptedData } from './types';
+import { EncryptedData } from '@unumid/types';
 /**
  * Used to encode the provided data object into a string after decrypting.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
