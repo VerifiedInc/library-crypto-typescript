@@ -7,10 +7,13 @@
   "author": "UnumID <admin@unummid.org>",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf build/ && tsc && cp src/types.d.ts build/",
+    "build": "rm -rf build/ && tsc",
     "jest": "jest --forceExit --runInBand",
     "test": "yarn run build && yarn run jest",
     "lint": "eslint \"src/**\" \"test/**\""
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
     "@types/jest": "^26.0.0",
