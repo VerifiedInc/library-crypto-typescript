@@ -24,7 +24,7 @@ function verify(signature, data, publicKey, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
         // serialize data as a deterministic JSON string
-        var stringifiedData = fast_json_stable_stringify_1.default(data);
+        var stringifiedData = (0, fast_json_stable_stringify_1.default)(data);
         return verifyString(signature, stringifiedData, publicKey, encoding);
     }
     catch (e) {
@@ -70,7 +70,7 @@ function verifyBytes(signature, bytes, publicKey, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
         // decode public key if necessary
-        var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
+        var decodedPublicKey = (0, helpers_1.decodeKey)(publicKey, encoding);
         // decode signature from base58 to a Buffer
         var signatureBytes = bs58_1.default.decode(signature);
         // if we pass the key to crypto.verify as a buffer, it will assume pem format

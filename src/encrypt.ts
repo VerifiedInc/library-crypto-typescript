@@ -28,7 +28,7 @@ export function encrypt (did: string, publicKey: string, data: unknown, encoding
     const stringifiedData = stringify(data);
 
     return encryptBytes(did, publicKey, stringifiedData, encoding);
-  } catch (e) {
+  } catch (e: any) {
     throw new CryptoError(e.message, e.code);
   }
 }
@@ -84,7 +84,7 @@ export function encryptBytes (did: string, publicKey: string, data: BinaryLike, 
         did
       }
     };
-  } catch (e) {
+  } catch (e: any) {
     throw new CryptoError(e.message, e.code);
   }
 }

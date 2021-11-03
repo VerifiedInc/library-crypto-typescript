@@ -26,7 +26,7 @@ export function decrypt (privateKey: string, encryptedData: EncryptedData, encod
 
     // parse original encoded object from decrypted json string
     return JSON.parse(decryptedStr);
-  } catch (e) {
+  } catch (e: any) {
     throw new CryptoError(e.message, e.code);
   }
 }
@@ -79,7 +79,7 @@ export function decryptBytes (privateKey: string, encryptedData: EncryptedData, 
     const decrypted = Buffer.concat([decrypted1, decrypted2]);
 
     return decrypted;
-  } catch (e) {
+  } catch (e: any) {
     throw new CryptoError(e.message, e.code);
   }
 }

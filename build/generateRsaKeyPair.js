@@ -70,7 +70,7 @@ function generateRsaPemKeyPair() {
         var _a, publicKey, privateKey;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, helpers_1.promisifiedGenerateKeyPair('rsa', {
+                case 0: return [4 /*yield*/, (0, helpers_1.promisifiedGenerateKeyPair)('rsa', {
                         modulusLength: 2048,
                         publicKeyEncoding: { type: 'spki', format: 'pem' },
                         privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
@@ -88,7 +88,7 @@ function generateRsaBase58KeyPair() {
         var _a, publicKey, privateKey;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, helpers_1.promisifiedGenerateKeyPair('rsa', {
+                case 0: return [4 /*yield*/, (0, helpers_1.promisifiedGenerateKeyPair)('rsa', {
                         modulusLength: 2048,
                         publicKeyEncoding: { type: 'spki', format: 'der' },
                         privateKeyEncoding: { type: 'pkcs8', format: 'der' }
