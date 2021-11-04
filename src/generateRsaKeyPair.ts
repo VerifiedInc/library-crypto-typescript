@@ -1,7 +1,7 @@
 import bs58 from 'bs58';
 
 import { promisifiedGenerateKeyPair } from './helpers';
-import { KeyPair } from './types';
+import { KeyPair } from '@unumid/types';
 
 export async function generateRsaKeyPair (encoding: 'base58' | 'pem' = 'pem'): Promise<KeyPair> {
   switch (encoding) {

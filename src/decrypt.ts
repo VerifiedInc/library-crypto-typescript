@@ -1,7 +1,7 @@
 import { privateDecrypt, createDecipheriv, constants } from 'crypto';
 import bs58 from 'bs58';
 
-import { EncryptedData } from './types';
+import { EncryptedData, EncryptedKey } from '@unumid/types';
 import { decodeKey, derToPem } from './helpers';
 import { CryptoError } from './types/CryptoError';
 
@@ -44,7 +44,7 @@ export function decrypt (privateKey: string, encryptedData: EncryptedData, encod
 export function decryptBytes (privateKey: string, encryptedData: EncryptedData, encoding: 'base58' | 'pem' = 'pem'): Buffer {
   try {
     const { data } = encryptedData;
-    const { iv, key, algorithm } = encryptedData.key;
+    const { iv, key, algorithm } = (encryptedData.key as EncryptedKey);
 
     // decode the private key, if necessary
     const decodedPrivateKey = decodeKey(privateKey, encoding);
