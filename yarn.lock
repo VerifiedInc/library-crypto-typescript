@@ -705,9 +705,10 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@unumid/types@https://github.com/UnumID/types.git#rtO":
-  version "3.13.2"
-  resolved "https://github.com/UnumID/types.git#fa06035fbb0c7ac527c37b3ded97a79ee072044e"
+"@unumid/types@3.14.1":
+  version "3.14.1"
+  resolved "https://registry.yarnpkg.com/@unumid/types/-/types-3.14.1.tgz#9d40b08270974f4e8441974497d94c6f8ec47321"
+  integrity sha512-tb+kC1jfEIBDJIi4coRyFsO6QrxeA6JWNy1/hreSO+sCNCD9tPdTifg0SXvwjilNwMYT/9u+hN9WuLhQZ8b6sQ==
   dependencies:
     google-protobuf "^3.17.0-rc.2"
     protobufjs "^6.11.2"
