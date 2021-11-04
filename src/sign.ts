@@ -25,7 +25,7 @@ export function sign (data: unknown, privateKey: string, encoding: 'base58' | 'p
 
     // return resulting Buffer encoded as a base58 string
     return signBytes(buf, privateKey, encoding);
-  } catch (e: any) {
+  } catch (e) {
     throw new CryptoError(e.message, e.code);
   }
 }
@@ -53,7 +53,7 @@ export function signBytes (bytes: Uint8Array, privateKey: string, encoding: 'bas
 
     // return resulting Buffer encoded as a base58 string
     return bs58.encode(signatureValueBuf);
-  } catch (e: any) {
+  } catch (e) {
     throw new CryptoError(e.message, e.code);
   }
 }

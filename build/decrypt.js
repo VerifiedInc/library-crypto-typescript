@@ -50,9 +50,9 @@ function decryptBytes(privateKey, encryptedData, encoding) {
         var data = encryptedData.data;
         var _a = encryptedData.key, iv = _a.iv, key = _a.key, algorithm = _a.algorithm;
         // decode the private key, if necessary
-        var decodedPrivateKey = (0, helpers_1.decodeKey)(privateKey, encoding);
+        var decodedPrivateKey = helpers_1.decodeKey(privateKey, encoding);
         // node can only decrypt with pem-encoded keys
-        var privateKeyPem = (0, helpers_1.derToPem)(decodedPrivateKey, 'private');
+        var privateKeyPem = helpers_1.derToPem(decodedPrivateKey, 'private');
         // decode aes key info and encrypted data from base58 to Buffers
         var decodedEncryptedIv = bs58_1.default.decode(iv);
         var decodedEncryptedKey = bs58_1.default.decode(key);
@@ -65,11 +65,11 @@ function decryptBytes(privateKey, encryptedData, encoding) {
             padding: crypto_1.constants.RSA_PKCS1_PADDING
         };
         // decrypt aes key info with private key
-        var decryptedIv = (0, crypto_1.privateDecrypt)(privateKeyObj, decodedEncryptedIv);
-        var decryptedKey = (0, crypto_1.privateDecrypt)(privateKeyObj, decodedEncryptedKey);
-        var decryptedAlgorithm = (0, crypto_1.privateDecrypt)(privateKeyObj, decodedEncryptedAlgorithm);
+        var decryptedIv = crypto_1.privateDecrypt(privateKeyObj, decodedEncryptedIv);
+        var decryptedKey = crypto_1.privateDecrypt(privateKeyObj, decodedEncryptedKey);
+        var decryptedAlgorithm = crypto_1.privateDecrypt(privateKeyObj, decodedEncryptedAlgorithm);
         // create aes key
-        var decipher = (0, crypto_1.createDecipheriv)(decryptedAlgorithm.toString(), decryptedKey, decryptedIv);
+        var decipher = crypto_1.createDecipheriv(decryptedAlgorithm.toString(), decryptedKey, decryptedIv);
         // decrypt data with aes key
         var decrypted1 = decipher.update(decodedEncryptedData);
         var decrypted2 = decipher.final();

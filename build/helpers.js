@@ -7,7 +7,7 @@ exports.derToPem = exports.decodeKey = exports.promisifiedGenerateKeyPair = void
 var crypto_1 = require("crypto");
 var util_1 = require("util");
 var bs58_1 = __importDefault(require("bs58"));
-exports.promisifiedGenerateKeyPair = (0, util_1.promisify)(crypto_1.generateKeyPair);
+exports.promisifiedGenerateKeyPair = util_1.promisify(crypto_1.generateKeyPair);
 function decodeKey(publicKey, encoding) {
     return encoding === 'base58' ? bs58_1.default.decode(publicKey) : publicKey;
 }

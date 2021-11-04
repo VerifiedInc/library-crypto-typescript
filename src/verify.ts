@@ -21,7 +21,7 @@ export function verify (signature: string, data: unknown, publicKey: string, enc
     // serialize data as a deterministic JSON string
     const stringifiedData = stringify(data);
     return verifyString(signature, stringifiedData, publicKey, encoding);
-  } catch (e: any) {
+  } catch (e) {
     throw new CryptoError(e.message, e.code);
   }
 }
@@ -44,7 +44,7 @@ export function verifyString (signature: string, stringifiedData: string, public
 
     // verifiy signature with the public key and return whether it succeeded
     return verifyBytes(signature, dataBuf, publicKey, encoding);
-  } catch (e: any) {
+  } catch (e) {
     throw new CryptoError(e.message, e.code);
   }
 }
@@ -76,7 +76,7 @@ export function verifyBytes (signature: string, bytes: Uint8Array, publicKey: st
     // verify the signature with the public key and return whether it succeeded
     const result = crypto.verify(null, bytes, publicKeyObj, signatureBytes);
     return result;
-  } catch (e: any) {
+  } catch (e) {
     throw new CryptoError(e.message, e.code);
   }
 }

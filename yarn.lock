@@ -705,13 +705,13 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@unumid/types@https://github.com/UnumID/types.git#rt":
+"@unumid/types@https://github.com/UnumID/types.git#rtO":
   version "3.13.2"
-  resolved "https://github.com/UnumID/types.git#1b62bd35b4629b9693b62872bb4eabc21c9100e6"
+  resolved "https://github.com/UnumID/types.git#fa06035fbb0c7ac527c37b3ded97a79ee072044e"
   dependencies:
     google-protobuf "^3.17.0-rc.2"
     protobufjs "^6.11.2"
-    runtypes "^6.5.0"
+    runtypes "6.0.0"
     semver "^7.3.5"
 
 abab@^2.0.3:
@@ -3884,10 +3884,10 @@ run-async@^2.4.0:
   resolved "https://registry.yarnpkg.com/run-async/-/run-async-2.4.1.tgz#8440eccf99ea3e70bd409d49aab88e10c189a455"
   integrity sha512-tvVnVv01b8c1RrA6Ep7JkStj85Guv/YrMcwqYQnwjsAS2cTmmPGBBjAjpCW7RrSodNSoE2/qg9O4bceNvUuDgQ==
 
-runtypes@^6.5.0:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/runtypes/-/runtypes-6.5.0.tgz#019c70c8f20659ca0339c95cb1e881573ba30d82"
-  integrity sha512-+jK1mRi6KvZ9m+LGxCYUY9CJMxCLz8LDRiGtBrq5UKvgOv2MocrXMc2D1dDkY7gRR8BzfG64yTsGdS2aC7arpQ==
+runtypes@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/runtypes/-/runtypes-6.0.0.tgz#0010e7e050a41d4ab38b6138051dfb8774a53f07"
+  integrity sha512-hVBZ2S0i9MmyViSpwCU7TGFuEZxjPIeTMbhCpz59/8C3IGbPL6N03bIVALGfVWZQ+MTXORjWpWnZUP3hPyw96w==
 
 rxjs@^6.5.3:
   version "6.5.5"
@@ -4533,10 +4533,10 @@ typedoc@^0.20.36:
     shiki "^0.9.3"
     typedoc-default-themes "^0.12.10"
 
-typescript@^4.4.4:
-  version "4.4.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.4.tgz#2cd01a1a1f160704d3101fd5a58ff0f9fcb8030c"
-  integrity sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==
+typescript@^3.9.7:
+  version "3.9.10"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.10.tgz#70f3910ac7a51ed6bef79da7800690b19bf778b8"
+  integrity sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==
 
 uglify-js@^3.1.4:
   version "3.13.6"

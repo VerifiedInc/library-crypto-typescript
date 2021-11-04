@@ -23,7 +23,7 @@ function sign(data, privateKey, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
         // serialize data as a deterministic JSON string
-        var stringifiedData = (0, fast_json_stable_stringify_1.default)(data);
+        var stringifiedData = fast_json_stable_stringify_1.default(data);
         // convert to a Buffer and sign with private key
         var buf = Buffer.from(stringifiedData);
         // return resulting Buffer encoded as a base58 string
@@ -46,7 +46,7 @@ exports.sign = sign;
 function signBytes(bytes, privateKey, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
-        var decodedPrivateKey = (0, helpers_1.decodeKey)(privateKey, encoding);
+        var decodedPrivateKey = helpers_1.decodeKey(privateKey, encoding);
         // if we pass the key to crypto.sign as a buffer, it will assume pem format
         // we need to convert it to a KeyObject first in order to use der formatted keys
         var format = encoding === 'pem' ? 'pem' : 'der';
