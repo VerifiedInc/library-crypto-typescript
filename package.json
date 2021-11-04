@@ -29,7 +29,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^26.0.1",
     "ts-jest": "^26.1.0",
-    "typescript": "^4.2.3"
+    "typescript": "^4.4.4"
   },
   "dependencies": {
     "@types/bs58": "^4.0.1",
