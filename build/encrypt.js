@@ -7,8 +7,10 @@ exports.encryptBytes = exports.encrypt = void 0;
 var crypto_1 = require("crypto");
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
 var bs58_1 = __importDefault(require("bs58"));
+var types_1 = require("@unumid/types");
 var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
+var utils_1 = require("./utils");
 /**
  * Used to encode the provided data object into a string prior to encrypting.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
@@ -18,18 +20,25 @@ var CryptoError_1 = require("./types/CryptoError");
  * @param {string} publicKey RSA public key (pem or base58)
  * @param {object} data data to encrypt (JSON-serializable object)
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @param { RSAPadding} rsaPadding padding to use for RSA encryption (PKCS1 v1.5 or OAEP).
+ *                                 Necessary because web crypto only supports OAEP padding for decryption,
+ *                                 and cannot decrypt data encrypted with PKCS1 v1.5 padding.
+ *                                 Defaults to PKCS to preserve backwards compatibility,
+ *                                 as older public keys (from before we used web crypto) do not specify a padding.
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-function encrypt(did, publicKey, data, encoding) {
+function encrypt(did, publicKey, data, encoding, rsaPadding) {
     if (encoding === void 0) { encoding = 'pem'; }
+    if (rsaPadding === void 0) { rsaPadding = types_1.RSAPadding.PKCS; }
     try {
         // serialize data as a deterministic JSON string
         var stringifiedData = fast_json_stable_stringify_1.default(data);
-        return encryptBytes(did, publicKey, stringifiedData, encoding);
+        return encryptBytes(did, publicKey, stringifiedData, encoding, rsaPadding);
     }
     catch (e) {
-        throw new CryptoError_1.CryptoError(e.message, e.code);
+        var cryptoError = e;
+        throw new CryptoError_1.CryptoError(cryptoError.message, cryptoError.code);
     }
 }
 exports.encrypt = encrypt;
@@ -43,8 +52,9 @@ exports.encrypt = encrypt;
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-function encryptBytes(did, publicKey, data, encoding) {
+function encryptBytes(did, publicKey, data, encoding, rsaPadding) {
     if (encoding === void 0) { encoding = 'pem'; }
+    if (rsaPadding === void 0) { rsaPadding = types_1.RSAPadding.PKCS; }
     try {
         // decode the public key, if necessary
         var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
@@ -60,10 +70,10 @@ function encryptBytes(did, publicKey, data, encoding) {
         var encrypted2 = cipher.final();
         var encrypted = Buffer.concat([encrypted1, encrypted2]);
         // we need to use a key object to set non-default padding
-        // for interoperability with android/ios cryptography implementations
+        // for interoperability with android/ios/webcrypto cryptography implementations
         var publicKeyObj = {
             key: publicKeyPem,
-            padding: crypto_1.constants.RSA_PKCS1_PADDING
+            padding: utils_1.getPadding(rsaPadding)
         };
         // encrypt aes key with public key
         var encryptedIv = crypto_1.publicEncrypt(publicKeyObj, iv);
@@ -77,11 +87,13 @@ function encryptBytes(did, publicKey, data, encoding) {
                 key: bs58_1.default.encode(encryptedKey),
                 algorithm: bs58_1.default.encode(encryptedAlgo),
                 did: did
-            }
+            },
+            rsaPadding: rsaPadding
         };
     }
     catch (e) {
-        throw new CryptoError_1.CryptoError(e.message, e.code);
+        var cryptoError = e;
+        throw new CryptoError_1.CryptoError(cryptoError.message, cryptoError.code);
     }
 }
 exports.encryptBytes = encryptBytes;

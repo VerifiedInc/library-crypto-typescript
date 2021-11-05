@@ -1,11 +1,11 @@
 import crypto from 'crypto';
+import { EncryptedData, RSAPadding } from '@unumid/types';
 
-import { decrypt } from '../src/decrypt';
-import { encrypt } from '../src/encrypt';
+import { decrypt, decryptBytes } from '../src/decrypt';
+import { encrypt, encryptBytes } from '../src/encrypt';
 import { sign } from '../src/sign';
 import { generateRsaKeyPair } from '../src/generateRsaKeyPair';
 import { generateEccKeyPair } from '../src/generateEccKeyPair';
-import { EncryptedData } from '../src/types';
 import { derToPem, decodeKey } from '../src/helpers';
 import { CryptoError } from '../src/types/CryptoError';
 
@@ -17,6 +17,14 @@ describe('decrypt', () => {
   let encryptedData: EncryptedData;
   let encryptedCredential;
   let credential;
+
+  beforeEach(() => {
+    jest.spyOn(crypto, 'privateDecrypt');
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   describe('using default (pem) encoding', () => {
     beforeAll(async () => {
@@ -323,5 +331,43 @@ describe('decrypt', () => {
         expect(e).toBeInstanceOf(CryptoError);
       }
     });
+  });
+
+  test('rsa padding', async () => {
+    const keys = await generateRsaKeyPair();
+    const data = Buffer.from('test');
+    const mockPrivateDecrypt = crypto.privateDecrypt as jest.Mock;
+
+    // default (PKCS)
+    const encryptedDefault = encryptBytes(subjectDid, keys.publicKey, data, 'pem');
+
+    const decryptedDefault = decryptBytes(
+      keys.privateKey,
+      { data: encryptedDefault.data, key: encryptedDefault.key },
+      'pem'
+    );
+
+    expect(decryptedDefault).toEqual(data);
+    expect((crypto.privateDecrypt as jest.Mock).mock.calls[0][0].padding).toEqual(crypto.constants.RSA_PKCS1_PADDING);
+
+    mockPrivateDecrypt.mockClear();
+
+    // PKCS
+    const encryptedPKCS = encryptBytes(subjectDid, keys.publicKey, data, 'pem');
+
+    const decryptedPKCS = decryptBytes(keys.privateKey, encryptedPKCS);
+
+    expect(decryptedPKCS).toEqual(data);
+    expect((crypto.privateDecrypt as jest.Mock).mock.calls[0][0].padding).toEqual(crypto.constants.RSA_PKCS1_PADDING);
+
+    mockPrivateDecrypt.mockClear();
+
+    // OAEP
+    const encryptedOAEP = encryptBytes(subjectDid, keys.publicKey, data, 'pem', RSAPadding.OAEP);
+
+    const decryptedOAEP = decryptBytes(keys.privateKey, encryptedOAEP);
+
+    expect(decryptedOAEP).toEqual(data);
+    expect((crypto.privateDecrypt as jest.Mock).mock.calls[0][0].padding).toEqual(crypto.constants.RSA_PKCS1_OAEP_PADDING);
   });
 });

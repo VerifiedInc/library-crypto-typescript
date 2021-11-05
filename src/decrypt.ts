@@ -1,9 +1,10 @@
-import { privateDecrypt, createDecipheriv, constants } from 'crypto';
+import { privateDecrypt, createDecipheriv } from 'crypto';
 import bs58 from 'bs58';
 
-import { EncryptedData, EncryptedKey } from '@unumid/types';
+import { EncryptedData, EncryptedKey, RSAPadding } from '@unumid/types';
 import { decodeKey, derToPem } from './helpers';
 import { CryptoError } from './types/CryptoError';
+import { getPadding } from './utils';
 
 /**
  * Used to encode the provided data object into a string after decrypting.
@@ -27,7 +28,8 @@ export function decrypt (privateKey: string, encryptedData: EncryptedData, encod
     // parse original encoded object from decrypted json string
     return JSON.parse(decryptedStr);
   } catch (e) {
-    throw new CryptoError(e.message, e.code);
+    const cryptoError = e as CryptoError;
+    throw new CryptoError(cryptoError.message, cryptoError.code);
   }
 }
 
@@ -59,10 +61,10 @@ export function decryptBytes (privateKey: string, encryptedData: EncryptedData, 
     const decodedEncryptedData = bs58.decode(data);
 
     // we need to use a key object to set non-default padding
-    // for interoperability with android/ios cryptography implementations
+    // for interoperability with android/ios/webcrypto cryptography implementations
     const privateKeyObj = {
       key: privateKeyPem,
-      padding: constants.RSA_PKCS1_PADDING
+      padding: getPadding(encryptedData.rsaPadding || RSAPadding.PKCS)
     };
 
     // decrypt aes key info with private key
@@ -80,6 +82,7 @@ export function decryptBytes (privateKey: string, encryptedData: EncryptedData, 
 
     return decrypted;
   } catch (e) {
-    throw new CryptoError(e.message, e.code);
+    const cryptoError = e as CryptoError;
+    throw new CryptoError(cryptoError.message, cryptoError.code);
   }
 }
