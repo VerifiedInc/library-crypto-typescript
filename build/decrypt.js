@@ -6,8 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.decryptBytes = exports.decrypt = void 0;
 var crypto_1 = require("crypto");
 var bs58_1 = __importDefault(require("bs58"));
+var types_1 = require("@unumid/types");
 var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
+var utils_1 = require("./utils");
 /**
  * Used to encode the provided data object into a string after decrypting.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
@@ -30,7 +32,8 @@ function decrypt(privateKey, encryptedData, encoding) {
         return JSON.parse(decryptedStr);
     }
     catch (e) {
-        throw new CryptoError_1.CryptoError(e.message, e.code);
+        var cryptoError = e;
+        throw new CryptoError_1.CryptoError(cryptoError.message, cryptoError.code);
     }
 }
 exports.decrypt = decrypt;
@@ -59,10 +62,10 @@ function decryptBytes(privateKey, encryptedData, encoding) {
         var decodedEncryptedAlgorithm = bs58_1.default.decode(algorithm);
         var decodedEncryptedData = bs58_1.default.decode(data);
         // we need to use a key object to set non-default padding
-        // for interoperability with android/ios cryptography implementations
+        // for interoperability with android/ios/webcrypto cryptography implementations
         var privateKeyObj = {
             key: privateKeyPem,
-            padding: crypto_1.constants.RSA_PKCS1_PADDING
+            padding: utils_1.getPadding(encryptedData.rsaPadding || types_1.RSAPadding.PKCS)
         };
         // decrypt aes key info with private key
         var decryptedIv = crypto_1.privateDecrypt(privateKeyObj, decodedEncryptedIv);
@@ -77,7 +80,8 @@ function decryptBytes(privateKey, encryptedData, encoding) {
         return decrypted;
     }
     catch (e) {
-        throw new CryptoError_1.CryptoError(e.message, e.code);
+        var cryptoError = e;
+        throw new CryptoError_1.CryptoError(cryptoError.message, cryptoError.code);
     }
 }
 exports.decryptBytes = decryptBytes;
