@@ -99,7 +99,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/e0c1330/src/decrypt.ts#L20">src/decrypt.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/8bbe132/src/decrypt.ts#L21">src/decrypt.ts:21</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -147,7 +147,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/e0c1330/src/decrypt.ts#L44">src/decrypt.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/8bbe132/src/decrypt.ts#L46">src/decrypt.ts:46</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -187,13 +187,13 @@
 					<a name="encrypt" class="tsd-anchor"></a>
 					<h3>encrypt</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">encrypt<span class="tsd-signature-symbol">(</span>did<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EncryptedData</span></li>
+						<li class="tsd-signature tsd-kind-icon">encrypt<span class="tsd-signature-symbol">(</span>did<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span>, rsaPadding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">RSAPadding</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EncryptedData</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/e0c1330/src/encrypt.ts#L25">src/encrypt.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/8bbe132/src/encrypt.ts#L31">src/encrypt.ts:31</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -229,6 +229,16 @@
 										<p>the encoding used for the publicKey (&#39;base58&#39; or &#39;pem&#39;, default &#39;pem&#39;)</p>
 									</div>
 								</li>
+								<li>
+									<h5>rsaPadding: <span class="tsd-signature-type">RSAPadding</span><span class="tsd-signature-symbol"> = ...</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>padding to use for RSA encryption (PKCS1 v1.5 or OAEP).
+											Necessary because web crypto only supports OAEP padding for decryption,
+											and cannot decrypt data encrypted with PKCS1 v1.5 padding.
+											Defaults to PKCS to preserve backwards compatibility,
+										as older public keys (from before we used web crypto) do not specify a padding.</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EncryptedData</span></h4>
 							<p>contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
@@ -240,13 +250,13 @@
 					<a name="encryptbytes" class="tsd-anchor"></a>
 					<h3>encrypt<wbr>Bytes</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">encrypt<wbr>Bytes<span class="tsd-signature-symbol">(</span>did<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BinaryLike</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EncryptedData</span></li>
+						<li class="tsd-signature tsd-kind-icon">encrypt<wbr>Bytes<span class="tsd-signature-symbol">(</span>did<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BinaryLike</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span>, rsaPadding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">RSAPadding</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EncryptedData</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/e0c1330/src/encrypt.ts#L46">src/encrypt.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/8bbe132/src/encrypt.ts#L59">src/encrypt.ts:59</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -280,6 +290,9 @@
 										<p>the encoding used for the publicKey (&#39;base58&#39; or &#39;pem&#39;, default &#39;pem&#39;)</p>
 									</div>
 								</li>
+								<li>
+									<h5>rsaPadding: <span class="tsd-signature-type">RSAPadding</span><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EncryptedData</span></h4>
 							<p>contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
@@ -297,7 +310,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/e0c1330/src/generateEccKeyPair.ts#L6">src/generateEccKeyPair.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/8bbe132/src/generateEccKeyPair.ts#L6">src/generateEccKeyPair.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -320,7 +333,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/e0c1330/src/generateRsaKeyPair.ts#L6">src/generateRsaKeyPair.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/8bbe132/src/generateRsaKeyPair.ts#L6">src/generateRsaKeyPair.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -343,7 +356,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/e0c1330/src/sign.ts#L18">src/sign.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/8bbe132/src/sign.ts#L18">src/sign.ts:18</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -389,7 +402,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/e0c1330/src/sign.ts#L42">src/sign.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/8bbe132/src/sign.ts#L42">src/sign.ts:42</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -434,7 +447,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/e0c1330/src/validatePublicKey.ts#L10">src/validatePublicKey.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/8bbe132/src/validatePublicKey.ts#L10">src/validatePublicKey.ts:10</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -467,7 +480,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/e0c1330/src/verify.ts#L19">src/verify.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/8bbe132/src/verify.ts#L19">src/verify.ts:19</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -519,7 +532,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/e0c1330/src/verify.ts#L62">src/verify.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/8bbe132/src/verify.ts#L62">src/verify.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -570,7 +583,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/e0c1330/src/verify.ts#L40">src/verify.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/8bbe132/src/verify.ts#L40">src/verify.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
