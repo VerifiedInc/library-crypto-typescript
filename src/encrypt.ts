@@ -3,9 +3,10 @@ import { publicEncrypt, randomBytes, createCipheriv, constants } from 'crypto';
 import stringify from 'fast-json-stable-stringify';
 import bs58 from 'bs58';
 
-import { EncryptedData } from '@unumid/types';
+import { EncryptedData, RSAPadding } from '@unumid/types';
 import { decodeKey, derToPem } from './helpers';
 import { CryptoError } from './types/CryptoError';
+import { getPadding } from './utils';
 
 // from node.crypto lib
 type BinaryLike = string | NodeJS.ArrayBufferView;
@@ -19,17 +20,29 @@ type BinaryLike = string | NodeJS.ArrayBufferView;
  * @param {string} publicKey RSA public key (pem or base58)
  * @param {object} data data to encrypt (JSON-serializable object)
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @param { RSAPadding} rsaPadding padding to use for RSA encryption (PKCS1 v1.5 or OAEP).
+ *                                 Necessary because web crypto only supports OAEP padding for decryption,
+ *                                 and cannot decrypt data encrypted with PKCS1 v1.5 padding.
+ *                                 Defaults to PKCS to preserve backwards compatibility,
+ *                                 as older public keys (from before we used web crypto) do not specify a padding.
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-export function encrypt (did: string, publicKey: string, data: unknown, encoding: 'base58' | 'pem' = 'pem'): EncryptedData {
+export function encrypt (
+  did: string,
+  publicKey: string,
+  data: unknown,
+  encoding: 'base58' | 'pem' = 'pem',
+  rsaPadding: RSAPadding = RSAPadding.PKCS
+): EncryptedData {
   try {
     // serialize data as a deterministic JSON string
     const stringifiedData = stringify(data);
 
-    return encryptBytes(did, publicKey, stringifiedData, encoding);
+    return encryptBytes(did, publicKey, stringifiedData, encoding, rsaPadding);
   } catch (e) {
-    throw new CryptoError(e.message, e.code);
+    const cryptoError = e as CryptoError;
+    throw new CryptoError(cryptoError.message, cryptoError.code);
   }
 }
 
@@ -43,7 +56,13 @@ export function encrypt (did: string, publicKey: string, data: unknown, encoding
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-export function encryptBytes (did: string, publicKey: string, data: BinaryLike, encoding: 'base58' | 'pem' = 'pem'): EncryptedData {
+export function encryptBytes (
+  did: string,
+  publicKey: string,
+  data: BinaryLike,
+  encoding: 'base58' | 'pem' = 'pem',
+  rsaPadding: RSAPadding = RSAPadding.PKCS
+): EncryptedData {
   try {
     // decode the public key, if necessary
     const decodedPublicKey = decodeKey(publicKey, encoding);
@@ -63,10 +82,10 @@ export function encryptBytes (did: string, publicKey: string, data: BinaryLike, 
     const encrypted = Buffer.concat([encrypted1, encrypted2]);
 
     // we need to use a key object to set non-default padding
-    // for interoperability with android/ios cryptography implementations
+    // for interoperability with android/ios/webcrypto cryptography implementations
     const publicKeyObj = {
       key: publicKeyPem,
-      padding: constants.RSA_PKCS1_PADDING
+      padding: getPadding(rsaPadding)
     };
 
     // encrypt aes key with public key
@@ -82,9 +101,11 @@ export function encryptBytes (did: string, publicKey: string, data: BinaryLike, 
         key: bs58.encode(encryptedKey),
         algorithm: bs58.encode(encryptedAlgo),
         did
-      }
+      },
+      rsaPadding
     };
   } catch (e) {
-    throw new CryptoError(e.message, e.code);
+    const cryptoError = e as CryptoError;
+    throw new CryptoError(cryptoError.message, cryptoError.code);
   }
 }

@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { EncryptedData } from '@unumid/types';
+import { EncryptedData, RSAPadding } from '@unumid/types';
 declare type BinaryLike = string | NodeJS.ArrayBufferView;
 /**
  * Used to encode the provided data object into a string prior to encrypting.
@@ -10,10 +10,15 @@ declare type BinaryLike = string | NodeJS.ArrayBufferView;
  * @param {string} publicKey RSA public key (pem or base58)
  * @param {object} data data to encrypt (JSON-serializable object)
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @param { RSAPadding} rsaPadding padding to use for RSA encryption (PKCS1 v1.5 or OAEP).
+ *                                 Necessary because web crypto only supports OAEP padding for decryption,
+ *                                 and cannot decrypt data encrypted with PKCS1 v1.5 padding.
+ *                                 Defaults to PKCS to preserve backwards compatibility,
+ *                                 as older public keys (from before we used web crypto) do not specify a padding.
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-export declare function encrypt(did: string, publicKey: string, data: unknown, encoding?: 'base58' | 'pem'): EncryptedData;
+export declare function encrypt(did: string, publicKey: string, data: unknown, encoding?: 'base58' | 'pem', rsaPadding?: RSAPadding): EncryptedData;
 /**
  *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
  *
@@ -24,6 +29,6 @@ export declare function encrypt(did: string, publicKey: string, data: unknown, e
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-export declare function encryptBytes(did: string, publicKey: string, data: BinaryLike, encoding?: 'base58' | 'pem'): EncryptedData;
+export declare function encryptBytes(did: string, publicKey: string, data: BinaryLike, encoding?: 'base58' | 'pem', rsaPadding?: RSAPadding): EncryptedData;
 export {};
 //# sourceMappingURL=encrypt.d.ts.map

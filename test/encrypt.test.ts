@@ -1,3 +1,4 @@
+import { RSAPadding } from '@unumid/types';
 import crypto from 'crypto';
 import stringify from 'fast-json-stable-stringify';
 
@@ -71,6 +72,28 @@ describe('encrypt', () => {
       expect(encryptedData.key.key).toBeDefined();
       expect(encryptedData.key.algorithm).toBeDefined();
       expect(encryptedData.key.did).toEqual(subjectDid);
+    });
+
+    it('includes the rsa padding in the encrypted data, defaulting to PKCS', () => {
+      // defaults to pkcs
+      const encryptedDataDefault = encrypt(subjectDid, publicKey, data);
+      expect(encryptedDataDefault.rsaPadding).toEqual(RSAPadding.PKCS);
+
+      // sets pkcs
+      const encryptedDataPKCS = encrypt(subjectDid, publicKey, data, 'pem', RSAPadding.PKCS);
+      expect(encryptedDataPKCS.rsaPadding).toEqual(RSAPadding.PKCS);
+
+      // sets oaep
+      const encryptedDataOAEP = encrypt(subjectDid, publicKey, data, 'pem', RSAPadding.OAEP);
+      expect(encryptedDataOAEP.rsaPadding).toEqual(RSAPadding.OAEP);
+
+      // fails if padding is unrecognized
+      try {
+        encrypt(subjectDid, publicKey, data, 'pem', RSAPadding.UNRECOGNIZED);
+        fail('Unrecognized RSA padding.');
+      } catch (e) {
+        expect(e).toEqual(new CryptoError('Unrecognized RSA padding.'));
+      }
     });
   });
 
