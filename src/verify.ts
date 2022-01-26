@@ -6,6 +6,7 @@ import { decodeKey } from './helpers';
 import { CryptoError } from './types/CryptoError';
 
 /**
+ * @deprecated prefer signBytes
  * Used to verify the provide data object against a provided Base58 encode signature.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
  * For this reason it deprecated in favor of verifyBytes for Protobufs for objects that need to be signed and leveraging signBytes.
@@ -27,6 +28,7 @@ export function verify (signature: string, data: unknown, publicKey: string, enc
 }
 
 /**
+ * @deprecated prefer signBytes
  * Used to verify the provide data string against a provided Base58 encode signature.
  * A less than ideal situation of being handling a string representation of the signed object for reason of then having to convert back to the object.
  * For this reason it deprecated in favor of using Protobufs for objects that need to be signed and verified.

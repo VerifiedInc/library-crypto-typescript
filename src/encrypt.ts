@@ -12,6 +12,7 @@ import { getPadding } from './utils';
 type BinaryLike = string | NodeJS.ArrayBufferView;
 
 /**
+ * @deprecated prefer encryptBytes
  * Used to encode the provided data object into a string prior to encrypting.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
  * For this reason it deprecated in favor of encryptBytes with Protobufs for objects that need to be encrypted.
