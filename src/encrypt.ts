@@ -7,6 +7,7 @@ import { EncryptedData, RSAPadding } from '@unumid/types';
 import { decodeKey, derToPem } from './helpers';
 import { CryptoError } from './types/CryptoError';
 import { getPadding } from './utils';
+import { PublicKeyInfo } from '@unumid/types/build/protos/crypto';
 
 // from node.crypto lib
 type BinaryLike = string | NodeJS.ArrayBufferView;
@@ -109,4 +110,31 @@ export function encryptBytes (
     const cryptoError = e as CryptoError;
     throw new CryptoError(cryptoError.message, cryptoError.code);
   }
+}
+
+/**
+ *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
+ *
+ * @param {string} did the DID and key identifier fragment resolving to the public key
+ * @param {string} publicKey RSA public key (pem or base58)
+ * @param {BinaryLike} data data to encrypt
+ * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ */
+export function encryptBytesV2 (
+  did: string,
+  publicKey: PublicKeyInfo,
+  data: BinaryLike,
+  rsaPadding: RSAPadding = RSAPadding.PKCS
+): EncryptedData {
+  if (!publicKey.publicKey) {
+    throw new CryptoError('Public key is missing');
+  }
+
+  if (!publicKey.encoding) {
+    throw new CryptoError('Public key encoding is missing');
+  }
+
+  return encryptBytes(did, publicKey.publicKey, data, publicKey.encoding as 'base58' | 'pem', rsaPadding);
 }
