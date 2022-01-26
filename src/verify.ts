@@ -90,8 +90,7 @@ export function verifyBytes (signature: string, bytes: Uint8Array, publicKey: st
  *
  * @param {string} signature base58 signature, like one created with sign()
  * @param {Uint8Array} bytes byte array to verify
- * @param {string} publicKey public key corresponding to the private key used to create the signature (pem or base58)
- * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @param {PublicKeyInfo} publicKey PublicKeyInfo corresponding to the private key used to create the signature (pem or base58)
  * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
  */
 export function verifyBytesV2 (signature: string, bytes: Uint8Array, publicKey: PublicKeyInfo): boolean {
