@@ -4,6 +4,7 @@ import bs58 from 'bs58';
 
 import { decodeKey } from './helpers';
 import { CryptoError } from './types/CryptoError';
+import { PublicKeyInfo } from '@unumid/types';
 
 /**
  * @deprecated prefer signBytes
@@ -52,7 +53,7 @@ export function verifyString (signature: string, stringifiedData: string, public
 }
 
 /**
- * Used to verify a byte array. Exported thanks to the property of Protobuf's ability to encode to bytes and decode back
+ * Used to verify a byte array. The new defacto verify function thanks to the property of Protobuf's ability to encode to bytes and decode back
  * an object in a deterministic fashion.
  *
  * @param {string} signature base58 signature, like one created with sign()
@@ -81,4 +82,26 @@ export function verifyBytes (signature: string, bytes: Uint8Array, publicKey: st
   } catch (e) {
     throw new CryptoError(e.message, e.code);
   }
+}
+
+/**
+ * Used to verify a byte array. The new defacto verify function thanks to the property of Protobuf's ability to encode to bytes and decode back
+ * an object in a deterministic fashion.
+ *
+ * @param {string} signature base58 signature, like one created with sign()
+ * @param {Uint8Array} bytes byte array to verify
+ * @param {string} publicKey public key corresponding to the private key used to create the signature (pem or base58)
+ * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
+ */
+export function verifyBytesV2 (signature: string, bytes: Uint8Array, publicKey: PublicKeyInfo): boolean {
+  if (!publicKey.publicKey) {
+    throw new CryptoError('Public key is missing');
+  }
+
+  if (!publicKey.encoding) {
+    throw new CryptoError('Public key encoding is missing');
+  }
+
+  return verifyBytes(signature, bytes, publicKey.publicKey, publicKey.encoding);
 }
