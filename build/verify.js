@@ -3,13 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyBytes = exports.verifyString = exports.verify = void 0;
+exports.verifyBytesV2 = exports.verifyBytes = exports.verifyString = exports.verify = void 0;
 var crypto_1 = __importDefault(require("crypto"));
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
 var bs58_1 = __importDefault(require("bs58"));
 var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
 /**
+ * @deprecated prefer signBytes
  * Used to verify the provide data object against a provided Base58 encode signature.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
  * For this reason it deprecated in favor of verifyBytes for Protobufs for objects that need to be signed and leveraging signBytes.
@@ -33,6 +34,7 @@ function verify(signature, data, publicKey, encoding) {
 }
 exports.verify = verify;
 /**
+ * @deprecated prefer signBytes
  * Used to verify the provide data string against a provided Base58 encode signature.
  * A less than ideal situation of being handling a string representation of the signed object for reason of then having to convert back to the object.
  * For this reason it deprecated in favor of using Protobufs for objects that need to be signed and verified.
@@ -57,7 +59,7 @@ function verifyString(signature, stringifiedData, publicKey, encoding) {
 }
 exports.verifyString = verifyString;
 /**
- * Used to verify a byte array. Exported thanks to the property of Protobuf's ability to encode to bytes and decode back
+ * Used to verify a byte array. The new defacto verify function thanks to the property of Protobuf's ability to encode to bytes and decode back
  * an object in a deterministic fashion.
  *
  * @param {string} signature base58 signature, like one created with sign()
@@ -87,4 +89,23 @@ function verifyBytes(signature, bytes, publicKey, encoding) {
     }
 }
 exports.verifyBytes = verifyBytes;
+/**
+ * Used to verify a byte array. The new defacto verify function thanks to the property of Protobuf's ability to encode to bytes and decode back
+ * an object in a deterministic fashion.
+ *
+ * @param {string} signature base58 signature, like one created with sign()
+ * @param {Uint8Array} bytes byte array to verify
+ * @param {PublicKeyInfo} publicKey PublicKeyInfo corresponding to the private key used to create the signature (pem or base58)
+ * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
+ */
+function verifyBytesV2(signature, bytes, publicKey) {
+    if (!publicKey.publicKey) {
+        throw new CryptoError_1.CryptoError('Public key is missing');
+    }
+    if (!publicKey.encoding) {
+        throw new CryptoError_1.CryptoError('Public key encoding is missing');
+    }
+    return verifyBytes(signature, bytes, publicKey.publicKey, publicKey.encoding);
+}
+exports.verifyBytesV2 = verifyBytesV2;
 //# sourceMappingURL=verify.js.map

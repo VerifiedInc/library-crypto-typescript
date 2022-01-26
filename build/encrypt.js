@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.encryptBytes = exports.encrypt = void 0;
+exports.encryptBytesV2 = exports.encryptBytes = exports.encrypt = void 0;
 var crypto_1 = require("crypto");
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
 var bs58_1 = __importDefault(require("bs58"));
@@ -12,6 +12,7 @@ var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
 var utils_1 = require("./utils");
 /**
+ * @deprecated prefer encryptBytes
  * Used to encode the provided data object into a string prior to encrypting.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
  * For this reason it deprecated in favor of encryptBytes with Protobufs for objects that need to be encrypted.
@@ -97,4 +98,24 @@ function encryptBytes(did, publicKey, data, encoding, rsaPadding) {
     }
 }
 exports.encryptBytes = encryptBytes;
+/**
+ *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
+ *
+ * @param {string} did the DID and key identifier fragment resolving to the public key
+ * @param {PublicKeyInfo} publicKey RSA publicKeyInfo
+ * @param {BinaryLike} data data to encrypt
+ * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ */
+function encryptBytesV2(did, publicKey, data, rsaPadding) {
+    if (rsaPadding === void 0) { rsaPadding = types_1.RSAPadding.PKCS; }
+    if (!publicKey.publicKey) {
+        throw new CryptoError_1.CryptoError('Public key is missing');
+    }
+    if (!publicKey.encoding) {
+        throw new CryptoError_1.CryptoError('Public key encoding is missing');
+    }
+    return encryptBytes(did, publicKey.publicKey, data, publicKey.encoding, rsaPadding);
+}
+exports.encryptBytesV2 = encryptBytesV2;
 //# sourceMappingURL=encrypt.js.map

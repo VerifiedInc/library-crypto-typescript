@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.decryptBytes = exports.decrypt = void 0;
+exports.decryptBytesV2 = exports.decryptBytes = exports.decrypt = void 0;
 var crypto_1 = require("crypto");
 var bs58_1 = __importDefault(require("bs58"));
 var types_1 = require("@unumid/types");
@@ -11,6 +11,7 @@ var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
 var utils_1 = require("./utils");
 /**
+ * @deprecated prefer decryptBytes
  * Used to encode the provided data object into a string after decrypting.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
  * For this reason it deprecated in favor of decryptBytes with Protobufs for objects that need to be encrypted and decrypted.
@@ -85,4 +86,24 @@ function decryptBytes(privateKey, encryptedData, encoding) {
     }
 }
 exports.decryptBytes = decryptBytes;
+/**
+ * Used to decrypt a byte array. Exposed for use with Protobuf's byte arrays.
+ *
+ * @param {string} privateKey RSA private key (pem or base58) corresponding to the public key used for encryption
+ * @param {EncryptedData} encryptedData EncryptedData object, like one returned from encrypt()
+ *                                      contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                                      key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ * @returns {object} the decrypted object
+ */
+function decryptBytesV2(encryptedData, privateKey) {
+    if (!privateKey) {
+        throw new CryptoError_1.CryptoError('Private key is missing');
+    }
+    var encoding = 'base58';
+    if (privateKey.includes('PUBLIC KEY')) {
+        encoding = 'pem';
+    }
+    return decryptBytes(privateKey, encryptedData, encoding);
+}
+exports.decryptBytesV2 = decryptBytesV2;
 //# sourceMappingURL=decrypt.js.map

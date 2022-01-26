@@ -1,4 +1,6 @@
+import { PublicKeyInfo } from '@unumid/types';
 /**
+ * @deprecated prefer signBytes
  * Used to verify the provide data object against a provided Base58 encode signature.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
  * For this reason it deprecated in favor of verifyBytes for Protobufs for objects that need to be signed and leveraging signBytes.
@@ -11,6 +13,7 @@
  */
 export declare function verify(signature: string, data: unknown, publicKey: string, encoding?: 'base58' | 'pem'): boolean;
 /**
+ * @deprecated prefer signBytes
  * Used to verify the provide data string against a provided Base58 encode signature.
  * A less than ideal situation of being handling a string representation of the signed object for reason of then having to convert back to the object.
  * For this reason it deprecated in favor of using Protobufs for objects that need to be signed and verified.
@@ -23,7 +26,7 @@ export declare function verify(signature: string, data: unknown, publicKey: stri
  */
 export declare function verifyString(signature: string, stringifiedData: string, publicKey: string, encoding?: 'base58' | 'pem'): boolean;
 /**
- * Used to verify a byte array. Exported thanks to the property of Protobuf's ability to encode to bytes and decode back
+ * Used to verify a byte array. The new defacto verify function thanks to the property of Protobuf's ability to encode to bytes and decode back
  * an object in a deterministic fashion.
  *
  * @param {string} signature base58 signature, like one created with sign()
@@ -33,4 +36,14 @@ export declare function verifyString(signature: string, stringifiedData: string,
  * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
  */
 export declare function verifyBytes(signature: string, bytes: Uint8Array, publicKey: string, encoding?: 'base58' | 'pem'): boolean;
+/**
+ * Used to verify a byte array. The new defacto verify function thanks to the property of Protobuf's ability to encode to bytes and decode back
+ * an object in a deterministic fashion.
+ *
+ * @param {string} signature base58 signature, like one created with sign()
+ * @param {Uint8Array} bytes byte array to verify
+ * @param {PublicKeyInfo} publicKey PublicKeyInfo corresponding to the private key used to create the signature (pem or base58)
+ * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
+ */
+export declare function verifyBytesV2(signature: string, bytes: Uint8Array, publicKey: PublicKeyInfo): boolean;
 //# sourceMappingURL=verify.d.ts.map
