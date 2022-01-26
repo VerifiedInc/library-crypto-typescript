@@ -87,3 +87,27 @@ export function decryptBytes (privateKey: string, encryptedData: EncryptedData, 
     throw new CryptoError(cryptoError.message, cryptoError.code);
   }
 }
+
+/**
+ * Used to decrypt a byte array. Exposed for use with Protobuf's byte arrays.
+ *
+ * @param {string} privateKey RSA private key (pem or base58) corresponding to the public key used for encryption
+ * @param {EncryptedData} encryptedData EncryptedData object, like one returned from encrypt()
+ *                                      contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                                      key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
+ * @returns {object} the decrypted object
+ */
+export function decryptBytesV2 (encryptedData: EncryptedData, privateKey: string): Buffer {
+  if (!privateKey) {
+    throw new CryptoError('Private key is missing');
+  }
+
+  let encoding: 'base58' | 'pem' = 'base58';
+
+  if (privateKey.includes('PUBLIC KEY')) {
+    encoding = 'pem';
+  }
+
+  return decryptBytes(privateKey, encryptedData, encoding);
+}
