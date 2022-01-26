@@ -7,6 +7,7 @@ import { CryptoError } from './types/CryptoError';
 import { getPadding } from './utils';
 
 /**
+ * @deprecated prefer decryptBytes
  * Used to encode the provided data object into a string after decrypting.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
  * For this reason it deprecated in favor of decryptBytes with Protobufs for objects that need to be encrypted and decrypted.
