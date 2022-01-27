@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.decryptBytesV2 = exports.decryptBytes = exports.decrypt = void 0;
+exports.decryptBytes = exports.decrypt = void 0;
 var crypto_1 = require("crypto");
 var bs58_1 = __importDefault(require("bs58"));
 var types_1 = require("@unumid/types");
@@ -26,7 +26,7 @@ var utils_1 = require("./utils");
 function decrypt(privateKey, encryptedData, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
-        var decrypted = decryptBytes(privateKey, encryptedData, encoding);
+        var decrypted = _decryptBytes(privateKey, encryptedData, encoding);
         // re-encode decrypted data as a regular utf-8 string
         var decryptedStr = decrypted.toString('utf-8');
         // parse original encoded object from decrypted json string
@@ -48,7 +48,7 @@ exports.decrypt = decrypt;
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
  * @returns {object} the decrypted object
  */
-function decryptBytes(privateKey, encryptedData, encoding) {
+function _decryptBytes(privateKey, encryptedData, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
         var data = encryptedData.data;
@@ -85,7 +85,6 @@ function decryptBytes(privateKey, encryptedData, encoding) {
         throw new CryptoError_1.CryptoError(cryptoError.message, cryptoError.code);
     }
 }
-exports.decryptBytes = decryptBytes;
 /**
  * Used to decrypt a byte array. Exposed for use with Protobuf's byte arrays.
  *
@@ -95,7 +94,7 @@ exports.decryptBytes = decryptBytes;
  *                                      key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  * @returns {object} the decrypted object
  */
-function decryptBytesV2(privateKey, encryptedData) {
+function decryptBytes(privateKey, encryptedData) {
     if (!privateKey) {
         throw new CryptoError_1.CryptoError('Private key is missing');
     }
@@ -103,7 +102,7 @@ function decryptBytesV2(privateKey, encryptedData) {
     if (privateKey.includes('PRIVATE KEY')) {
         encoding = 'pem';
     }
-    return decryptBytes(privateKey, encryptedData, encoding);
+    return _decryptBytes(privateKey, encryptedData, encoding);
 }
-exports.decryptBytesV2 = decryptBytesV2;
+exports.decryptBytes = decryptBytes;
 //# sourceMappingURL=decrypt.js.map

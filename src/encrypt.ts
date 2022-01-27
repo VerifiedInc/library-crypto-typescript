@@ -41,7 +41,7 @@ export function encrypt (
     // serialize data as a deterministic JSON string
     const stringifiedData = stringify(data);
 
-    return encryptBytes(did, publicKey, stringifiedData, encoding, rsaPadding);
+    return _encryptBytes(did, publicKey, stringifiedData, encoding, rsaPadding);
   } catch (e) {
     const cryptoError = e as CryptoError;
     throw new CryptoError(cryptoError.message, cryptoError.code);
@@ -58,7 +58,7 @@ export function encrypt (
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-export function encryptBytes (
+export function _encryptBytes (
   did: string,
   publicKey: string,
   data: BinaryLike,
@@ -121,7 +121,7 @@ export function encryptBytes (
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-export function encryptBytesV2 (
+export function encryptBytes (
   did: string,
   publicKeyInfo: PublicKeyInfo,
   data: BinaryLike
@@ -142,5 +142,5 @@ export function encryptBytesV2 (
   //   throw new CryptoError('Public key rsaPadding is missing');
   // }
 
-  return encryptBytes(did, publicKey, data, encoding as 'base58' | 'pem', rsaPadding);
+  return _encryptBytes(did, publicKey, data, encoding as 'base58' | 'pem', rsaPadding);
 }

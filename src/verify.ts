@@ -46,7 +46,7 @@ export function verifyString (signature: string, stringifiedData: string, public
     const dataBuf = Buffer.from(stringifiedData);
 
     // verifiy signature with the public key and return whether it succeeded
-    return verifyBytes(signature, dataBuf, publicKey, encoding);
+    return _verifyBytes(signature, dataBuf, publicKey, encoding);
   } catch (e) {
     throw new CryptoError(e.message, e.code);
   }
@@ -62,7 +62,7 @@ export function verifyString (signature: string, stringifiedData: string, public
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
  * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
  */
-export function verifyBytes (signature: string, bytes: Uint8Array, publicKey: string, encoding: 'base58' | 'pem' = 'pem'): boolean {
+export function _verifyBytes (signature: string, bytes: Uint8Array, publicKey: string, encoding: 'base58' | 'pem' = 'pem'): boolean {
   try {
     // decode public key if necessary
     const decodedPublicKey = decodeKey(publicKey, encoding);
@@ -93,7 +93,7 @@ export function verifyBytes (signature: string, bytes: Uint8Array, publicKey: st
  * @param {PublicKeyInfo} publicKey PublicKeyInfo corresponding to the private key used to create the signature (pem or base58)
  * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
  */
-export function verifyBytesV2 (signature: string, bytes: Uint8Array, publicKey: PublicKeyInfo): boolean {
+export function verifyBytes (signature: string, bytes: Uint8Array, publicKey: PublicKeyInfo): boolean {
   if (!publicKey.publicKey) {
     throw new CryptoError('Public key is missing');
   }
@@ -102,5 +102,5 @@ export function verifyBytesV2 (signature: string, bytes: Uint8Array, publicKey: 
     throw new CryptoError('Public key encoding is missing');
   }
 
-  return verifyBytes(signature, bytes, publicKey.publicKey, publicKey.encoding);
+  return _verifyBytes(signature, bytes, publicKey.publicKey, publicKey.encoding);
 }

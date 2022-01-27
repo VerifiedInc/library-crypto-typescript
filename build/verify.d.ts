@@ -35,7 +35,7 @@ export declare function verifyString(signature: string, stringifiedData: string,
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
  * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
  */
-export declare function verifyBytes(signature: string, bytes: Uint8Array, publicKey: string, encoding?: 'base58' | 'pem'): boolean;
+export declare function _verifyBytes(signature: string, bytes: Uint8Array, publicKey: string, encoding?: 'base58' | 'pem'): boolean;
 /**
  * Used to verify a byte array. The new defacto verify function thanks to the property of Protobuf's ability to encode to bytes and decode back
  * an object in a deterministic fashion.
@@ -45,5 +45,5 @@ export declare function verifyBytes(signature: string, bytes: Uint8Array, public
  * @param {PublicKeyInfo} publicKey PublicKeyInfo corresponding to the private key used to create the signature (pem or base58)
  * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
  */
-export declare function verifyBytesV2(signature: string, bytes: Uint8Array, publicKey: PublicKeyInfo): boolean;
+export declare function verifyBytes(signature: string, bytes: Uint8Array, publicKey: PublicKeyInfo): boolean;
 //# sourceMappingURL=verify.d.ts.map

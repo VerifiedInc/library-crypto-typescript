@@ -1,8 +1,8 @@
 import crypto from 'crypto';
-import { EncryptedData, RSAPadding } from '@unumid/types';
+import { EncryptedData, PublicKeyInfo, RSAPadding } from '@unumid/types';
 
 import { decrypt, decryptBytes } from '../src/decrypt';
-import { encrypt, encryptBytes } from '../src/encrypt';
+import { encrypt, encryptBytes, _encryptBytes } from '../src/encrypt';
 import { sign } from '../src/sign';
 import { generateRsaKeyPair } from '../src/generateRsaKeyPair';
 import { generateEccKeyPair } from '../src/generateEccKeyPair';
@@ -338,13 +338,19 @@ describe('decrypt', () => {
     const data = Buffer.from('test');
     const mockPrivateDecrypt = crypto.privateDecrypt as jest.Mock;
 
+    const publicKeyInfo = {
+      publicKey: keys.publicKey,
+      encoding: 'pem'
+    };
+
     // default (PKCS)
-    const encryptedDefault = encryptBytes(subjectDid, keys.publicKey, data, 'pem');
+    const encryptedDefault = _encryptBytes(subjectDid, keys.publicKey, data, 'pem');
+    // const encryptedDefault = encryptBytes(subjectDid, publicKeyInfo as PublicKeyInfo, data);
 
     const decryptedDefault = decryptBytes(
       keys.privateKey,
-      { data: encryptedDefault.data, key: encryptedDefault.key },
-      'pem'
+      { data: encryptedDefault.data, key: encryptedDefault.key }
+      // 'pem'
     );
 
     expect(decryptedDefault).toEqual(data);
@@ -353,7 +359,8 @@ describe('decrypt', () => {
     mockPrivateDecrypt.mockClear();
 
     // PKCS
-    const encryptedPKCS = encryptBytes(subjectDid, keys.publicKey, data, 'pem');
+    const encryptedPKCS = _encryptBytes(subjectDid, keys.publicKey, data, 'pem');
+    // const encryptedPKCS = encryptBytes(subjectDid, publicKeyInfo as PublicKeyInfo, data);
 
     const decryptedPKCS = decryptBytes(keys.privateKey, encryptedPKCS);
 
@@ -363,7 +370,7 @@ describe('decrypt', () => {
     mockPrivateDecrypt.mockClear();
 
     // OAEP
-    const encryptedOAEP = encryptBytes(subjectDid, keys.publicKey, data, 'pem', RSAPadding.OAEP);
+    const encryptedOAEP = _encryptBytes(subjectDid, keys.publicKey, data, 'pem', RSAPadding.OAEP);
 
     const decryptedOAEP = decryptBytes(keys.privateKey, encryptedOAEP);
 

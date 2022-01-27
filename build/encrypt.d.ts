@@ -31,7 +31,7 @@ export declare function encrypt(did: string, publicKey: string, data: unknown, e
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-export declare function encryptBytes(did: string, publicKey: string, data: BinaryLike, encoding?: 'base58' | 'pem', rsaPadding?: RSAPadding): EncryptedData;
+export declare function _encryptBytes(did: string, publicKey: string, data: BinaryLike, encoding?: 'base58' | 'pem', rsaPadding?: RSAPadding): EncryptedData;
 /**
  *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
  *
@@ -41,6 +41,6 @@ export declare function encryptBytes(did: string, publicKey: string, data: Binar
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-export declare function encryptBytesV2(did: string, publicKeyInfo: PublicKeyInfo, data: BinaryLike): EncryptedData;
+export declare function encryptBytes(did: string, publicKeyInfo: PublicKeyInfo, data: BinaryLike): EncryptedData;
 export {};
 //# sourceMappingURL=encrypt.d.ts.map

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.encryptBytesV2 = exports.encryptBytes = exports.encrypt = void 0;
+exports.encryptBytes = exports._encryptBytes = exports.encrypt = void 0;
 var crypto_1 = require("crypto");
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
 var bs58_1 = __importDefault(require("bs58"));
@@ -35,7 +35,7 @@ function encrypt(did, publicKey, data, encoding, rsaPadding) {
     try {
         // serialize data as a deterministic JSON string
         var stringifiedData = fast_json_stable_stringify_1.default(data);
-        return encryptBytes(did, publicKey, stringifiedData, encoding, rsaPadding);
+        return _encryptBytes(did, publicKey, stringifiedData, encoding, rsaPadding);
     }
     catch (e) {
         var cryptoError = e;
@@ -53,7 +53,7 @@ exports.encrypt = encrypt;
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-function encryptBytes(did, publicKey, data, encoding, rsaPadding) {
+function _encryptBytes(did, publicKey, data, encoding, rsaPadding) {
     if (encoding === void 0) { encoding = 'pem'; }
     if (rsaPadding === void 0) { rsaPadding = types_1.RSAPadding.PKCS; }
     try {
@@ -97,7 +97,7 @@ function encryptBytes(did, publicKey, data, encoding, rsaPadding) {
         throw new CryptoError_1.CryptoError(cryptoError.message, cryptoError.code);
     }
 }
-exports.encryptBytes = encryptBytes;
+exports._encryptBytes = _encryptBytes;
 /**
  *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
  *
@@ -107,7 +107,7 @@ exports.encryptBytes = encryptBytes;
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-function encryptBytesV2(did, publicKeyInfo, data) {
+function encryptBytes(did, publicKeyInfo, data) {
     var publicKey = publicKeyInfo.publicKey, encoding = publicKeyInfo.encoding, rsaPadding = publicKeyInfo.rsaPadding;
     if (!publicKey) {
         throw new CryptoError_1.CryptoError('Public key is missing');
@@ -120,7 +120,7 @@ function encryptBytesV2(did, publicKeyInfo, data) {
     // if (!rsaPadding) {
     //   throw new CryptoError('Public key rsaPadding is missing');
     // }
-    return encryptBytes(did, publicKey, data, encoding, rsaPadding);
+    return _encryptBytes(did, publicKey, data, encoding, rsaPadding);
 }
-exports.encryptBytesV2 = encryptBytesV2;
+exports.encryptBytes = encryptBytes;
 //# sourceMappingURL=encrypt.js.map

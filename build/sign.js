@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signBytesV2 = exports.signBytes = exports.sign = void 0;
+exports.signBytes = exports.sign = void 0;
 var crypto_1 = __importDefault(require("crypto"));
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
 var bs58_1 = __importDefault(require("bs58"));
@@ -28,7 +28,7 @@ function sign(data, privateKey, encoding) {
         // convert to a Buffer and sign with private key
         var buf = Buffer.from(stringifiedData);
         // return resulting Buffer encoded as a base58 string
-        return signBytes(buf, privateKey, encoding);
+        return _signBytes(buf, privateKey, encoding);
     }
     catch (e) {
         throw new CryptoError_1.CryptoError(e.message, e.code);
@@ -44,7 +44,7 @@ exports.sign = sign;
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
  * @returns {string} signature with privateKey over data encoded as a base58 string
  */
-function signBytes(bytes, privateKey, encoding) {
+function _signBytes(bytes, privateKey, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
         var decodedPrivateKey = helpers_1.decodeKey(privateKey, encoding);
@@ -61,7 +61,6 @@ function signBytes(bytes, privateKey, encoding) {
         throw new CryptoError_1.CryptoError(e.message, e.code);
     }
 }
-exports.signBytes = signBytes;
 /**
  * Used to sign a byte array. Exported thanks to the property of Protobuf's ability to encode to bytes and decode back
  * an object in a deterministic fashion.
@@ -70,7 +69,7 @@ exports.signBytes = signBytes;
  * @param {string} privateKey private key to sign with (pem or base58)
  * @returns {string} signature with privateKey over data encoded as a base58 string
  */
-function signBytesV2(bytes, privateKey) {
+function signBytes(bytes, privateKey) {
     if (!privateKey) {
         throw new CryptoError_1.CryptoError('Private key is missing');
     }
@@ -78,7 +77,7 @@ function signBytesV2(bytes, privateKey) {
     if (privateKey.includes('PRIVATE KEY')) {
         encoding = 'pem';
     }
-    return signBytes(bytes, privateKey, encoding);
+    return _signBytes(bytes, privateKey, encoding);
 }
-exports.signBytesV2 = signBytesV2;
+exports.signBytes = signBytes;
 //# sourceMappingURL=sign.js.map

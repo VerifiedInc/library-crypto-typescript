@@ -21,7 +21,7 @@ import { getPadding } from './utils';
  */
 export function decrypt (privateKey: string, encryptedData: EncryptedData, encoding: 'base58' | 'pem' = 'pem'): unknown {
   try {
-    const decrypted: Buffer = decryptBytes(privateKey, encryptedData, encoding);
+    const decrypted: Buffer = _decryptBytes(privateKey, encryptedData, encoding);
 
     // re-encode decrypted data as a regular utf-8 string
     const decryptedStr = decrypted.toString('utf-8');
@@ -44,7 +44,7 @@ export function decrypt (privateKey: string, encryptedData: EncryptedData, encod
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
  * @returns {object} the decrypted object
  */
-export function decryptBytes (privateKey: string, encryptedData: EncryptedData, encoding: 'base58' | 'pem' = 'pem'): Buffer {
+function _decryptBytes (privateKey: string, encryptedData: EncryptedData, encoding: 'base58' | 'pem' = 'pem'): Buffer {
   try {
     const { data } = encryptedData;
     const { iv, key, algorithm } = (encryptedData.key as EncryptedKey);
@@ -97,7 +97,7 @@ export function decryptBytes (privateKey: string, encryptedData: EncryptedData, 
  *                                      key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  * @returns {object} the decrypted object
  */
-export function decryptBytesV2 (privateKey: string, encryptedData: EncryptedData): Buffer {
+export function decryptBytes (privateKey: string, encryptedData: EncryptedData): Buffer {
   if (!privateKey) {
     throw new CryptoError('Private key is missing');
   }
@@ -108,5 +108,5 @@ export function decryptBytesV2 (privateKey: string, encryptedData: EncryptedData
     encoding = 'pem';
   }
 
-  return decryptBytes(privateKey, encryptedData, encoding);
+  return _decryptBytes(privateKey, encryptedData, encoding);
 }
