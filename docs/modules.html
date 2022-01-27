@@ -72,8 +72,10 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="modules.html#decrypt" class="tsd-kind-icon">decrypt</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#decryptbytes" class="tsd-kind-icon">decrypt<wbr>Bytes</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#detectencodingtype" class="tsd-kind-icon">detect<wbr>Encoding<wbr>Type</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#encrypt" class="tsd-kind-icon">encrypt</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#encryptbytes" class="tsd-kind-icon">encrypt<wbr>Bytes</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#encryptbyteshelper" class="tsd-kind-icon">encrypt<wbr>Bytes<wbr>Helper</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#generateecckeypair" class="tsd-kind-icon">generate<wbr>Ecc<wbr>Key<wbr>Pair</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#generatersakeypair" class="tsd-kind-icon">generate<wbr>Rsa<wbr>Key<wbr>Pair</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#sign" class="tsd-kind-icon">sign</a></li>
@@ -81,6 +83,7 @@
 								<li class="tsd-kind-function"><a href="modules.html#validatepublickey" class="tsd-kind-icon">validate<wbr>Public<wbr>Key</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#verify" class="tsd-kind-icon">verify</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#verifybytes" class="tsd-kind-icon">verify<wbr>Bytes</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#verifybyteshelper" class="tsd-kind-icon">verify<wbr>Bytes<wbr>Helper</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#verifystring" class="tsd-kind-icon">verify<wbr>String</a></li>
 							</ul>
 						</section>
@@ -99,7 +102,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/7fe8e19/src/decrypt.ts#L22">src/decrypt.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/decrypt.ts#L22">src/decrypt.ts:22</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -150,7 +153,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/7fe8e19/src/decrypt.ts#L100">src/decrypt.ts:100</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/decrypt.ts#L100">src/decrypt.ts:100</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -181,6 +184,35 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="detectencodingtype" class="tsd-anchor"></a>
+					<h3>detect<wbr>Encoding<wbr>Type</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">detect<wbr>Encoding<wbr>Type<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/utils.ts#L22">src/utils.ts:22</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Helper to detect the key encoding type.</p>
+								</div>
+								<p>This check could probably be made more robust, however this works for now.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="encrypt" class="tsd-anchor"></a>
 					<h3>encrypt</h3>
 					<ul class="tsd-signatures tsd-kind-function">
@@ -190,7 +222,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/7fe8e19/src/encrypt.ts#L33">src/encrypt.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/encrypt.ts#L33">src/encrypt.ts:33</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -256,7 +288,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/7fe8e19/src/encrypt.ts#L124">src/encrypt.ts:124</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/encrypt.ts#L124">src/encrypt.ts:124</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -289,6 +321,60 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="encryptbyteshelper" class="tsd-anchor"></a>
+					<h3>encrypt<wbr>Bytes<wbr>Helper</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">encrypt<wbr>Bytes<wbr>Helper<span class="tsd-signature-symbol">(</span>did<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BinaryLike</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span>, rsaPadding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">RSAPadding</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EncryptedData</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/encrypt.ts#L61">src/encrypt.ts:61</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p> Helper used to encrypt a byte array. Exposed for use with Protobuf&#39;s byte arrays.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>did: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the DID and key identifier fragment resolving to the public key</p>
+									</div>
+								</li>
+								<li>
+									<h5>publicKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>RSA public key (pem or base58)</p>
+									</div>
+								</li>
+								<li>
+									<h5>data: <span class="tsd-signature-type">BinaryLike</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>data to encrypt</p>
+									</div>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol"> = &#x27;pem&#x27;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the encoding used for the publicKey (&#39;base58&#39; or &#39;pem&#39;, default &#39;pem&#39;)</p>
+									</div>
+								</li>
+								<li>
+									<h5>rsaPadding: <span class="tsd-signature-type">RSAPadding</span><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EncryptedData</span></h4>
+							<p>contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+							key, iv, and algorithm information needed to recreate the AES key actually used for encryption</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="generateecckeypair" class="tsd-anchor"></a>
 					<h3>generate<wbr>Ecc<wbr>Key<wbr>Pair</h3>
 					<ul class="tsd-signatures tsd-kind-function">
@@ -298,7 +384,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/7fe8e19/src/generateEccKeyPair.ts#L6">src/generateEccKeyPair.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/generateEccKeyPair.ts#L6">src/generateEccKeyPair.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -321,7 +407,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/7fe8e19/src/generateRsaKeyPair.ts#L6">src/generateRsaKeyPair.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/generateRsaKeyPair.ts#L6">src/generateRsaKeyPair.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -344,7 +430,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/7fe8e19/src/sign.ts#L19">src/sign.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/sign.ts#L20">src/sign.ts:20</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -393,7 +479,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/7fe8e19/src/sign.ts#L70">src/sign.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/sign.ts#L71">src/sign.ts:71</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -432,7 +518,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/7fe8e19/src/validatePublicKey.ts#L10">src/validatePublicKey.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/validatePublicKey.ts#L10">src/validatePublicKey.ts:10</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -465,7 +551,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/7fe8e19/src/verify.ts#L21">src/verify.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/verify.ts#L21">src/verify.ts:21</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -520,7 +606,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/7fe8e19/src/verify.ts#L96">src/verify.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/verify.ts#L96">src/verify.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -556,6 +642,57 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="verifybyteshelper" class="tsd-anchor"></a>
+					<h3>verify<wbr>Bytes<wbr>Helper</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">verify<wbr>Bytes<wbr>Helper<span class="tsd-signature-symbol">(</span>signature<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, bytes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Uint8Array</span>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, encoding<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/verify.ts#L65">src/verify.ts:65</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Helper used to verify a byte array. The new defacto verify function thanks to the property of Protobuf&#39;s ability to encode to bytes and decode back
+									an object in a deterministic fashion.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>signature: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>base58 signature, like one created with sign()</p>
+									</div>
+								</li>
+								<li>
+									<h5>bytes: <span class="tsd-signature-type">Uint8Array</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>byte array to verify</p>
+									</div>
+								</li>
+								<li>
+									<h5>publicKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>public key corresponding to the private key used to create the signature (pem or base58)</p>
+									</div>
+								</li>
+								<li>
+									<h5>encoding: <span class="tsd-signature-type">&quot;base58&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;pem&quot;</span><span class="tsd-signature-symbol"> = &#x27;pem&#x27;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the encoding used for the publicKey (&#39;base58&#39; or &#39;pem&#39;, default &#39;pem&#39;)</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true if signature was created by signing data with the private key corresponding to publicKey</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="verifystring" class="tsd-anchor"></a>
 					<h3>verify<wbr>String</h3>
 					<ul class="tsd-signatures tsd-kind-function">
@@ -565,7 +702,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/7fe8e19/src/verify.ts#L43">src/verify.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/UnumID/library-crypto-typescript/blob/b069cc3/src/verify.ts#L43">src/verify.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -632,10 +769,16 @@
 						<a href="modules.html#decryptbytes" class="tsd-kind-icon">decrypt<wbr>Bytes</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="modules.html#detectencodingtype" class="tsd-kind-icon">detect<wbr>Encoding<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="modules.html#encrypt" class="tsd-kind-icon">encrypt</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#encryptbytes" class="tsd-kind-icon">encrypt<wbr>Bytes</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#encryptbyteshelper" class="tsd-kind-icon">encrypt<wbr>Bytes<wbr>Helper</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#generateecckeypair" class="tsd-kind-icon">generate<wbr>Ecc<wbr>Key<wbr>Pair</a>
@@ -657,6 +800,9 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#verifybytes" class="tsd-kind-icon">verify<wbr>Bytes</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#verifybyteshelper" class="tsd-kind-icon">verify<wbr>Bytes<wbr>Helper</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#verifystring" class="tsd-kind-icon">verify<wbr>String</a>
