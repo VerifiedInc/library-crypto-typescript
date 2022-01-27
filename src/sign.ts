@@ -4,6 +4,7 @@ import bs58 from 'bs58';
 
 import { decodeKey } from './helpers';
 import { CryptoError } from './types/CryptoError';
+import { detectEncodingType } from './utils';
 
 /**
  * @deprecated prefer signBytes
@@ -72,12 +73,8 @@ export function signBytes (bytes: Uint8Array, privateKey: string): string {
     throw new CryptoError('Private key is missing');
   }
 
-  let encoding: 'base58' | 'pem' = 'base58';
-
-  // This check could probably be made more robust, however this works for now.
-  if (privateKey.includes('PRIVATE KEY')) {
-    encoding = 'pem';
-  }
+  // detect key encoding type
+  const encoding = detectEncodingType(privateKey);
 
   return _signBytes(bytes, privateKey, encoding);
 }

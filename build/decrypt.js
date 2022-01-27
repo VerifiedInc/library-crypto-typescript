@@ -98,11 +98,8 @@ function decryptBytes(privateKey, encryptedData) {
     if (!privateKey) {
         throw new CryptoError_1.CryptoError('Private key is missing');
     }
-    var encoding = 'base58';
-    // This check could probably be made more robust, however this works for now.
-    if (privateKey.includes('PRIVATE KEY')) {
-        encoding = 'pem';
-    }
+    // detect key encoding type
+    var encoding = utils_1.detectEncodingType(privateKey);
     return _decryptBytes(privateKey, encryptedData, encoding);
 }
 exports.decryptBytes = decryptBytes;

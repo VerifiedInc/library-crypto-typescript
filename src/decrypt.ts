@@ -4,7 +4,7 @@ import bs58 from 'bs58';
 import { EncryptedData, EncryptedKey, RSAPadding } from '@unumid/types';
 import { decodeKey, derToPem } from './helpers';
 import { CryptoError } from './types/CryptoError';
-import { getPadding } from './utils';
+import { detectEncodingType, getPadding } from './utils';
 
 /**
  * @deprecated prefer decryptBytes
@@ -102,12 +102,8 @@ export function decryptBytes (privateKey: string, encryptedData: EncryptedData):
     throw new CryptoError('Private key is missing');
   }
 
-  let encoding: 'base58' | 'pem' = 'base58';
-
-  // This check could probably be made more robust, however this works for now.
-  if (privateKey.includes('PRIVATE KEY')) {
-    encoding = 'pem';
-  }
+  // detect key encoding type
+  const encoding = detectEncodingType(privateKey);
 
   return _decryptBytes(privateKey, encryptedData, encoding);
 }
