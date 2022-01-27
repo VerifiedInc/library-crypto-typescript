@@ -95,7 +95,7 @@ exports.decryptBytes = decryptBytes;
  *                                      key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  * @returns {object} the decrypted object
  */
-function decryptBytesV2(encryptedData, privateKey) {
+function decryptBytesV2(privateKey, encryptedData) {
     if (!privateKey) {
         throw new CryptoError_1.CryptoError('Private key is missing');
     }

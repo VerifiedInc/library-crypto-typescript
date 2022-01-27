@@ -41,6 +41,6 @@ export declare function encryptBytes(did: string, publicKey: string, data: Binar
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-export declare function encryptBytesV2(did: string, publicKey: PublicKeyInfo, data: BinaryLike, rsaPadding?: RSAPadding): EncryptedData;
+export declare function encryptBytesV2(did: string, publicKeyInfo: PublicKeyInfo, data: BinaryLike): EncryptedData;
 export {};
 //# sourceMappingURL=encrypt.d.ts.map

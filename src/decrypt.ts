@@ -97,7 +97,7 @@ export function decryptBytes (privateKey: string, encryptedData: EncryptedData, 
  *                                      key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  * @returns {object} the decrypted object
  */
-export function decryptBytesV2 (encryptedData: EncryptedData, privateKey: string): Buffer {
+export function decryptBytesV2 (privateKey: string, encryptedData: EncryptedData): Buffer {
   if (!privateKey) {
     throw new CryptoError('Private key is missing');
   }

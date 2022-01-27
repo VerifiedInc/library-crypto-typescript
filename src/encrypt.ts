@@ -123,17 +123,24 @@ export function encryptBytes (
  */
 export function encryptBytesV2 (
   did: string,
-  publicKey: PublicKeyInfo,
-  data: BinaryLike,
-  rsaPadding: RSAPadding = RSAPadding.PKCS
+  publicKeyInfo: PublicKeyInfo,
+  data: BinaryLike
 ): EncryptedData {
-  if (!publicKey.publicKey) {
+  const { publicKey, encoding, rsaPadding } = publicKeyInfo;
+
+  if (!publicKey) {
     throw new CryptoError('Public key is missing');
   }
 
-  if (!publicKey.encoding) {
+  // checking even though a default value is in the helper because all PublicKeyInfo objects ought to have it set
+  if (!encoding) {
     throw new CryptoError('Public key encoding is missing');
   }
 
-  return encryptBytes(did, publicKey.publicKey, data, publicKey.encoding as 'base58' | 'pem', rsaPadding);
+  // Not checking because it's a new attribute and there is a default value in the helper.
+  // if (!rsaPadding) {
+  //   throw new CryptoError('Public key rsaPadding is missing');
+  // }
+
+  return encryptBytes(did, publicKey, data, encoding as 'base58' | 'pem', rsaPadding);
 }

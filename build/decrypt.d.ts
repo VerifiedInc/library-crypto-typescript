@@ -34,5 +34,5 @@ export declare function decryptBytes(privateKey: string, encryptedData: Encrypte
  *                                      key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  * @returns {object} the decrypted object
  */
-export declare function decryptBytesV2(encryptedData: EncryptedData, privateKey: string): Buffer;
+export declare function decryptBytesV2(privateKey: string, encryptedData: EncryptedData): Buffer;
 //# sourceMappingURL=decrypt.d.ts.map

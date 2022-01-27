@@ -107,15 +107,20 @@ exports.encryptBytes = encryptBytes;
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-function encryptBytesV2(did, publicKey, data, rsaPadding) {
-    if (rsaPadding === void 0) { rsaPadding = types_1.RSAPadding.PKCS; }
-    if (!publicKey.publicKey) {
+function encryptBytesV2(did, publicKeyInfo, data) {
+    var publicKey = publicKeyInfo.publicKey, encoding = publicKeyInfo.encoding, rsaPadding = publicKeyInfo.rsaPadding;
+    if (!publicKey) {
         throw new CryptoError_1.CryptoError('Public key is missing');
     }
-    if (!publicKey.encoding) {
+    // checking even though a default value is in the helper because all PublicKeyInfo objects ought to have it set
+    if (!encoding) {
         throw new CryptoError_1.CryptoError('Public key encoding is missing');
     }
-    return encryptBytes(did, publicKey.publicKey, data, publicKey.encoding, rsaPadding);
+    // Not checking because it's a new attribute and there is a default value in the helper.
+    // if (!rsaPadding) {
+    //   throw new CryptoError('Public key rsaPadding is missing');
+    // }
+    return encryptBytes(did, publicKey, data, encoding, rsaPadding);
 }
 exports.encryptBytesV2 = encryptBytesV2;
 //# sourceMappingURL=encrypt.js.map
