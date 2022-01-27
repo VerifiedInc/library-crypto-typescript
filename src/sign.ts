@@ -74,6 +74,7 @@ export function signBytes (bytes: Uint8Array, privateKey: string): string {
 
   let encoding: 'base58' | 'pem' = 'base58';
 
+  // This check could probably be made more robust, however this works for now.
   if (privateKey.includes('PRIVATE KEY')) {
     encoding = 'pem';
   }

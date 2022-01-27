@@ -104,6 +104,7 @@ export function decryptBytes (privateKey: string, encryptedData: EncryptedData):
 
   let encoding: 'base58' | 'pem' = 'base58';
 
+  // This check could probably be made more robust, however this works for now.
   if (privateKey.includes('PRIVATE KEY')) {
     encoding = 'pem';
   }
