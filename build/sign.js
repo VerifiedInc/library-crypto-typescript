@@ -74,6 +74,7 @@ function signBytes(bytes, privateKey) {
         throw new CryptoError_1.CryptoError('Private key is missing');
     }
     var encoding = 'base58';
+    // This check could probably be made more robust, however this works for now.
     if (privateKey.includes('PRIVATE KEY')) {
         encoding = 'pem';
     }
