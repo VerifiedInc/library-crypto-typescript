@@ -11,6 +11,7 @@ var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
 var utils_1 = require("./utils");
 /**
+ * @deprecated prefer decryptBytes
  * Used to encode the provided data object into a string after decrypting.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
  * For this reason it deprecated in favor of decryptBytes with Protobufs for objects that need to be encrypted and decrypted.
@@ -25,7 +26,7 @@ var utils_1 = require("./utils");
 function decrypt(privateKey, encryptedData, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
-        var decrypted = decryptBytes(privateKey, encryptedData, encoding);
+        var decrypted = _decryptBytes(privateKey, encryptedData, encoding);
         // re-encode decrypted data as a regular utf-8 string
         var decryptedStr = decrypted.toString('utf-8');
         // parse original encoded object from decrypted json string
@@ -47,7 +48,7 @@ exports.decrypt = decrypt;
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
  * @returns {object} the decrypted object
  */
-function decryptBytes(privateKey, encryptedData, encoding) {
+function _decryptBytes(privateKey, encryptedData, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
         var data = encryptedData.data;
@@ -83,6 +84,25 @@ function decryptBytes(privateKey, encryptedData, encoding) {
         var cryptoError = e;
         throw new CryptoError_1.CryptoError(cryptoError.message, cryptoError.code);
     }
+}
+/**
+ * Used to decrypt a byte array. Exposed for use with Protobuf's byte arrays.
+ *
+ * @param {string} privateKey RSA private key (pem or base58) corresponding to the public key used for encryption
+ * @param {EncryptedData} encryptedData EncryptedData object, like one returned from encrypt()
+ *                                      contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                                      key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ * @returns {object} the decrypted object
+ */
+function decryptBytes(privateKey, encryptedData) {
+    if (!privateKey) {
+        throw new CryptoError_1.CryptoError('Private key is missing');
+    }
+    var encoding = 'base58';
+    if (privateKey.includes('PRIVATE KEY')) {
+        encoding = 'pem';
+    }
+    return _decryptBytes(privateKey, encryptedData, encoding);
 }
 exports.decryptBytes = decryptBytes;
 //# sourceMappingURL=decrypt.js.map

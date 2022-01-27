@@ -7,6 +7,7 @@ import { EncryptedData, RSAPadding } from '@unumid/types';
 import { decodeKey, derToPem } from './helpers';
 import { CryptoError } from './types/CryptoError';
 import { getPadding } from './utils';
+import { PublicKeyInfo } from '@unumid/types/build/protos/crypto';
 
 // from node.crypto lib
 type BinaryLike = string | NodeJS.ArrayBufferView;
@@ -40,7 +41,7 @@ export function encrypt (
     // serialize data as a deterministic JSON string
     const stringifiedData = stringify(data);
 
-    return encryptBytes(did, publicKey, stringifiedData, encoding, rsaPadding);
+    return _encryptBytes(did, publicKey, stringifiedData, encoding, rsaPadding);
   } catch (e) {
     const cryptoError = e as CryptoError;
     throw new CryptoError(cryptoError.message, cryptoError.code);
@@ -57,7 +58,7 @@ export function encrypt (
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-export function encryptBytes (
+export function _encryptBytes (
   did: string,
   publicKey: string,
   data: BinaryLike,
@@ -109,4 +110,37 @@ export function encryptBytes (
     const cryptoError = e as CryptoError;
     throw new CryptoError(cryptoError.message, cryptoError.code);
   }
+}
+
+/**
+ *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
+ *
+ * @param {string} did the DID and key identifier fragment resolving to the public key
+ * @param {PublicKeyInfo} publicKey RSA publicKeyInfo
+ * @param {BinaryLike} data data to encrypt
+ * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ */
+export function encryptBytes (
+  did: string,
+  publicKeyInfo: PublicKeyInfo,
+  data: BinaryLike
+): EncryptedData {
+  const { publicKey, encoding, rsaPadding } = publicKeyInfo;
+
+  if (!publicKey) {
+    throw new CryptoError('Public key is missing');
+  }
+
+  // checking even though a default value is in the helper because all PublicKeyInfo objects ought to have it set
+  if (!encoding) {
+    throw new CryptoError('Public key encoding is missing');
+  }
+
+  // Not checking because it's a new attribute and there is a default value in the helper.
+  // if (!rsaPadding) {
+  //   throw new CryptoError('Public key rsaPadding is missing');
+  // }
+
+  return _encryptBytes(did, publicKey, data, encoding as 'base58' | 'pem', rsaPadding);
 }

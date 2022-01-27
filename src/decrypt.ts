@@ -21,7 +21,7 @@ import { getPadding } from './utils';
  */
 export function decrypt (privateKey: string, encryptedData: EncryptedData, encoding: 'base58' | 'pem' = 'pem'): unknown {
   try {
-    const decrypted: Buffer = decryptBytes(privateKey, encryptedData, encoding);
+    const decrypted: Buffer = _decryptBytes(privateKey, encryptedData, encoding);
 
     // re-encode decrypted data as a regular utf-8 string
     const decryptedStr = decrypted.toString('utf-8');
@@ -44,7 +44,7 @@ export function decrypt (privateKey: string, encryptedData: EncryptedData, encod
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
  * @returns {object} the decrypted object
  */
-export function decryptBytes (privateKey: string, encryptedData: EncryptedData, encoding: 'base58' | 'pem' = 'pem'): Buffer {
+function _decryptBytes (privateKey: string, encryptedData: EncryptedData, encoding: 'base58' | 'pem' = 'pem'): Buffer {
   try {
     const { data } = encryptedData;
     const { iv, key, algorithm } = (encryptedData.key as EncryptedKey);
@@ -86,4 +86,27 @@ export function decryptBytes (privateKey: string, encryptedData: EncryptedData, 
     const cryptoError = e as CryptoError;
     throw new CryptoError(cryptoError.message, cryptoError.code);
   }
+}
+
+/**
+ * Used to decrypt a byte array. Exposed for use with Protobuf's byte arrays.
+ *
+ * @param {string} privateKey RSA private key (pem or base58) corresponding to the public key used for encryption
+ * @param {EncryptedData} encryptedData EncryptedData object, like one returned from encrypt()
+ *                                      contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
+ *                                      key, iv, and algorithm information needed to recreate the AES key actually used for encryption
+ * @returns {object} the decrypted object
+ */
+export function decryptBytes (privateKey: string, encryptedData: EncryptedData): Buffer {
+  if (!privateKey) {
+    throw new CryptoError('Private key is missing');
+  }
+
+  let encoding: 'base58' | 'pem' = 'base58';
+
+  if (privateKey.includes('PRIVATE KEY')) {
+    encoding = 'pem';
+  }
+
+  return _decryptBytes(privateKey, encryptedData, encoding);
 }

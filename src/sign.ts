@@ -25,7 +25,7 @@ export function sign (data: unknown, privateKey: string, encoding: 'base58' | 'p
     const buf = Buffer.from(stringifiedData);
 
     // return resulting Buffer encoded as a base58 string
-    return signBytes(buf, privateKey, encoding);
+    return _signBytes(buf, privateKey, encoding);
   } catch (e) {
     throw new CryptoError(e.message, e.code);
   }
@@ -40,7 +40,7 @@ export function sign (data: unknown, privateKey: string, encoding: 'base58' | 'p
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
  * @returns {string} signature with privateKey over data encoded as a base58 string
  */
-export function signBytes (bytes: Uint8Array, privateKey: string, encoding: 'base58' | 'pem' = 'pem'): string {
+function _signBytes (bytes: Uint8Array, privateKey: string, encoding: 'base58' | 'pem' = 'pem'): string {
   try {
     const decodedPrivateKey = decodeKey(privateKey, encoding);
 
@@ -57,4 +57,26 @@ export function signBytes (bytes: Uint8Array, privateKey: string, encoding: 'bas
   } catch (e) {
     throw new CryptoError(e.message, e.code);
   }
+}
+
+/**
+ * Used to sign a byte array. Exported thanks to the property of Protobuf's ability to encode to bytes and decode back
+ * an object in a deterministic fashion.
+ *
+ * @param {Uint8Array} bytes bytes array to sign
+ * @param {string} privateKey private key to sign with (pem or base58)
+ * @returns {string} signature with privateKey over data encoded as a base58 string
+ */
+export function signBytes (bytes: Uint8Array, privateKey: string): string {
+  if (!privateKey) {
+    throw new CryptoError('Private key is missing');
+  }
+
+  let encoding: 'base58' | 'pem' = 'base58';
+
+  if (privateKey.includes('PRIVATE KEY')) {
+    encoding = 'pem';
+  }
+
+  return _signBytes(bytes, privateKey, encoding);
 }

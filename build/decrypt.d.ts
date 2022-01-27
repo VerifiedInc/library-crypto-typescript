@@ -1,6 +1,7 @@
 /// <reference types="node" />
 import { EncryptedData } from '@unumid/types';
 /**
+ * @deprecated prefer decryptBytes
  * Used to encode the provided data object into a string after decrypting.
  * Should only be used if dealing with projects can ensure identical data object string encoding.
  * For this reason it deprecated in favor of decryptBytes with Protobufs for objects that need to be encrypted and decrypted.
@@ -20,8 +21,7 @@ export declare function decrypt(privateKey: string, encryptedData: EncryptedData
  * @param {EncryptedData} encryptedData EncryptedData object, like one returned from encrypt()
  *                                      contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                                      key, iv, and algorithm information needed to recreate the AES key actually used for encryption
- * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
  * @returns {object} the decrypted object
  */
-export declare function decryptBytes(privateKey: string, encryptedData: EncryptedData, encoding?: 'base58' | 'pem'): Buffer;
+export declare function decryptBytes(privateKey: string, encryptedData: EncryptedData): Buffer;
 //# sourceMappingURL=decrypt.d.ts.map
