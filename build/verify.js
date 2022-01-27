@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyBytes = exports._verifyBytes = exports.verifyString = exports.verify = void 0;
+exports.verifyBytes = exports.verifyBytesHelper = exports.verifyString = exports.verify = void 0;
 var crypto_1 = __importDefault(require("crypto"));
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
 var bs58_1 = __importDefault(require("bs58"));
@@ -51,7 +51,7 @@ function verifyString(signature, stringifiedData, publicKey, encoding) {
         // convert stringified data to a Buffer
         var dataBuf = Buffer.from(stringifiedData);
         // verifiy signature with the public key and return whether it succeeded
-        return _verifyBytes(signature, dataBuf, publicKey, encoding);
+        return verifyBytesHelper(signature, dataBuf, publicKey, encoding);
     }
     catch (e) {
         throw new CryptoError_1.CryptoError(e.message, e.code);
@@ -59,7 +59,7 @@ function verifyString(signature, stringifiedData, publicKey, encoding) {
 }
 exports.verifyString = verifyString;
 /**
- * Used to verify a byte array. The new defacto verify function thanks to the property of Protobuf's ability to encode to bytes and decode back
+ * Helper used to verify a byte array. The new defacto verify function thanks to the property of Protobuf's ability to encode to bytes and decode back
  * an object in a deterministic fashion.
  *
  * @param {string} signature base58 signature, like one created with sign()
@@ -68,7 +68,7 @@ exports.verifyString = verifyString;
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
  * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
  */
-function _verifyBytes(signature, bytes, publicKey, encoding) {
+function verifyBytesHelper(signature, bytes, publicKey, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
         // decode public key if necessary
@@ -88,7 +88,7 @@ function _verifyBytes(signature, bytes, publicKey, encoding) {
         throw new CryptoError_1.CryptoError(e.message, e.code);
     }
 }
-exports._verifyBytes = _verifyBytes;
+exports.verifyBytesHelper = verifyBytesHelper;
 /**
  * Used to verify a byte array. The new defacto verify function thanks to the property of Protobuf's ability to encode to bytes and decode back
  * an object in a deterministic fashion.
@@ -105,7 +105,7 @@ function verifyBytes(signature, bytes, publicKey) {
     if (!publicKey.encoding) {
         throw new CryptoError_1.CryptoError('Public key encoding is missing');
     }
-    return _verifyBytes(signature, bytes, publicKey.publicKey, publicKey.encoding);
+    return verifyBytesHelper(signature, bytes, publicKey.publicKey, publicKey.encoding);
 }
 exports.verifyBytes = verifyBytes;
 //# sourceMappingURL=verify.js.map

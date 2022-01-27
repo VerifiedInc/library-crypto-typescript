@@ -46,14 +46,14 @@ export function verifyString (signature: string, stringifiedData: string, public
     const dataBuf = Buffer.from(stringifiedData);
 
     // verifiy signature with the public key and return whether it succeeded
-    return _verifyBytes(signature, dataBuf, publicKey, encoding);
+    return verifyBytesHelper(signature, dataBuf, publicKey, encoding);
   } catch (e) {
     throw new CryptoError(e.message, e.code);
   }
 }
 
 /**
- * Used to verify a byte array. The new defacto verify function thanks to the property of Protobuf's ability to encode to bytes and decode back
+ * Helper used to verify a byte array. The new defacto verify function thanks to the property of Protobuf's ability to encode to bytes and decode back
  * an object in a deterministic fashion.
  *
  * @param {string} signature base58 signature, like one created with sign()
@@ -62,7 +62,7 @@ export function verifyString (signature: string, stringifiedData: string, public
  * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
  * @returns {boolean} true if signature was created by signing data with the private key corresponding to publicKey
  */
-export function _verifyBytes (signature: string, bytes: Uint8Array, publicKey: string, encoding: 'base58' | 'pem' = 'pem'): boolean {
+export function verifyBytesHelper (signature: string, bytes: Uint8Array, publicKey: string, encoding: 'base58' | 'pem' = 'pem'): boolean {
   try {
     // decode public key if necessary
     const decodedPublicKey = decodeKey(publicKey, encoding);
@@ -102,5 +102,5 @@ export function verifyBytes (signature: string, bytes: Uint8Array, publicKey: Pu
     throw new CryptoError('Public key encoding is missing');
   }
 
-  return _verifyBytes(signature, bytes, publicKey.publicKey, publicKey.encoding);
+  return verifyBytesHelper(signature, bytes, publicKey.publicKey, publicKey.encoding);
 }
