@@ -74,7 +74,7 @@ export function signBytesV2 (bytes: Uint8Array, privateKey: string): string {
 
   let encoding: 'base58' | 'pem' = 'base58';
 
-  if (privateKey.includes('PUBLIC KEY')) {
+  if (privateKey.includes('PRIVATE KEY')) {
     encoding = 'pem';
   }
 

@@ -75,7 +75,7 @@ function signBytesV2(bytes, privateKey) {
         throw new CryptoError_1.CryptoError('Private key is missing');
     }
     var encoding = 'base58';
-    if (privateKey.includes('PUBLIC KEY')) {
+    if (privateKey.includes('PRIVATE KEY')) {
         encoding = 'pem';
     }
     return signBytes(bytes, privateKey, encoding);

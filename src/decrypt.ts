@@ -104,7 +104,7 @@ export function decryptBytesV2 (privateKey: string, encryptedData: EncryptedData
 
   let encoding: 'base58' | 'pem' = 'base58';
 
-  if (privateKey.includes('PUBLIC KEY')) {
+  if (privateKey.includes('PRIVATE KEY')) {
     encoding = 'pem';
   }
 

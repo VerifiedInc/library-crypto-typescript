@@ -100,7 +100,7 @@ function decryptBytesV2(privateKey, encryptedData) {
         throw new CryptoError_1.CryptoError('Private key is missing');
     }
     var encoding = 'base58';
-    if (privateKey.includes('PUBLIC KEY')) {
+    if (privateKey.includes('PRIVATE KEY')) {
         encoding = 'pem';
     }
     return decryptBytes(privateKey, encryptedData, encoding);
