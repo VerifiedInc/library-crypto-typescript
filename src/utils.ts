@@ -22,13 +22,13 @@ export function getPadding (padding: RSAPadding): number {
 export function detectEncodingType (key: string): 'base58' | 'pem' {
   if (key.startsWith('-----BEGIN PUBLIC KEY-----')) {
     return 'pem';
+  } else if (key.startsWith('-----BEGIN PRIVATE KEY-----')) {
+    return 'pem';
   } else if (key.startsWith('-----BEGIN RSA PUBLIC KEY-----')) {
     return 'pem';
   } else if (key.startsWith('-----BEGIN CERTIFICATE-----')) {
     return 'pem';
   } else if (key.startsWith('-----BEGIN ENCRYPTED PRIVATE KEY-----')) {
-    return 'pem';
-  } else if (key.startsWith('-----BEGIN PRIVATE KEY-----')) {
     return 'pem';
   } else if (key.startsWith('-----BEGIN RSA PRIVATE KEY-----')) {
     return 'pem';

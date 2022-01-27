@@ -25,6 +25,9 @@ function detectEncodingType(key) {
     if (key.startsWith('-----BEGIN PUBLIC KEY-----')) {
         return 'pem';
     }
+    else if (key.startsWith('-----BEGIN PRIVATE KEY-----')) {
+        return 'pem';
+    }
     else if (key.startsWith('-----BEGIN RSA PUBLIC KEY-----')) {
         return 'pem';
     }
@@ -32,9 +35,6 @@ function detectEncodingType(key) {
         return 'pem';
     }
     else if (key.startsWith('-----BEGIN ENCRYPTED PRIVATE KEY-----')) {
-        return 'pem';
-    }
-    else if (key.startsWith('-----BEGIN PRIVATE KEY-----')) {
         return 'pem';
     }
     else if (key.startsWith('-----BEGIN RSA PRIVATE KEY-----')) {
