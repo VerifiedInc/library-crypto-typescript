@@ -22,7 +22,7 @@ declare type BinaryLike = string | NodeJS.ArrayBufferView;
  */
 export declare function encrypt(did: string, publicKey: string, data: unknown, encoding?: 'base58' | 'pem', rsaPadding?: RSAPadding): EncryptedData;
 /**
- *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
+ *  Helper used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
  *
  * @param {string} did the DID and key identifier fragment resolving to the public key
  * @param {string} publicKey RSA public key (pem or base58)
@@ -31,7 +31,7 @@ export declare function encrypt(did: string, publicKey: string, data: unknown, e
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-export declare function _encryptBytes(did: string, publicKey: string, data: BinaryLike, encoding?: 'base58' | 'pem', rsaPadding?: RSAPadding): EncryptedData;
+export declare function encryptBytesHelper(did: string, publicKey: string, data: BinaryLike, encoding?: 'base58' | 'pem', rsaPadding?: RSAPadding): EncryptedData;
 /**
  *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
  *

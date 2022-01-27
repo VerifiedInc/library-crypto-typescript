@@ -9,6 +9,7 @@ var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-str
 var bs58_1 = __importDefault(require("bs58"));
 var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
+var utils_1 = require("./utils");
 /**
  * @deprecated prefer signBytes
  * Used to encode the provided data object into a string prior to signing.
@@ -73,11 +74,8 @@ function signBytes(bytes, privateKey) {
     if (!privateKey) {
         throw new CryptoError_1.CryptoError('Private key is missing');
     }
-    var encoding = 'base58';
-    // This check could probably be made more robust, however this works for now.
-    if (privateKey.includes('PRIVATE KEY')) {
-        encoding = 'pem';
-    }
+    // detect key encoding type
+    var encoding = utils_1.detectEncodingType(privateKey);
     return _signBytes(bytes, privateKey, encoding);
 }
 exports.signBytes = signBytes;

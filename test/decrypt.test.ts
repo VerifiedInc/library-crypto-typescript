@@ -1,8 +1,8 @@
 import crypto from 'crypto';
-import { EncryptedData, PublicKeyInfo, RSAPadding } from '@unumid/types';
+import { EncryptedData, RSAPadding } from '@unumid/types';
 
 import { decrypt, decryptBytes } from '../src/decrypt';
-import { encrypt, encryptBytes, _encryptBytes } from '../src/encrypt';
+import { encrypt, encryptBytesHelper } from '../src/encrypt';
 import { sign } from '../src/sign';
 import { generateRsaKeyPair } from '../src/generateRsaKeyPair';
 import { generateEccKeyPair } from '../src/generateEccKeyPair';
@@ -344,7 +344,7 @@ describe('decrypt', () => {
     };
 
     // default (PKCS)
-    const encryptedDefault = _encryptBytes(subjectDid, keys.publicKey, data, 'pem');
+    const encryptedDefault = encryptBytesHelper(subjectDid, keys.publicKey, data, 'pem');
     // const encryptedDefault = encryptBytes(subjectDid, publicKeyInfo as PublicKeyInfo, data);
 
     const decryptedDefault = decryptBytes(
@@ -359,7 +359,7 @@ describe('decrypt', () => {
     mockPrivateDecrypt.mockClear();
 
     // PKCS
-    const encryptedPKCS = _encryptBytes(subjectDid, keys.publicKey, data, 'pem');
+    const encryptedPKCS = encryptBytesHelper(subjectDid, keys.publicKey, data, 'pem');
     // const encryptedPKCS = encryptBytes(subjectDid, publicKeyInfo as PublicKeyInfo, data);
 
     const decryptedPKCS = decryptBytes(keys.privateKey, encryptedPKCS);
@@ -370,7 +370,7 @@ describe('decrypt', () => {
     mockPrivateDecrypt.mockClear();
 
     // OAEP
-    const encryptedOAEP = _encryptBytes(subjectDid, keys.publicKey, data, 'pem', RSAPadding.OAEP);
+    const encryptedOAEP = encryptBytesHelper(subjectDid, keys.publicKey, data, 'pem', RSAPadding.OAEP);
 
     const decryptedOAEP = decryptBytes(keys.privateKey, encryptedOAEP);
 
