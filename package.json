@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.0",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^3.3.0",
     "@typescript-eslint/parser": "^3.3.0",
     "eslint": "^7.2.0",
@@ -30,9 +31,10 @@
   },
   "dependencies": {
     "@types/bs58": "^4.0.1",
-    "@unumid/types": "3.35.0",
+    "@unumid/types": "3.38.0",
     "bs58": "^4.0.1",
     "fast-json-stable-stringify": "^2.1.0",
-    "typedoc": "^0.20.36"
+    "typedoc": "^0.20.36",
+    "uuid": "^8.3.2"
   }
 }

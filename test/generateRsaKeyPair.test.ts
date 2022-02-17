@@ -1,9 +1,9 @@
 import bs58 from 'bs58';
+import { KeyPair } from '@unumid/types';
 
 import * as helpers from '../src/helpers';
 
 import { generateRsaKeyPair } from '../src/generateRsaKeyPair';
-import { KeyPair } from '../src/types';
 
 describe('generateRsaKeypair', () => {
   let result: KeyPair;
@@ -24,6 +24,7 @@ describe('generateRsaKeypair', () => {
     });
 
     it('returns a pem-encoded keypair by default', () => {
+      expect(result.id).toBeDefined();
       expect(result.privateKey).toBeDefined();
       expect(result.publicKey).toBeDefined();
       expect(result.privateKey.startsWith('-----BEGIN PRIVATE KEY-----')).toBe(true);
@@ -47,6 +48,7 @@ describe('generateRsaKeypair', () => {
     });
 
     it('returns a pem-encoded keypair', () => {
+      expect(result.id).toBeDefined();
       expect(result.privateKey).toBeDefined();
       expect(result.publicKey).toBeDefined();
       expect(result.privateKey.startsWith('-----BEGIN PRIVATE KEY-----')).toBe(true);
@@ -70,6 +72,7 @@ describe('generateRsaKeypair', () => {
     });
 
     it('returns a base58-encoded keypair', () => {
+      expect(result.id).toBeDefined();
       expect(result.privateKey).toBeDefined();
       expect(result.publicKey).toBeDefined();
       expect(() => bs58.decode(result.privateKey)).not.toThrow();
