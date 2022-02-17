@@ -15,7 +15,7 @@ This readme and the auto generated [typedocs](https://docs.unum.id/Library-Crypt
 Generates `secp256r1` private and public keys.
 
 ```typescript
-(encoding: 'base58' | 'pem' = 'pem') => Promise<{ privateKey: string; publicKey: string}>;
+(encoding: 'base58' | 'pem' = 'pem') => Promise<{ id: string, privateKey: string; publicKey: string}>;
 ```
 
 - arguments
@@ -25,17 +25,17 @@ Generates `secp256r1` private and public keys.
     - 'base58' or 'pem'
     - defaults to 'pem'
 - returns
-  - Promise resolving to pem-encoded privateKey and publicKey
+  - Promise resolving to a KeyPair object containing the encoded public and private keys and a unique identifier for the pair
 
 #### Usage
 ```typescript
 import { generateEccKeyPair } from 'library-crypto-typescript';
 
 // using async/await
-const { privateKey, publicKey } = await generateEccKeyPair();
+const { id, privateKey, publicKey } = await generateEccKeyPair();
 
 // using a promise
-generateEccKeyPair().then(({ privateKey, publicKey }) => {
+generateEccKeyPair().then(({ id, privateKey, publicKey }) => {
   // do stuff
 });
 ```
@@ -44,7 +44,7 @@ generateEccKeyPair().then(({ privateKey, publicKey }) => {
 Generates `RSA` private and public keys.
 
 ```typescript
-(encoding: 'base58' | 'pem' = 'pem') => Promise<{ privateKey: string; publicKey: string}>
+(encoding: 'base58' | 'pem' = 'pem') => Promise<{ id: string, privateKey: string; publicKey: string}>
 
 ```
 - arguments
@@ -54,17 +54,17 @@ Generates `RSA` private and public keys.
     - 'base58' or 'pem'
     - defaults to 'pem'
 - returns
-  - Promise resolving to pem-encoded privateKey and publicKey
+  - Promise resolving to a KeyPair object containing the encoded public and private keys and a unique identifier for the pair
 
 #### Usage
 ```typescript
 import { generateRsaKeyPair } from 'library-crypto-typescript';
 
 // using async/await
-const { privateKey, publicKey } = await generateRsaKeyPair();
+const { id, privateKey, publicKey } = await generateRsaKeyPair();
 
 // using a promise
-generateRsaKeyPair().then(({ privateKey, publicKey }) => {
+generateRsaKeyPair().then(({ id, privateKey, publicKey }) => {
   // do stuff
 });
 ```

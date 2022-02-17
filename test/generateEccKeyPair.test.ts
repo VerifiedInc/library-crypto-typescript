@@ -3,7 +3,7 @@ import bs58 from 'bs58';
 import * as helpers from '../src/helpers';
 
 import { generateEccKeyPair } from '../src/generateEccKeyPair';
-import { KeyPair } from '../src/types';
+import { KeyPair } from '@unumid/types';
 
 describe('generateEccKeypair', () => {
   let result: KeyPair;
@@ -49,6 +49,7 @@ describe('generateEccKeypair', () => {
     });
 
     it('returns a pem-encoded keypair', () => {
+      expect(result.id).toBeDefined();
       expect(result.privateKey).toBeDefined();
       expect(result.publicKey).toBeDefined();
       expect(result.privateKey.startsWith('-----BEGIN PRIVATE KEY-----')).toBe(true);
@@ -73,6 +74,7 @@ describe('generateEccKeypair', () => {
     });
 
     it('returns a base58-encoded keypair', () => {
+      expect(result.id).toBeDefined();
       expect(result.privateKey).toBeDefined();
       expect(result.publicKey).toBeDefined();
       expect(() => bs58.decode(result.privateKey)).not.toThrow();

@@ -1,4 +1,5 @@
 import bs58 from 'bs58';
+import { v4 } from 'uuid';
 
 import { promisifiedGenerateKeyPair } from './helpers';
 import { KeyPair } from '@unumid/types';
@@ -21,7 +22,7 @@ export async function generateRsaPemKeyPair (): Promise<KeyPair> {
       privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
     }
   );
-  return { publicKey, privateKey };
+  return { id: v4(), publicKey, privateKey };
 }
 
 export async function generateRsaBase58KeyPair (): Promise<KeyPair> {
@@ -34,6 +35,7 @@ export async function generateRsaBase58KeyPair (): Promise<KeyPair> {
     }
   );
   return {
+    id: v4(),
     publicKey: bs58.encode(publicKey),
     privateKey: bs58.encode(privateKey)
   };

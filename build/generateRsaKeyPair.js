@@ -41,6 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateRsaBase58KeyPair = exports.generateRsaPemKeyPair = exports.generateRsaKeyPair = void 0;
 var bs58_1 = __importDefault(require("bs58"));
+var uuid_1 = require("uuid");
 var helpers_1 = require("./helpers");
 function generateRsaKeyPair(encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
@@ -77,7 +78,7 @@ function generateRsaPemKeyPair() {
                     })];
                 case 1:
                     _a = _b.sent(), publicKey = _a.publicKey, privateKey = _a.privateKey;
-                    return [2 /*return*/, { publicKey: publicKey, privateKey: privateKey }];
+                    return [2 /*return*/, { id: uuid_1.v4(), publicKey: publicKey, privateKey: privateKey }];
             }
         });
     });
@@ -96,6 +97,7 @@ function generateRsaBase58KeyPair() {
                 case 1:
                     _a = _b.sent(), publicKey = _a.publicKey, privateKey = _a.privateKey;
                     return [2 /*return*/, {
+                            id: uuid_1.v4(),
                             publicKey: bs58_1.default.encode(publicKey),
                             privateKey: bs58_1.default.encode(privateKey)
                         }];
