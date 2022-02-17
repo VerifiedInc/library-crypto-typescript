@@ -81,7 +81,7 @@
 					<h3>generateEccKeyPair</h3>
 				</a>
 				<p>Generates <code>secp256r1</code> private and public keys.</p>
-				<pre><code class="language-typescript"><span style="color: #000000">(</span><span style="color: #001080">encoding</span><span style="color: #000000">: </span><span style="color: #A31515">&#039;base58&#039;</span><span style="color: #000000"> | </span><span style="color: #A31515">&#039;pem&#039;</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;pem&#039;</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">&lt;{ privateKey: </span><span style="color: #001080">string</span><span style="color: #000000">; publicKey: </span><span style="color: #001080">string</span><span style="color: #000000">}&gt;;</span>
+				<pre><code class="language-typescript"><span style="color: #000000">(</span><span style="color: #001080">encoding</span><span style="color: #000000">: </span><span style="color: #A31515">&#039;base58&#039;</span><span style="color: #000000"> | </span><span style="color: #A31515">&#039;pem&#039;</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;pem&#039;</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">&lt;{ id: </span><span style="color: #001080">string</span><span style="color: #000000">, privateKey: </span><span style="color: #001080">string</span><span style="color: #000000">; publicKey: </span><span style="color: #001080">string</span><span style="color: #000000">}&gt;;</span>
 </code></pre>
 				<ul>
 					<li>arguments<ul>
@@ -95,7 +95,7 @@
 						</ul>
 					</li>
 					<li>returns<ul>
-							<li>Promise resolving to pem-encoded privateKey and publicKey</li>
+							<li>Promise resolving to a KeyPair object containing the encoded public and private keys and a unique identifier for the pair</li>
 						</ul>
 					</li>
 				</ul>
@@ -105,10 +105,10 @@
 				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">generateEccKeyPair</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;library-crypto-typescript&#039;</span><span style="color: #000000">;</span>
 
 <span style="color: #008000">// using async/await</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">privateKey</span><span style="color: #000000">, </span><span style="color: #0070C1">publicKey</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">generateEccKeyPair</span><span style="color: #000000">();</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">id</span><span style="color: #000000">, </span><span style="color: #0070C1">privateKey</span><span style="color: #000000">, </span><span style="color: #0070C1">publicKey</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">generateEccKeyPair</span><span style="color: #000000">();</span>
 
 <span style="color: #008000">// using a promise</span>
-<span style="color: #795E26">generateEccKeyPair</span><span style="color: #000000">().</span><span style="color: #795E26">then</span><span style="color: #000000">(({ </span><span style="color: #001080">privateKey</span><span style="color: #000000">, </span><span style="color: #001080">publicKey</span><span style="color: #000000"> }) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #795E26">generateEccKeyPair</span><span style="color: #000000">().</span><span style="color: #795E26">then</span><span style="color: #000000">(({ </span><span style="color: #001080">id</span><span style="color: #000000">, </span><span style="color: #001080">privateKey</span><span style="color: #000000">, </span><span style="color: #001080">publicKey</span><span style="color: #000000"> }) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">  </span><span style="color: #008000">// do stuff</span>
 <span style="color: #000000">});</span>
 </code></pre>
@@ -116,7 +116,7 @@
 					<h3>generateRsaKeyPair</h3>
 				</a>
 				<p>Generates <code>RSA</code> private and public keys.</p>
-				<pre><code class="language-typescript"><span style="color: #000000">(</span><span style="color: #001080">encoding</span><span style="color: #000000">: </span><span style="color: #A31515">&#039;base58&#039;</span><span style="color: #000000"> | </span><span style="color: #A31515">&#039;pem&#039;</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;pem&#039;</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">&lt;{ privateKey: </span><span style="color: #001080">string</span><span style="color: #000000">; publicKey: </span><span style="color: #001080">string</span><span style="color: #000000">}&gt;</span>
+				<pre><code class="language-typescript"><span style="color: #000000">(</span><span style="color: #001080">encoding</span><span style="color: #000000">: </span><span style="color: #A31515">&#039;base58&#039;</span><span style="color: #000000"> | </span><span style="color: #A31515">&#039;pem&#039;</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;pem&#039;</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">&lt;{ id: </span><span style="color: #001080">string</span><span style="color: #000000">, privateKey: </span><span style="color: #001080">string</span><span style="color: #000000">; publicKey: </span><span style="color: #001080">string</span><span style="color: #000000">}&gt;</span>
 
 </code></pre>
 				<ul>
@@ -131,7 +131,7 @@
 						</ul>
 					</li>
 					<li>returns<ul>
-							<li>Promise resolving to pem-encoded privateKey and publicKey</li>
+							<li>Promise resolving to a KeyPair object containing the encoded public and private keys and a unique identifier for the pair</li>
 						</ul>
 					</li>
 				</ul>
@@ -141,10 +141,10 @@
 				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">generateRsaKeyPair</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;library-crypto-typescript&#039;</span><span style="color: #000000">;</span>
 
 <span style="color: #008000">// using async/await</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">privateKey</span><span style="color: #000000">, </span><span style="color: #0070C1">publicKey</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">generateRsaKeyPair</span><span style="color: #000000">();</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">id</span><span style="color: #000000">, </span><span style="color: #0070C1">privateKey</span><span style="color: #000000">, </span><span style="color: #0070C1">publicKey</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">generateRsaKeyPair</span><span style="color: #000000">();</span>
 
 <span style="color: #008000">// using a promise</span>
-<span style="color: #795E26">generateRsaKeyPair</span><span style="color: #000000">().</span><span style="color: #795E26">then</span><span style="color: #000000">(({ </span><span style="color: #001080">privateKey</span><span style="color: #000000">, </span><span style="color: #001080">publicKey</span><span style="color: #000000"> }) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #795E26">generateRsaKeyPair</span><span style="color: #000000">().</span><span style="color: #795E26">then</span><span style="color: #000000">(({ </span><span style="color: #001080">id</span><span style="color: #000000">, </span><span style="color: #001080">privateKey</span><span style="color: #000000">, </span><span style="color: #001080">publicKey</span><span style="color: #000000"> }) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">  </span><span style="color: #008000">// do stuff</span>
 <span style="color: #000000">});</span>
 </code></pre>
