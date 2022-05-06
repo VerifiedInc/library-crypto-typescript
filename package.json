@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@types/bs58": "^4.0.1",
-    "@unumid/types": "3.38.0",
+    "@unumid/types": "3.46.0",
     "bs58": "^4.0.1",
     "fast-json-stable-stringify": "^2.1.0",
     "typedoc": "^0.20.36",
