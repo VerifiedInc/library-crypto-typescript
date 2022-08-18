@@ -54,7 +54,7 @@ function _signBytes (bytes: Uint8Array, privateKey: string, encoding: 'base58' |
     const signatureValueBuf = crypto.sign(null, bytes, privateKeyObj);
 
     // return resulting Buffer encoded as a base58 string
-    return bs58.encode(signatureValueBuf);
+    return signatureValueBuf.toString('base64');
   } catch (e) {
     throw new CryptoError(e.message, e.code);
   }

@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.encryptBytes = exports.encryptBytesHelper = exports.encrypt = void 0;
 var crypto_1 = require("crypto");
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
-var bs58_1 = __importDefault(require("bs58"));
 var types_1 = require("@unumid/types");
 var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
@@ -82,11 +81,11 @@ function encryptBytesHelper(did, publicKey, data, encoding, rsaPadding) {
         var encryptedAlgo = crypto_1.publicEncrypt(publicKeyObj, Buffer.from(algorithm));
         // return EncryptedData object with encrypted data and aes key info
         return {
-            data: bs58_1.default.encode(encrypted),
+            data: encrypted.toString('base64'),
             key: {
-                iv: bs58_1.default.encode(encryptedIv),
-                key: bs58_1.default.encode(encryptedKey),
-                algorithm: bs58_1.default.encode(encryptedAlgo),
+                iv: encryptedIv.toString('base64'),
+                key: encryptedKey.toString('base64'),
+                algorithm: encryptedAlgo.toString('base64'),
                 did: did
             },
             rsaPadding: rsaPadding

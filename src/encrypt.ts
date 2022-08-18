@@ -97,11 +97,11 @@ export function encryptBytesHelper (
 
     // return EncryptedData object with encrypted data and aes key info
     return {
-      data: bs58.encode(encrypted),
+      data: encrypted.toString('base64'),
       key: {
-        iv: bs58.encode(encryptedIv),
-        key: bs58.encode(encryptedKey),
-        algorithm: bs58.encode(encryptedAlgo),
+        iv: encryptedIv.toString('base64'),
+        key: encryptedKey.toString('base64'),
+        algorithm: encryptedAlgo.toString('base64'),
         did
       },
       rsaPadding

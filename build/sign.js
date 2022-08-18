@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.signBytes = exports.sign = void 0;
 var crypto_1 = __importDefault(require("crypto"));
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
-var bs58_1 = __importDefault(require("bs58"));
 var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
 var utils_1 = require("./utils");
@@ -56,7 +55,7 @@ function _signBytes(bytes, privateKey, encoding) {
         var privateKeyObj = crypto_1.default.createPrivateKey({ key: decodedPrivateKey, format: format, type: type });
         var signatureValueBuf = crypto_1.default.sign(null, bytes, privateKeyObj);
         // return resulting Buffer encoded as a base58 string
-        return bs58_1.default.encode(signatureValueBuf);
+        return signatureValueBuf.toString('base64');
     }
     catch (e) {
         throw new CryptoError_1.CryptoError(e.message, e.code);

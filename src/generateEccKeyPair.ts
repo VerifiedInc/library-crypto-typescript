@@ -37,7 +37,7 @@ export async function generateEccBase58KeyPair (): Promise<KeyPair> {
 
   return {
     id: v4(),
-    publicKey: bs58.encode(publicKey),
-    privateKey: bs58.encode(privateKey)
+    publicKey: publicKey.toString('base64'),
+    privateKey: privateKey.toString('base64')
   };
 }
