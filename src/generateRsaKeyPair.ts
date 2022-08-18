@@ -36,7 +36,7 @@ export async function generateRsaBase58KeyPair (): Promise<KeyPair> {
   );
   return {
     id: v4(),
-    publicKey: publicKey.toString('base64'),
-    privateKey: privateKey.toString('base64')
+    publicKey: bs58.encode(publicKey),
+    privateKey: bs58.encode(privateKey)
   };
 }
