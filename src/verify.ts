@@ -68,7 +68,7 @@ export function verifyBytesHelper (signature: string, bytes: Uint8Array, publicK
     const decodedPublicKey = decodeKey(publicKey, encoding);
 
     // decode signature from base58 to a Buffer
-    const signatureBytes = bs58.decode(signature);
+    const signatureBytes = Buffer.from(signature, 'base64');
 
     // if we pass the key to crypto.verify as a buffer, it will assume pem format
     // we need to convert it to a KeyObject first in order to use der formatted keys

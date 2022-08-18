@@ -1,11 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.decryptBytes = exports.decrypt = void 0;
 var crypto_1 = require("crypto");
-var bs58_1 = __importDefault(require("bs58"));
 var types_1 = require("@unumid/types");
 var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
@@ -58,10 +54,10 @@ function _decryptBytes(privateKey, encryptedData, encoding) {
         // node can only decrypt with pem-encoded keys
         var privateKeyPem = helpers_1.derToPem(decodedPrivateKey, 'private');
         // decode aes key info and encrypted data from base58 to Buffers
-        var decodedEncryptedIv = bs58_1.default.decode(iv);
-        var decodedEncryptedKey = bs58_1.default.decode(key);
-        var decodedEncryptedAlgorithm = bs58_1.default.decode(algorithm);
-        var decodedEncryptedData = bs58_1.default.decode(data);
+        var decodedEncryptedIv = Buffer.from(iv, 'base64');
+        var decodedEncryptedKey = Buffer.from(key, 'base64');
+        var decodedEncryptedAlgorithm = Buffer.from(algorithm, 'base64');
+        var decodedEncryptedData = Buffer.from(data, 'base64');
         // we need to use a key object to set non-default padding
         // for interoperability with android/ios/webcrypto cryptography implementations
         var privateKeyObj = {

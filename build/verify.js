@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyBytes = exports.verifyBytesHelper = exports.verifyString = exports.verify = void 0;
 var crypto_1 = __importDefault(require("crypto"));
 var fast_json_stable_stringify_1 = __importDefault(require("fast-json-stable-stringify"));
-var bs58_1 = __importDefault(require("bs58"));
 var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
 /**
@@ -74,7 +73,7 @@ function verifyBytesHelper(signature, bytes, publicKey, encoding) {
         // decode public key if necessary
         var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
         // decode signature from base58 to a Buffer
-        var signatureBytes = bs58_1.default.decode(signature);
+        var signatureBytes = Buffer.from(signature, 'base64');
         // if we pass the key to crypto.verify as a buffer, it will assume pem format
         // we need to convert it to a KeyObject first in order to use der formatted keys
         var format = encoding === 'pem' ? 'pem' : 'der';

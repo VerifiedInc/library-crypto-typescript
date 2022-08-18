@@ -56,10 +56,10 @@ function _decryptBytes (privateKey: string, encryptedData: EncryptedData, encodi
     const privateKeyPem = derToPem(decodedPrivateKey, 'private');
 
     // decode aes key info and encrypted data from base58 to Buffers
-    const decodedEncryptedIv = bs58.decode(iv);
-    const decodedEncryptedKey = bs58.decode(key);
-    const decodedEncryptedAlgorithm = bs58.decode(algorithm);
-    const decodedEncryptedData = bs58.decode(data);
+    const decodedEncryptedIv = Buffer.from(iv, 'base64');
+    const decodedEncryptedKey = Buffer.from(key, 'base64');
+    const decodedEncryptedAlgorithm = Buffer.from(algorithm, 'base64');
+    const decodedEncryptedData = Buffer.from(data, 'base64');
 
     // we need to use a key object to set non-default padding
     // for interoperability with android/ios/webcrypto cryptography implementations
