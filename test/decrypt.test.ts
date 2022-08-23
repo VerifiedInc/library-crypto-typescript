@@ -223,74 +223,77 @@ describe('decrypt', () => {
     });
   });
 
-  // describe('exception handling', () => {
-  //   let publicKey: string;
-  //   let privateKey: string;
-  //   const encoding = 'base58';
-  //   beforeAll(async () => {
-  //     const keypair = await generateRsaKeyPair(encoding);
-  //     privateKey = keypair.privateKey;
-  //     publicKey = keypair.publicKey;
-  //     encryptedData = encrypt(subjectDid, publicKey, data, encoding);
+  describe('exception handling', () => {
+    let publicKey: string;
+    let privateKey: string;
+    const encoding = 'base58';
 
-  //     const eccKeyPair = await generateEccKeyPair();
+    beforeAll(async () => {
+      const keypair = await generateRsaKeyPair(encoding);
+      privateKey = keypair.privateKey;
+      publicKey = keypair.publicKey;
+      // encryptedData = encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
 
-  //     const unsignedCredential = {
-  //       '@context': ['https://www.w3.org/2018/credentials/v1'],
-  //       id: '0c93beb0-2605-4650-b698-3fd92eb110b9',
-  //       credentialSubject: {
-  //         id: 'did:unum:89460433-c0b7-4892-aeb2-f2ece77af141',
-  //         value: 'dummy value'
-  //       },
-  //       credentialStatus: {
-  //         uuid: 'c3974fa3-396e-42ee-81a9-9ab69efce031',
-  //         status: 'valid',
-  //         createdAt: '2020-05-26T23:07:12.770Z',
-  //         updatedAt: '2020-05-26T23:07:12.770Z'
-  //       },
-  //       issuer: 'did:unum:e1281297-268b-4700-8f17-7fa826effe35',
-  //       type: ['VerifiableCredential', 'DummyCredential'],
-  //       issuanceDate: '2020-05-26T23:07:12.770Z'
-  //     };
-  //     const issuerDid = 'did:unum:756450ab-ab01-420c-838e-cfa0bebdc2ba';
+      const eccKeyPair = await generateEccKeyPair(encoding);
 
-  //     const signatureValue = sign(unsignedCredential, eccKeyPair.privateKey);
-  //     credential = {
-  //       ...unsignedCredential,
-  //       proof: {
-  //         created: '2020-05-26T23:07:12.770Z',
-  //         signatureValue,
-  //         proofPurpose: 'assertionMethod',
-  //         type: 'secp256r1Signature2020',
-  //         verificationMethod: `${issuerDid}#5b134be0-7cb4-4983-95b1-bdec218cb55b`
-  //       }
-  //     };
+      const credentialSubject = {
+        id: 'did:unum:89460433-c0b7-4892-aeb2-f2ece77af141',
+        value: 'dummy value'
+      };
 
-  //     encryptedCredential = encrypt(
-  //       credential.proof.verificationMethod,
-  //       publicKey,
-  //       credential,
-  //       encoding
-  //     );
-  //   });
+      const credentialStatus: CredentialStatus = {
+        id: 'https://example.edu/status/24',
+        type: 'CredentialStatusList2017'
+      };
 
-  //   beforeEach(() => {
-  //     jest.spyOn(crypto, 'privateDecrypt');
-  //   });
+      const unsignedCredential: UnsignedCredential = {
+        context: ['https://www.w3.org/2018/credentials/v1'],
+        id: '0c93beb0-2605-4650-b698-3fd92eb110b9',
+        credentialSubject: JSON.stringify(credentialSubject),
+        credentialStatus,
+        issuer: 'did:unum:e1281297-268b-4700-8f17-7fa826effe35',
+        type: ['VerifiableCredential', 'DummyCredential'],
+        issuanceDate: new Date('2020-05-26T23:07:12.770Z')
+      };
+      const issuerDid = 'did:unum:756450ab-ab01-420c-838e-cfa0bebdc2ba';
 
-  //   afterEach(() => {
-  //     jest.restoreAllMocks();
-  //   });
+      const unsignedCredentialBytes = UnsignedCredentialPb.encode(unsignedCredential).finish();
+      const signatureValue = signBytes(unsignedCredentialBytes, eccKeyPair.privateKey);
 
-  //   it('throws CryptoError exception if the input is invalid', async () => {
-  //     try {
-  //       decrypt(privateKey, encryptedData, 'pem');
-  //       fail();
-  //     } catch (e) {
-  //       expect(e).toBeInstanceOf(CryptoError);
-  //     }
-  //   });
-  // });
+      const proof = createProof(signatureValue, `${issuerDid}#5b134be0-7cb4-4983-95b1-bdec218cb55b`);
+
+      credential = {
+        ...unsignedCredential,
+        proof
+      };
+
+      const credentialBytes = CredentialPb.encode(credential).finish();
+
+      encryptedCredential = encryptBytesHelper(
+        credential.proof.verificationMethod,
+        publicKey,
+        credentialBytes,
+        encoding
+      );
+    });
+
+    beforeEach(() => {
+      jest.spyOn(crypto, 'privateDecrypt');
+    });
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it('throws CryptoError exception if the input is invalid', async () => {
+      try {
+        decryptBytes(privateKey, encryptedData);
+        fail();
+      } catch (e) {
+        expect(e).toBeInstanceOf(CryptoError);
+      }
+    });
+  });
 
   test('rsa padding', async () => {
     const keys = await generateRsaKeyPair();
