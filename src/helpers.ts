@@ -5,7 +5,7 @@ import bs58 from 'bs58';
 export const promisifiedGenerateKeyPair = promisify(generateKeyPair);
 
 export function decodeKey (publicKey: string, encoding: 'base58' | 'pem'): string | Buffer {
-  return encoding === 'base58' ? Buffer.from(publicKey, 'base64') : publicKey;
+  return encoding === 'base58' ? bs58.decode(publicKey) : publicKey;
 }
 
 export function derToPem (key: Buffer | string, type: 'public' | 'private'): string {
