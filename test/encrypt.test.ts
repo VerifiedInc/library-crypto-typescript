@@ -1,15 +1,18 @@
-import { RSAPadding } from '@unumid/types';
+import { Proof, RSAPadding, UnsignedString } from '@unumid/types';
 import crypto from 'crypto';
 import stringify from 'fast-json-stable-stringify';
 
-import { encrypt } from '../src/encrypt';
+import { encryptBytesHelper, encryptBytes } from '../src/encrypt';
 import { generateRsaKeyPair } from '../src/generateRsaKeyPair';
 import { derToPem, decodeKey } from '../src/helpers';
 import { CryptoError } from '../src/types/CryptoError';
 
 describe('encrypt', () => {
   let publicKey: string;
-  const data = { test: 'test' };
+  const data: UnsignedString = {
+    data: 'Hello World'
+  };
+  const dataBytes = UnsignedString.encode(data).finish();
   const subjectDid = 'did:unum:c92aed65-21c1-438f-b723-d2ee4a637a47#e939fbf0-7c81-49c9-b369-8ca502fcd19f';
 
   describe('using default (pem) encoding', () => {
@@ -28,7 +31,7 @@ describe('encrypt', () => {
     });
 
     it('creates an aes cipher to encrypt the data', () => {
-      encrypt(subjectDid, publicKey, data);
+      encryptBytesHelper(subjectDid, publicKey, dataBytes);
       expect(crypto.createCipheriv).toBeCalled();
       expect((crypto.createCipheriv as jest.Mock).mock.calls[0][0]).toEqual('aes-256-cbc');
     });
@@ -37,8 +40,8 @@ describe('encrypt', () => {
       const mockUpdate = jest.fn(() => Buffer.from(stringify(data)));
       const mockFinal = jest.fn(() => Buffer.from(stringify(data)));
       (crypto.createCipheriv as jest.Mock).mockReturnValueOnce({ update: mockUpdate, final: mockFinal });
-      encrypt(subjectDid, publicKey, data);
-      expect(mockUpdate).toBeCalledWith(stringify(data));
+      encryptBytesHelper(subjectDid, publicKey, dataBytes);
+      expect(mockUpdate).toBeCalledWith(dataBytes);
       expect(mockFinal).toBeCalled();
     });
 
@@ -54,19 +57,19 @@ describe('encrypt', () => {
         padding: crypto.constants.RSA_PKCS1_PADDING
       };
 
-      encrypt(subjectDid, publicKey, data);
+      encryptBytesHelper(subjectDid, publicKey, dataBytes);
       expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, iv);
       expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, key);
       expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, Buffer.from('aes-256-cbc'));
     });
 
     it('returns the encrypted data', () => {
-      const encryptedData = encrypt(subjectDid, publicKey, data);
+      const encryptedData = encryptBytesHelper(subjectDid, publicKey, dataBytes);
       expect(encryptedData.data).toBeDefined();
     });
 
     it('returns the encrypted key information', () => {
-      const encryptedData = encrypt(subjectDid, publicKey, data);
+      const encryptedData = encryptBytesHelper(subjectDid, publicKey, dataBytes);
       expect(encryptedData.key).toBeDefined();
       expect(encryptedData.key.iv).toBeDefined();
       expect(encryptedData.key.key).toBeDefined();
@@ -76,20 +79,20 @@ describe('encrypt', () => {
 
     it('includes the rsa padding in the encrypted data, defaulting to PKCS', () => {
       // defaults to pkcs
-      const encryptedDataDefault = encrypt(subjectDid, publicKey, data);
+      const encryptedDataDefault = encryptBytesHelper(subjectDid, publicKey, dataBytes);
       expect(encryptedDataDefault.rsaPadding).toEqual(RSAPadding.PKCS);
 
       // sets pkcs
-      const encryptedDataPKCS = encrypt(subjectDid, publicKey, data, 'pem', RSAPadding.PKCS);
+      const encryptedDataPKCS = encryptBytesHelper(subjectDid, publicKey, dataBytes, 'pem', RSAPadding.PKCS);
       expect(encryptedDataPKCS.rsaPadding).toEqual(RSAPadding.PKCS);
 
       // sets oaep
-      const encryptedDataOAEP = encrypt(subjectDid, publicKey, data, 'pem', RSAPadding.OAEP);
+      const encryptedDataOAEP = encryptBytesHelper(subjectDid, publicKey, dataBytes, 'pem', RSAPadding.OAEP);
       expect(encryptedDataOAEP.rsaPadding).toEqual(RSAPadding.OAEP);
 
       // fails if padding is unrecognized
       try {
-        encrypt(subjectDid, publicKey, data, 'pem', RSAPadding.UNRECOGNIZED);
+        encryptBytesHelper(subjectDid, publicKey, dataBytes, 'pem', RSAPadding.UNRECOGNIZED);
         fail('Unrecognized RSA padding.');
       } catch (e) {
         expect(e).toEqual(new CryptoError('Unrecognized RSA padding.'));
@@ -114,7 +117,7 @@ describe('encrypt', () => {
     });
 
     it('creates an aes cipher to encrypt the data', () => {
-      encrypt(subjectDid, publicKey, data, encoding);
+      encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
       expect(crypto.createCipheriv).toBeCalled();
       expect((crypto.createCipheriv as jest.Mock).mock.calls[0][0]).toEqual('aes-256-cbc');
     });
@@ -123,8 +126,8 @@ describe('encrypt', () => {
       const mockUpdate = jest.fn(() => Buffer.from(stringify(data)));
       const mockFinal = jest.fn(() => Buffer.from(stringify(data)));
       (crypto.createCipheriv as jest.Mock).mockReturnValueOnce({ update: mockUpdate, final: mockFinal });
-      encrypt(subjectDid, publicKey, data, encoding);
-      expect(mockUpdate).toBeCalledWith(stringify(data));
+      encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
+      expect(mockUpdate).toBeCalledWith(dataBytes);
       expect(mockFinal).toBeCalled();
     });
 
@@ -140,19 +143,19 @@ describe('encrypt', () => {
         padding: crypto.constants.RSA_PKCS1_PADDING
       };
 
-      encrypt(subjectDid, publicKey, data, encoding);
+      encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
       expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, iv);
       expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, key);
       expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, Buffer.from('aes-256-cbc'));
     });
 
     it('returns the encrypted data', () => {
-      const encryptedData = encrypt(subjectDid, publicKey, data, encoding);
+      const encryptedData = encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
       expect(encryptedData.data).toBeDefined();
     });
 
     it('returns the encrypted key information', () => {
-      const encryptedData = encrypt(subjectDid, publicKey, data, encoding);
+      const encryptedData = encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
       expect(encryptedData.key).toBeDefined();
       expect(encryptedData.key.iv).toBeDefined();
       expect(encryptedData.key.key).toBeDefined();
@@ -178,7 +181,7 @@ describe('encrypt', () => {
     });
 
     it('creates an aes cipher to encrypt the data', () => {
-      encrypt(subjectDid, publicKey, data, encoding);
+      encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
       expect(crypto.createCipheriv).toBeCalled();
       expect((crypto.createCipheriv as jest.Mock).mock.calls[0][0]).toEqual('aes-256-cbc');
     });
@@ -187,8 +190,8 @@ describe('encrypt', () => {
       const mockUpdate = jest.fn(() => Buffer.from(stringify(data)));
       const mockFinal = jest.fn(() => Buffer.from(stringify(data)));
       (crypto.createCipheriv as jest.Mock).mockReturnValueOnce({ update: mockUpdate, final: mockFinal });
-      encrypt(subjectDid, publicKey, data, encoding);
-      expect(mockUpdate).toBeCalledWith(stringify(data));
+      encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
+      expect(mockUpdate).toBeCalledWith(dataBytes);
       expect(mockFinal).toBeCalled();
     });
 
@@ -206,19 +209,19 @@ describe('encrypt', () => {
         padding: crypto.constants.RSA_PKCS1_PADDING
       };
 
-      encrypt(subjectDid, publicKey, data, encoding);
+      encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
       expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, iv);
       expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, key);
       expect(crypto.publicEncrypt).toBeCalledWith(publicKeyObj, Buffer.from('aes-256-cbc'));
     });
 
     it('returns the encrypted data', () => {
-      const encryptedData = encrypt(subjectDid, publicKey, data, encoding);
+      const encryptedData = encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
       expect(encryptedData.data).toBeDefined();
     });
 
     it('returns the encrypted key information', () => {
-      const encryptedData = encrypt(subjectDid, publicKey, data, encoding);
+      const encryptedData = encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
       expect(encryptedData.key).toBeDefined();
       expect(encryptedData.key.iv).toBeDefined();
       expect(encryptedData.key.key).toBeDefined();
@@ -240,7 +243,7 @@ describe('encrypt', () => {
 
     it('throws CryptoError exception if the input is invalid', async () => {
       try {
-        encrypt(subjectDid, publicKey, data, 'pem');
+        encryptBytesHelper(subjectDid, publicKey, dataBytes, 'pem');
         fail();
       } catch (e) {
         expect(e).toBeInstanceOf(CryptoError);
