@@ -34,6 +34,9 @@ describe('decrypt', () => {
   };
   const dataBytes = UnsignedString.encode(data).finish();
   const subjectDid = 'did:unum:c92aed65-21c1-438f-b723-d2ee4a637a47#e939fbf0-7c81-49c9-b369-8ca502fcd19f';
+
+  let publicKey: string;
+  let privateKey: string;
   let encryptedData: EncryptedData;
   let encryptedCredential;
   let credential;
@@ -47,9 +50,6 @@ describe('decrypt', () => {
   });
 
   describe('using default (pem) encoding encryptBytesHelper', () => {
-    let publicKey: string;
-    let privateKey: string;
-
     beforeAll(async () => {
       const keypair = await generateRsaKeyPair();
       privateKey = keypair.privateKey;
@@ -132,8 +132,6 @@ describe('decrypt', () => {
   });
 
   describe('using base58 encoding encryptBytesHelper', () => {
-    let publicKey: string;
-    let privateKey: string;
     const encoding = 'base58';
     beforeAll(async () => {
       const keypair = await generateRsaKeyPair(encoding);
@@ -223,8 +221,6 @@ describe('decrypt', () => {
   });
 
   describe('exception handling', () => {
-    let publicKey: string;
-    let privateKey: string;
     const encoding = 'base58';
 
     beforeAll(async () => {
