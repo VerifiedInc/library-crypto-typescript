@@ -132,57 +132,56 @@ describe('decrypt', () => {
     });
   });
 
-  describe('using base58 encoding encryptBytesHelper', () => {
+  describe('using default (pem) encoding encryptBytesHelper', () => {
     let publicKey: string;
     let privateKey: string;
-    const encoding = 'base58';
+
     beforeAll(async () => {
-      const keypair = await generateRsaKeyPair(encoding);
+      const keypair = await generateRsaKeyPair();
       privateKey = keypair.privateKey;
       publicKey = keypair.publicKey;
-      encryptedData = encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
+      encryptedData = encryptBytesHelper(subjectDid, publicKey, dataBytes);
 
-      const eccKeyPair = await generateEccKeyPair(encoding);
+      const eccKeyPair = await generateEccKeyPair();
 
-      // const credentialSubject = {
-      //   id: 'did:unum:89460433-c0b7-4892-aeb2-f2ece77af141',
-      //   value: 'dummy value'
-      // };
+      const credentialSubject = {
+        id: 'did:unum:89460433-c0b7-4892-aeb2-f2ece77af141',
+        value: 'dummy value'
+      };
 
-      // const credentialStatus: CredentialStatus = {
-      //   id: 'https://example.edu/status/24',
-      //   type: 'CredentialStatusList2017'
-      // };
+      const credentialStatus: CredentialStatus = {
+        id: 'https://example.edu/status/24',
+        type: 'CredentialStatusList2017'
+      };
 
-      // const unsignedCredential: UnsignedCredential = {
-      //   context: ['https://www.w3.org/2018/credentials/v1'],
-      //   id: '0c93beb0-2605-4650-b698-3fd92eb110b9',
-      //   credentialSubject: JSON.stringify(credentialSubject),
-      //   credentialStatus,
-      //   issuer: 'did:unum:e1281297-268b-4700-8f17-7fa826effe35',
-      //   type: ['VerifiableCredential', 'DummyCredential'],
-      //   issuanceDate: new Date('2020-05-26T23:07:12.770Z')
-      // };
-      // const issuerDid = 'did:unum:756450ab-ab01-420c-838e-cfa0bebdc2ba';
+      const unsignedCredential: UnsignedCredential = {
+        context: ['https://www.w3.org/2018/credentials/v1'],
+        id: '0c93beb0-2605-4650-b698-3fd92eb110b9',
+        credentialSubject: JSON.stringify(credentialSubject),
+        credentialStatus,
+        issuer: 'did:unum:e1281297-268b-4700-8f17-7fa826effe35',
+        type: ['VerifiableCredential', 'DummyCredential'],
+        issuanceDate: new Date('2020-05-26T23:07:12.770Z')
+      };
+      const issuerDid = 'did:unum:756450ab-ab01-420c-838e-cfa0bebdc2ba';
 
-      // const unsignedCredentialBytes = UnsignedCredentialPb.encode(unsignedCredential).finish();
-      // const signatureValue = signBytes(unsignedCredentialBytes, eccKeyPair.privateKey);
+      const unsignedCredentialBytes = UnsignedCredentialPb.encode(unsignedCredential).finish();
+      const signatureValue = signBytes(unsignedCredentialBytes, eccKeyPair.privateKey);
 
-      // const proof = createProof(signatureValue, `${issuerDid}#5b134be0-7cb4-4983-95b1-bdec218cb55b`);
+      const proof = createProof(signatureValue, `${issuerDid}#5b134be0-7cb4-4983-95b1-bdec218cb55b`);
 
-      // credential = {
-      //   ...unsignedCredential,
-      //   proof
-      // };
+      credential = {
+        ...unsignedCredential,
+        proof
+      };
 
-      // const credentialBytes = CredentialPb.encode(credential).finish();
+      const credentialBytes = CredentialPb.encode(credential).finish();
 
-      // encryptedCredential = encryptBytesHelper(
-      //   credential.proof.verificationMethod,
-      //   publicKey,
-      //   credentialBytes,
-      //   encoding
-      // );
+      encryptedCredential = encryptBytesHelper(
+        credential.proof.verificationMethod,
+        publicKey,
+        credentialBytes
+      );
     });
 
     beforeEach(() => {
@@ -196,11 +195,8 @@ describe('decrypt', () => {
     it('decrypts with the private key', () => {
       decryptBytes(privateKey, encryptedData);
 
-      const decodedKey = decodeKey(privateKey, encoding);
-      const privateKeyPem = derToPem(decodedKey, 'private');
-
       const privateKeyObj = {
-        key: privateKeyPem,
+        key: privateKey,
         padding: crypto.constants.RSA_PKCS1_PADDING
       };
 
@@ -214,11 +210,11 @@ describe('decrypt', () => {
       expect(decryptedData).toEqual(data2);
     });
 
-    // it('decrypts an actual encrypted credential', () => {
-    //   const decryptedDataBytes = decryptBytes(privateKey, encryptedCredential);
-    //   const decryptedData = CredentialPb.decode(decryptedDataBytes);
-    //   expect(decryptedData).toEqual(credential);
-    // });
+    it('decrypts an actual encrypted credential', () => {
+      const decryptedDataBytes = decryptBytes(privateKey, encryptedCredential);
+      const decryptedData = CredentialPb.decode(decryptedDataBytes);
+      expect(decryptedData).toEqual(credential);
+    });
   });
 
   // describe('exception handling', () => {
