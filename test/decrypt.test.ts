@@ -29,8 +29,6 @@ export const createProof = (signature: string, method: string): Proof => {
 };
 
 describe('decrypt', () => {
-  let publicKey: string;
-  let privateKey: string;
   const data: UnsignedString = {
     data: 'Hello World'
   };
@@ -48,7 +46,10 @@ describe('decrypt', () => {
     jest.clearAllMocks();
   });
 
-  describe('using default (pem) encoding', () => {
+  describe('using default (pem) encoding encryptBytesHelper', () => {
+    let publicKey: string;
+    let privateKey: string;
+
     beforeAll(async () => {
       const keypair = await generateRsaKeyPair();
       privateKey = keypair.privateKey;
@@ -130,8 +131,11 @@ describe('decrypt', () => {
     });
   });
 
-  describe('using base58 encoding', () => {
+  describe('using base58 encoding encryptBytesHelper', () => {
+    let publicKey: string;
+    let privateKey: string;
     const encoding = 'base58';
+
     beforeAll(async () => {
       const keypair = await generateRsaKeyPair(encoding);
       privateKey = keypair.privateKey;
@@ -176,7 +180,8 @@ describe('decrypt', () => {
       encryptedCredential = encryptBytesHelper(
         credential.proof.verificationMethod,
         publicKey,
-        credentialBytes
+        credentialBytes,
+        encoding
       );
     });
 
@@ -191,8 +196,11 @@ describe('decrypt', () => {
     it('decrypts with the private key', () => {
       decryptBytes(privateKey, encryptedData);
 
+      const decodedKey = decodeKey(privateKey, encoding);
+      const privateKeyPem = derToPem(decodedKey, 'private');
+
       const privateKeyObj = {
-        key: privateKey,
+        key: privateKeyPem,
         padding: crypto.constants.RSA_PKCS1_PADDING
       };
 
@@ -214,12 +222,15 @@ describe('decrypt', () => {
   });
 
   describe('exception handling', () => {
+    let publicKey: string;
+    let privateKey: string;
     const encoding = 'base58';
+
     beforeAll(async () => {
       const keypair = await generateRsaKeyPair(encoding);
       privateKey = keypair.privateKey;
       publicKey = keypair.publicKey;
-      encryptedData = encrypt(subjectDid, publicKey, data, encoding);
+      encryptedData = encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
 
       const eccKeyPair = await generateEccKeyPair();
 
