@@ -29,11 +29,10 @@ export const createProof = (signature: string, method: string): Proof => {
 };
 
 describe('decrypt', () => {
-  const data = { test: 'test' };
-  const data2: UnsignedString = {
+  const data: UnsignedString = {
     data: 'Hello World'
   };
-  const dataBytes = UnsignedString.encode(data2).finish();
+  const dataBytes = UnsignedString.encode(data).finish();
   const subjectDid = 'did:unum:c92aed65-21c1-438f-b723-d2ee4a637a47#e939fbf0-7c81-49c9-b369-8ca502fcd19f';
   let encryptedData: EncryptedData;
   let encryptedCredential;
@@ -122,7 +121,7 @@ describe('decrypt', () => {
     it('returns the decrypted data', () => {
       const decryptedDataBytes = decryptBytes(privateKey, encryptedData);
       const decryptedData = UnsignedString.decode(decryptedDataBytes);
-      expect(decryptedData).toEqual(data2);
+      expect(decryptedData).toEqual(data);
     });
 
     it('decrypts an actual encrypted credential', () => {
@@ -213,7 +212,7 @@ describe('decrypt', () => {
       encryptedData = encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
       const decryptedDataBytes = decryptBytes(privateKey, encryptedData);
       const decryptedData = UnsignedString.decode(decryptedDataBytes);
-      expect(decryptedData).toEqual(data2);
+      expect(decryptedData).toEqual(data);
     });
 
     it('decrypts an actual encrypted credential', () => {
