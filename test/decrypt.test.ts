@@ -133,12 +133,12 @@ describe('decrypt', () => {
   describe('using base58 encoding', () => {
     const encoding = 'base58';
     beforeAll(async () => {
-      const keypair = await generateRsaKeyPair();
+      const keypair = await generateRsaKeyPair(encoding);
       privateKey = keypair.privateKey;
       publicKey = keypair.publicKey;
-      encryptedData = encryptBytesHelper(subjectDid, publicKey, dataBytes);
+      encryptedData = encryptBytesHelper(subjectDid, publicKey, dataBytes, encoding);
 
-      const eccKeyPair = await generateEccKeyPair();
+      const eccKeyPair = await generateEccKeyPair(encoding);
 
       const credentialSubject = {
         id: 'did:unum:89460433-c0b7-4892-aeb2-f2ece77af141',
