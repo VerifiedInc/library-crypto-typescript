@@ -77,8 +77,8 @@ describe('generateEccKeypair', () => {
       expect(result.id).toBeDefined();
       expect(result.privateKey).toBeDefined();
       expect(result.publicKey).toBeDefined();
-      expect(() => Buffer.from(result.privateKey, 'base64')).not.toThrow();
-      expect(() => Buffer.from(result.publicKey, 'base64')).not.toThrow();
+      expect(() => bs58.decode(result.privateKey)).not.toThrow();
+      expect(() => bs58.decode(result.publicKey)).not.toThrow();
     });
   });
 });
