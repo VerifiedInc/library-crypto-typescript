@@ -1,4 +1,5 @@
 import { Proof, RSAPadding, UnsignedString } from '@unumid/types';
+import { PublicKeyInfo } from '@unumid/types/build/protos/crypto';
 import crypto from 'crypto';
 import stringify from 'fast-json-stable-stringify';
 
@@ -244,6 +245,36 @@ describe('encrypt', () => {
     it('throws CryptoError exception if the input is invalid', async () => {
       try {
         encryptBytesHelper(subjectDid, publicKey, dataBytes, 'pem');
+        fail();
+      } catch (e) {
+        expect(e).toBeInstanceOf(CryptoError);
+      }
+    });
+
+    it('throws CryptoError exception if the public key is missing', async () => {
+      const publicKeyInfo: PublicKeyInfo = {
+        publicKey: undefined,
+        encoding: 'pem',
+        rsaPadding: RSAPadding.PKCS
+      };
+
+      try {
+        encryptBytes(subjectDid, publicKeyInfo, dataBytes);
+        fail();
+      } catch (e) {
+        expect(e).toBeInstanceOf(CryptoError);
+      }
+    });
+
+    it('throws CryptoError exception if the public key encoding is missing', async () => {
+      const publicKeyInfo: PublicKeyInfo = {
+        publicKey,
+        encoding: undefined,
+        rsaPadding: RSAPadding.PKCS
+      };
+
+      try {
+        encryptBytes(subjectDid, publicKeyInfo, dataBytes);
         fail();
       } catch (e) {
         expect(e).toBeInstanceOf(CryptoError);
