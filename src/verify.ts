@@ -1,6 +1,4 @@
 import crypto from 'crypto';
-import stringify from 'fast-json-stable-stringify';
-import bs58 from 'bs58';
 
 import { decodeKey } from './helpers';
 import { CryptoError } from './types/CryptoError';
