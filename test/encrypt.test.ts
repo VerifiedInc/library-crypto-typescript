@@ -9,12 +9,13 @@ import { derToPem, decodeKey } from '../src/helpers';
 import { CryptoError } from '../src/types/CryptoError';
 
 describe('encrypt', () => {
-  let publicKey: string;
   const data: UnsignedString = {
     data: 'Hello World'
   };
   const dataBytes = UnsignedString.encode(data).finish();
   const subjectDid = 'did:unum:c92aed65-21c1-438f-b723-d2ee4a637a47#e939fbf0-7c81-49c9-b369-8ca502fcd19f';
+
+  let publicKey: string;
 
   describe('using default (pem) encoding', () => {
     beforeAll(async () => {
