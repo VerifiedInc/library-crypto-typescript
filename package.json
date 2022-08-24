@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@types/bs58": "^4.0.1",
-    "@unumid/types": "git+ssh://git@github.com/UnumID/types.git#v4",
+    "@unumid/types": "4.0.0",
     "bs58": "^4.0.1",
     "fast-json-stable-stringify": "^2.1.0",
     "typedoc": "^0.20.36",
