@@ -1,16 +1,10 @@
-import { publicEncrypt, randomBytes, createCipheriv, constants } from 'crypto';
-
-import stringify from 'fast-json-stable-stringify';
-import bs58 from 'bs58';
+import { publicEncrypt, randomBytes, createCipheriv } from 'crypto';
 
 import { EncryptedData, RSAPadding } from '@unumid/types';
 import { decodeKey, derToPem } from './helpers';
 import { CryptoError } from './types/CryptoError';
 import { getPadding } from './utils';
 import { PublicKeyInfo } from '@unumid/types/build/protos/crypto';
-
-// from node.crypto lib
-type BinaryLike = string | NodeJS.ArrayBufferView;
 
 /**
  *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
@@ -24,7 +18,7 @@ type BinaryLike = string | NodeJS.ArrayBufferView;
 export function encryptBytes (
   did: string,
   publicKeyInfo: PublicKeyInfo,
-  data: BinaryLike
+  data: Uint8Array
 ): EncryptedData {
   const { publicKey, encoding, rsaPadding } = publicKeyInfo;
 
@@ -53,7 +47,7 @@ export function encryptBytes (
 export function encryptBytesHelper (
   did: string,
   publicKey: string,
-  data: BinaryLike,
+  data: Uint8Array,
   encoding: 'base58' | 'pem' = 'pem',
   rsaPadding: RSAPadding = RSAPadding.PKCS
 ): EncryptedData {

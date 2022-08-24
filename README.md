@@ -10,6 +10,12 @@ Releases of packages to the package repos, NPM and Github Packages, should be le
 ## Documentation
 This readme and the auto generated [typedocs](https://docs.unum.id/Library-Crypto-TypeScript/) serve as the official documentation.
 
+## Byte Arrays
+This latest version of the crypto library only interfaces with byte arrays, specifically Uint8Array's, to remove the string encoding unknowns when dealing with cryptographic outputs from multiple platforms, (i.e. Android, Web, etc). 
+
+### Protocol Buffers
+In order to ensure a deterministic byte array cross platforms Protocol Buffers are highly recommend as the means of going to and from byte arrays. All "protobuf" objects come with built encoding and decoding helpers to assist.
+
 ## Functionality
 ### generateEccKeyPair
 Generates `secp256r1` private and public keys.
@@ -69,129 +75,133 @@ generateRsaKeyPair().then(({ id, privateKey, publicKey }) => {
 });
 ```
 
-### sign
-Signs data with a `secp256r1` private key.
+### signBytes
+Signs bytes with a `secp256r1` private key.
 
 ```typescript
-(data: any, privateKey: string, encoding: 'base58' | 'pem' = 'pem') => string;
+(data: Uint8Array, privateKey: string) => string;
 
 ```
 - arguments
   - data
-    - a TypeScript object
+    - an Uint8Array array
   - privateKey
     - a pem or base58-encoded private key
-  - encoding
-    - optional
-    - the key's encoding
-    - 'base58' or 'pem'
-    - defaults to 'pem'
-    - must match the encoding of the provided privateKey (i.e. if you provide a base58-encoded key, this must be set to 'base58')
 - returns
   - a signature encoded as a base58 string
 
 #### Usage
 ```typescript
-import { generateEccKeyPair, sign } from 'library-crypto-typescript';
+import { generateEccKeyPair, signBytes } from 'library-crypto-typescript';
 
 const { privateKey } = await generateEccKeyPair();
 
-const data = { some: 'data' };
+const data: UnsignedString = {
+  data: 'Hello World'
+};
+const dataBytes = UnsignedString.encode(data).finish();
 
-const signature = sign(data, privateKey);
+const signature = signBytes(dataBytes, privateKey);
 ```
 
-### verify
+### verifyBytes
 Verifies a signature with a `secp256r1` private key using the corresponding public key.
 
 ```typescript
-(signature: string, data: any, publicKey: string, encoding: 'base58' | 'pem' = 'pem') => boolean;
+(signature: string, data: Uint8Array, publicKey: PublicKeyInfo) => boolean;
 ```
 
 - arguments
   - signature
-    - a cryptographic signature encoded as a base58 string
+    - a cryptographic signature encoded as a base64 string
   - data
-    - a TypeScript object
-    - the data signed by the private key
+    - an Uint8Array array
+    - signed by the private key
   - publicKey
-    - a pem or base58-encoded public key
+    - a PublicKeyInfo object
+    - includes a pem or base58-encoded public key
+    - includes key encoding information
     - should correspond to the private key that signed the data
-  - encoding
-    - optional
-    - the key's encoding
-    - 'base58' or 'pem'
-    - defaults to 'pem'
-    - must match the encoding of the provided publicKey (i.e. if you provide a base58-encoded key, this must be set to 'base58')
 - returns
   - true if the siganture is valid, false if it is not valid
 
 #### Usage
 ```typescript
-import { generateEccKeyPair, sign, verify } from 'library-crypto-typescript';
+import { generateEccKeyPair, signBytes, verifyBytes } from 'library-crypto-typescript';
 
 const { privateKey, publicKey } = await generateEccKeyPair();
 
-const data = { some: 'data' };
+const data: UnsignedString = {
+  data: 'Hello World'
+};
+const dataBytes = UnsignedString.encode(data).finish();
 
-const signature = sign(data, privateKey);
+const signature = signBytes(dataBytes, privateKey);
 
-const isValid = verify(signature, data, publicKey);
+const publicKeyInfo: PublicKeyInfo = {
+  publicKey,
+  encoding: 'pem'
+}
+
+const isValid = verifyBytes(signature, dataBytes, publicKeyInfo);
 ```
 
-### encrypt
-Encrypts data with a single-use AES key. Returns an object contianing the encrypted data encoded as a base58 string along with information about the AES key, encrypted with an RSA public key and encoded as base58 strings
+### encryptBytes
+Encrypts data with a single-use AES key. Returns an object contianing the encrypted data encoded as a base64 string along with information about the AES key, encrypted with an RSA public key and encoded as base64 strings
 
 ```typescript
 (
   did: string,
-  publicKey: string,
-  data: any,
-  encoding: 'base58' | 'pem' = 'pem'
+  publicKeyInfo: PublicKeyInfo,
+  data: Uint8Array
 ) => { data: string, key: { iv: string, key: string, algorithm: string, did: string } };
 ```
 
 - arguments
   - did
     - a did (with fragment) which resolves to the public key
-  - publicKey
-    - a pem-encoded RSA public key
+  - publicKeyInfo
+    - a PublicKeyInfo object
+    - includes a pem or base58-encoded public key
+    - includes key encoding information
   - data
-    - a TypeScript object
+    - an Uint8Array array
     - the data to encrypt
-  - encoding
-    - optional
-    - the key's encoding
-    - 'base58' or 'pem'
-    - defaults to 'pem'
-    - must match the encoding of the provided publicKey (i.e. if you provide a base58-encoded key, this must be set to 'base58')
 - returns
   - EncryptedData
     - data
-      - the encrypted data, encoded as a base58 string
+      - the encrypted data, encoded as a base64 string
     - key
       - information to allow the recipient to decrypt the encrypted data
       - iv
-        - the initial vector of the AES key, encrypted with the public key and encoded as a base58 string
+        - the initial vector of the AES key, encrypted with the public key and encoded as a base64 string
       - key
-        - the AES key, encrypted with the public key and encoded as a base58 string
+        - the AES key, encrypted with the public key and encoded as a base64 string
       - algorithm
-        - the exact algorithm used to create the AES key, encrypted with the public key and encoded as a base58 string
+        - the exact algorithm used to create the AES key, encrypted with the public key and encoded as a base64 string
       - did
         - did + fragment which resolves to the public key used to encrypt `iv`, `key`, and `algorithm`
 
 ### Usage
 ```typescript
-import { generateRsaKeyPair, encrypt } from 'library-crypto-typescript';
+import { generateRsaKeyPair, encryptBytes } from 'library-crypto-typescript';
 
 const { publicKey } = await generateRsaKeyPair();
 
-const data = { some: 'data' };
+const publicKeyInfo: PublicKeyInfo = {
+  publicKey,
+  encoding: 'pem'
+}
 
-const encryptedData = encrypt(publicKey, data);
+const data: UnsignedString = {
+  data: 'Hello World'
+};
+const dataBytes = UnsignedString.encode(data).finish();
+
+const encryptedData = encryptBytes(did, dataBytes, publicKeyInfo);
 ```
 
-### decrypt
+### decryptBytes
 Decrypts data encrypted with an `RSA` public key using the corresponding private key.
 
 ```typescript
@@ -220,11 +230,19 @@ Decrypts data encrypted with an `RSA` public key using the corresponding private
 
 #### Usage
 ```typescript
-import { generateRsaKeyPair, encrypt, decrypt } from 'library-crypto-typescript';
+import { generateRsaKeyPair, encryptBytes, decryptBytes } from 'library-crypto-typescript';
 
 const { privateKey, publicKey } = await generateRsaKeyPair();
 
-const data = { some: 'data' };
-const encryptedData = encrypt(publicKey, data);
-const decryptedData = decrypt(privateKey, encryptedData);
+const publicKeyInfo: PublicKeyInfo = {
+  publicKey,
+  encoding: 'pem'
+}
+
+const data: UnsignedString = {
+  data: 'Hello World'
+};
+const dataBytes = UnsignedString.encode(data).finish();
+const encryptedData = encryptBytes(did, publicKeyInfo, data);
+const decryptedData = decryptBytes(privateKey, encryptedData);
 ```
