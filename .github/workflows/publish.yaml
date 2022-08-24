@@ -39,10 +39,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 14.x
 
       - name: Install dependencies
-        run: yarn
+        run: npm ci
 
       # ref: https://github.community/t/auto-update-package-json-on-publishing/16894
       - name: Update package version
