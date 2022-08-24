@@ -13,39 +13,31 @@ import { PublicKeyInfo } from '@unumid/types/build/protos/crypto';
 type BinaryLike = string | NodeJS.ArrayBufferView;
 
 /**
- * @deprecated prefer encryptBytes
- * Used to encode the provided data object into a string prior to encrypting.
- * Should only be used if dealing with projects can ensure identical data object string encoding.
- * For this reason it deprecated in favor of encryptBytes with Protobufs for objects that need to be encrypted.
+ *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
  *
  * @param {string} did the DID and key identifier fragment resolving to the public key
- * @param {string} publicKey RSA public key (pem or base58)
- * @param {object} data data to encrypt (JSON-serializable object)
- * @param {string} encoding the encoding used for the publicKey ('base58' or 'pem', default 'pem')
- * @param { RSAPadding} rsaPadding padding to use for RSA encryption (PKCS1 v1.5 or OAEP).
- *                                 Necessary because web crypto only supports OAEP padding for decryption,
- *                                 and cannot decrypt data encrypted with PKCS1 v1.5 padding.
- *                                 Defaults to PKCS to preserve backwards compatibility,
- *                                 as older public keys (from before we used web crypto) do not specify a padding.
+ * @param {PublicKeyInfo} publicKey RSA publicKeyInfo
+ * @param {BinaryLike} data data to encrypt
  * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
  *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
  */
-export function encrypt (
+export function encryptBytes (
   did: string,
-  publicKey: string,
-  data: unknown,
-  encoding: 'base58' | 'pem' = 'pem',
-  rsaPadding: RSAPadding = RSAPadding.PKCS
+  publicKeyInfo: PublicKeyInfo,
+  data: BinaryLike
 ): EncryptedData {
-  try {
-    // serialize data as a deterministic JSON string
-    const stringifiedData = stringify(data);
+  const { publicKey, encoding, rsaPadding } = publicKeyInfo;
 
-    return encryptBytesHelper(did, publicKey, stringifiedData, encoding, rsaPadding);
-  } catch (e) {
-    const cryptoError = e as CryptoError;
-    throw new CryptoError(cryptoError.message, cryptoError.code);
+  if (!publicKey) {
+    throw new CryptoError('Public key is missing');
   }
+
+  // checking even though a default value is in the helper because all PublicKeyInfo objects ought to have it set
+  if (!encoding) {
+    throw new CryptoError('Public key encoding is missing');
+  }
+
+  return encryptBytesHelper(did, publicKey, data, encoding as 'base58' | 'pem', rsaPadding);
 }
 
 /**
@@ -97,11 +89,11 @@ export function encryptBytesHelper (
 
     // return EncryptedData object with encrypted data and aes key info
     return {
-      data: bs58.encode(encrypted),
+      data: encrypted.toString('base64'),
       key: {
-        iv: bs58.encode(encryptedIv),
-        key: bs58.encode(encryptedKey),
-        algorithm: bs58.encode(encryptedAlgo),
+        iv: encryptedIv.toString('base64'),
+        key: encryptedKey.toString('base64'),
+        algorithm: encryptedAlgo.toString('base64'),
         did
       },
       rsaPadding
@@ -110,37 +102,4 @@ export function encryptBytesHelper (
     const cryptoError = e as CryptoError;
     throw new CryptoError(cryptoError.message, cryptoError.code);
   }
-}
-
-/**
- *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
- *
- * @param {string} did the DID and key identifier fragment resolving to the public key
- * @param {PublicKeyInfo} publicKey RSA publicKeyInfo
- * @param {BinaryLike} data data to encrypt
- * @returns {EncryptedData} contains the encrypted data as a base58 string plus RSA-encrypted/base58-encoded
- *                          key, iv, and algorithm information needed to recreate the AES key actually used for encryption
- */
-export function encryptBytes (
-  did: string,
-  publicKeyInfo: PublicKeyInfo,
-  data: BinaryLike
-): EncryptedData {
-  const { publicKey, encoding, rsaPadding } = publicKeyInfo;
-
-  if (!publicKey) {
-    throw new CryptoError('Public key is missing');
-  }
-
-  // checking even though a default value is in the helper because all PublicKeyInfo objects ought to have it set
-  if (!encoding) {
-    throw new CryptoError('Public key encoding is missing');
-  }
-
-  // Not checking because it's a new attribute and there is a default value in the helper.
-  // if (!rsaPadding) {
-  //   throw new CryptoError('Public key rsaPadding is missing');
-  // }
-
-  return encryptBytesHelper(did, publicKey, data, encoding as 'base58' | 'pem', rsaPadding);
 }
