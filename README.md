@@ -88,7 +88,7 @@ Signs bytes with a `secp256r1` private key.
   - privateKey
     - a pem or base58-encoded private key
 - returns
-  - a signature encoded as a base58 string
+  - a signature encoded as a base64 string
 
 #### Usage
 ```typescript
@@ -162,7 +162,7 @@ Encrypts data with a single-use AES key. Returns an object contianing the encryp
     - a did (with fragment) which resolves to the public key
   - publicKeyInfo
     - a PublicKeyInfo object
-    - includes a pem or base58-encoded public key
+    - includes a pem or base58 encoded RSA public key
     - includes key encoding information
   - data
     - an Uint8Array array
@@ -207,26 +207,18 @@ Decrypts data encrypted with an `RSA` public key using the corresponding private
 ```typescript
 (
   privateKey: string,
-  encryptedData: { data: string, key: { iv: string, key: string, algorithm: string, did: string } },
-  encoding: 'base58' | 'pem' = 'pem'
+  encryptedData: { data: string, key: { iv: string, key: string, algorithm: string, did: string } }
 ) => any;
 ```
 
 - arguments
   - privateKey
-    - a pem-encoded RSA private key
+    - a pem or base58 RSA private key
     - should correspond to the public key used to encrypt the AES key contained in `encryptedData`
   - encryptedData
     - an object containing the encrypted data and information to decrypt it
-  - encoding
-    - optional
-    - the key's encoding
-    - 'base58' or 'pem'
-    - defaults to 'pem'
-    - must match the encoding of the provided privateKey (i.e. if you provide a base58-encoded key, this must be set to 'base58')
 - returns
-  - a TypeScript object
-  - the decrypted data
+  - the decrypted data in the form a byte array
 
 #### Usage
 ```typescript
