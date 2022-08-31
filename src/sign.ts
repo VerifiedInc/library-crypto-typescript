@@ -46,7 +46,7 @@ function _signBytes (bytes: Uint8Array, privateKey: string, encoding: 'base58' |
 
     // return resulting Buffer encoded as a base58 string
     return signatureValueBuf.toString('base64');
-  } catch (e) {
+  } catch (e: any) {
     throw new CryptoError(e.message, e.code);
   }
 }

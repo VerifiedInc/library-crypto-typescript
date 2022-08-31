@@ -42,14 +42,14 @@ function encryptBytesHelper(did, publicKey, data, encoding, rsaPadding) {
     if (rsaPadding === void 0) { rsaPadding = types_1.RSAPadding.PKCS; }
     try {
         // decode the public key, if necessary
-        var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
+        var decodedPublicKey = (0, helpers_1.decodeKey)(publicKey, encoding);
         // node can only encrypt with pem-encoded keys
-        var publicKeyPem = helpers_1.derToPem(decodedPublicKey, 'public');
+        var publicKeyPem = (0, helpers_1.derToPem)(decodedPublicKey, 'public');
         // create aes key for encryption
-        var key = crypto_1.randomBytes(32);
-        var iv = crypto_1.randomBytes(16);
+        var key = (0, crypto_1.randomBytes)(32);
+        var iv = (0, crypto_1.randomBytes)(16);
         var algorithm = 'aes-256-cbc';
-        var cipher = crypto_1.createCipheriv(algorithm, key, iv);
+        var cipher = (0, crypto_1.createCipheriv)(algorithm, key, iv);
         // encrypt data with aes key
         var encrypted1 = cipher.update(data);
         var encrypted2 = cipher.final();
@@ -58,12 +58,12 @@ function encryptBytesHelper(did, publicKey, data, encoding, rsaPadding) {
         // for interoperability with android/ios/webcrypto cryptography implementations
         var publicKeyObj = {
             key: publicKeyPem,
-            padding: utils_1.getPadding(rsaPadding)
+            padding: (0, utils_1.getPadding)(rsaPadding)
         };
         // encrypt aes key with public key
-        var encryptedIv = crypto_1.publicEncrypt(publicKeyObj, iv);
-        var encryptedKey = crypto_1.publicEncrypt(publicKeyObj, key);
-        var encryptedAlgo = crypto_1.publicEncrypt(publicKeyObj, Buffer.from(algorithm));
+        var encryptedIv = (0, crypto_1.publicEncrypt)(publicKeyObj, iv);
+        var encryptedKey = (0, crypto_1.publicEncrypt)(publicKeyObj, key);
+        var encryptedAlgo = (0, crypto_1.publicEncrypt)(publicKeyObj, Buffer.from(algorithm));
         // return EncryptedData object with encrypted data and aes key info
         return {
             data: encrypted.toString('base64'),
