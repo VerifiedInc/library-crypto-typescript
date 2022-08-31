@@ -71,14 +71,14 @@ function generateEccPemKeyPair() {
         var _a, publicKey, privateKey;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, helpers_1.promisifiedGenerateKeyPair('ec', {
+                case 0: return [4 /*yield*/, (0, helpers_1.promisifiedGenerateKeyPair)('ec', {
                         namedCurve: 'prime256v1',
                         publicKeyEncoding: { type: 'spki', format: 'pem' },
                         privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
                     })];
                 case 1:
                     _a = _b.sent(), publicKey = _a.publicKey, privateKey = _a.privateKey;
-                    return [2 /*return*/, { id: uuid_1.v4(), publicKey: publicKey, privateKey: privateKey }];
+                    return [2 /*return*/, { id: (0, uuid_1.v4)(), publicKey: publicKey, privateKey: privateKey }];
             }
         });
     });
@@ -89,7 +89,7 @@ function generateEccBase58KeyPair() {
         var _a, publicKey, privateKey;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, helpers_1.promisifiedGenerateKeyPair('ec', {
+                case 0: return [4 /*yield*/, (0, helpers_1.promisifiedGenerateKeyPair)('ec', {
                         namedCurve: 'prime256v1',
                         publicKeyEncoding: { type: 'spki', format: 'der' },
                         privateKeyEncoding: { type: 'pkcs8', format: 'der' }
@@ -97,7 +97,7 @@ function generateEccBase58KeyPair() {
                 case 1:
                     _a = _b.sent(), publicKey = _a.publicKey, privateKey = _a.privateKey;
                     return [2 /*return*/, {
-                            id: uuid_1.v4(),
+                            id: (0, uuid_1.v4)(),
                             publicKey: bs58_1.default.encode(publicKey),
                             privateKey: bs58_1.default.encode(privateKey)
                         }];

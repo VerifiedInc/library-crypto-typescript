@@ -18,7 +18,7 @@ export function validatePublicKey (key: string, encoding: 'base58' | 'pem' = 'pe
     const type = encoding === 'pem' ? 'pkcs1' : 'spki';
 
     crypto.createPublicKey({ key: decodedKey, format, type });
-  } catch (e) {
+  } catch (e: any) {
     throw new CryptoError(e.message, e.code);
   }
 

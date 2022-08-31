@@ -1,4 +1,5 @@
 /// <reference types="node" />
+/// <reference types="node" />
 import { EncryptedData } from '@unumid/types';
 /**
  * Used to decrypt a byte array. Exposed for use with Protobuf's byte arrays.

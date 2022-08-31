@@ -52,7 +52,7 @@ export function verifyBytesHelper (signature: string, bytes: Uint8Array, publicK
     // verify the signature with the public key and return whether it succeeded
     const result = crypto.verify(null, bytes, publicKeyObj, signatureBytes);
     return result;
-  } catch (e) {
+  } catch (e: any) {
     throw new CryptoError(e.message, e.code);
   }
 }

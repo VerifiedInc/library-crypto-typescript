@@ -21,7 +21,7 @@ function signBytes(bytes, privateKey) {
         throw new CryptoError_1.CryptoError('Private key is missing');
     }
     // detect key encoding type
-    var encoding = utils_1.detectEncodingType(privateKey);
+    var encoding = (0, utils_1.detectEncodingType)(privateKey);
     return _signBytes(bytes, privateKey, encoding);
 }
 exports.signBytes = signBytes;
@@ -37,7 +37,7 @@ exports.signBytes = signBytes;
 function _signBytes(bytes, privateKey, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
-        var decodedPrivateKey = helpers_1.decodeKey(privateKey, encoding);
+        var decodedPrivateKey = (0, helpers_1.decodeKey)(privateKey, encoding);
         // if we pass the key to crypto.sign as a buffer, it will assume pem format
         // we need to convert it to a KeyObject first in order to use der formatted keys
         var format = encoding === 'pem' ? 'pem' : 'der';
