@@ -1,441 +1,304 @@
-<!doctype html>
-<html class="default no-js">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@unumid/library-crypto</title>
-	<meta name="description" content="Documentation for @unumid/library-crypto">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
-	<script async src="assets/js/search.js" id="search-script"></script>
-</head>
-<body>
-<header>
-	<div class="tsd-page-toolbar">
-		<div class="container">
-			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
-					<div class="field">
-						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
-						<input id="tsd-search-field" type="text" />
-					</div>
-					<ul class="results">
-						<li class="state loading">Preparing search index...</li>
-						<li class="state failure">The search index is not available</li>
-					</ul>
-					<a href="index.html" class="title">@unumid/library-crypto</a>
-				</div>
-				<div class="table-cell" id="tsd-widgets">
-					<div id="tsd-filter">
-						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
-						<div class="tsd-filter-group">
-							<div class="tsd-select" id="tsd-filter-visibility">
-								<span class="tsd-select-label">All</span>
-								<ul class="tsd-select-list">
-									<li data-value="public">Public</li>
-									<li data-value="protected">Public/Protected</li>
-									<li data-value="private" class="selected">All</li>
-								</ul>
-							</div>
-							<input type="checkbox" id="tsd-filter-inherited" checked />
-							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-						</div>
-					</div>
-					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="tsd-page-title">
-		<div class="container">
-			<h1>@unumid/library-crypto</h1>
-		</div>
-	</div>
-</header>
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@unumid/library-crypto</title><meta name="description" content="Documentation for @unumid/library-crypto"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@unumid/library-crypto</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
 <div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<a href="#library-crypto-typescript" id="library-crypto-typescript" style="color: inherit; text-decoration: none;">
-					<h1>Library-Crypto-TypeScript</h1>
-				</a>
-				<p>A helper library for common Unum ID cryptographic functions in TypeScript.</p>
-				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
-					<h2>Installation</h2>
-				</a>
-				<p>This library is available from <a href="https://www.npmjs.com/package/@unumid/library-crypto">NPM</a>, <a href="https://github.com/orgs/UnumID/packages?repo_name=Library-Crypto-TypeScript">Github packages</a> or the <a href="https://github.com/UnumID/Library-Crypto-TypeScript">repository</a> itself. </p>
-				<a href="#releases" id="releases" style="color: inherit; text-decoration: none;">
-					<h2>Releases</h2>
-				</a>
-				<p>Releases and publishing to NPM is automated via Github Actions CI job. In order to trigger a release one should push a git tag with a preceding <code>v</code> with semver notation, ie <code>v1.1.1</code>, to the <code>main</code> branch. This will trigger the CI job to bump the package version, generate typedocs, publish to NPM, make a release commit, and make a Github Release. The contents of the Github Release are autogenerated based on pull requests with commits associated with the release, so please use PRs to makes changes to <code>main</code>. The message of the git tag will be the commit message for the release so please make it meaningful. For example, <code>git tag v1.1.1 -m &quot;Updated the SDK with a new CI job&quot; &amp;&amp; push origin v1.1.1</code>.</p>
-				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
-					<h2>Documentation</h2>
-				</a>
-				<p>This readme and the auto generated <a href="https://docs.unum.id/Library-Crypto-TypeScript/">typedocs</a> serve as the official documentation.</p>
-				<a href="#byte-arrays" id="byte-arrays" style="color: inherit; text-decoration: none;">
-					<h2>Byte Arrays</h2>
-				</a>
-				<p>This latest version of the crypto library only interfaces with byte arrays, specifically Uint8Array&#39;s, to remove the string encoding unknowns when dealing with cryptographic outputs from multiple platforms, (i.e. Android, Web, etc). </p>
-				<a href="#protocol-buffers" id="protocol-buffers" style="color: inherit; text-decoration: none;">
-					<h3>Protocol Buffers</h3>
-				</a>
-				<p>In order to ensure a deterministic byte array cross platforms Protocol Buffers are highly recommend as the means of going to and from byte arrays. All &quot;protobuf&quot; objects come with built encoding and decoding helpers to assist.</p>
-				<a href="#functionality" id="functionality" style="color: inherit; text-decoration: none;">
-					<h2>Functionality</h2>
-				</a>
-				<a href="#generateecckeypair" id="generateecckeypair" style="color: inherit; text-decoration: none;">
-					<h3>generateEccKeyPair</h3>
-				</a>
-				<p>Generates <code>secp256r1</code> private and public keys.</p>
-				<pre><code class="language-typescript"><span style="color: #000000">(</span><span style="color: #001080">encoding</span><span style="color: #000000">: </span><span style="color: #A31515">&#039;base58&#039;</span><span style="color: #000000"> | </span><span style="color: #A31515">&#039;pem&#039;</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;pem&#039;</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">&lt;{ id: </span><span style="color: #001080">string</span><span style="color: #000000">, privateKey: </span><span style="color: #001080">string</span><span style="color: #000000">; publicKey: </span><span style="color: #001080">string</span><span style="color: #000000">}&gt;;</span>
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>@unumid/library-crypto</h2></div>
+<div class="tsd-panel tsd-typography">
+<a href="#library-crypto-typescript" id="library-crypto-typescript" style="color: inherit; text-decoration: none;">
+  <h1>Library-Crypto-TypeScript</h1>
+</a>
+<p>A helper library for common Unum ID cryptographic functions in TypeScript.</p>
+
+<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+  <h2>Installation</h2>
+</a>
+<p>This library is available from <a href="https://www.npmjs.com/package/@unumid/library-crypto">NPM</a>, <a href="https://github.com/orgs/UnumID/packages?repo_name=Library-Crypto-TypeScript">Github packages</a> or the <a href="https://github.com/UnumID/Library-Crypto-TypeScript">repository</a> itself. </p>
+
+<a href="#releases" id="releases" style="color: inherit; text-decoration: none;">
+  <h2>Releases</h2>
+</a>
+<p>Releases and publishing to NPM is automated via Github Actions CI job. In order to trigger a release one should push a git tag with a preceding <code>v</code> with semver notation, ie <code>v1.1.1</code>, to the <code>main</code> branch. This will trigger the CI job to bump the package version, generate typedocs, publish to NPM, make a release commit, and make a Github Release. The contents of the Github Release are autogenerated based on pull requests with commits associated with the release, so please use PRs to makes changes to <code>main</code>. The message of the git tag will be the commit message for the release so please make it meaningful. For example, <code>git tag v1.1.1 -m &quot;Updated the SDK with a new CI job&quot; &amp;&amp; push origin v1.1.1</code>.</p>
+
+<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+  <h2>Documentation</h2>
+</a>
+<p>This readme and the auto generated <a href="https://docs.unum.id/Library-Crypto-TypeScript/">typedocs</a> serve as the official documentation.</p>
+
+<a href="#byte-arrays" id="byte-arrays" style="color: inherit; text-decoration: none;">
+  <h2>Byte Arrays</h2>
+</a>
+<p>This latest version of the crypto library only interfaces with byte arrays, specifically Uint8Array&#39;s, to remove the string encoding unknowns when dealing with cryptographic outputs from multiple platforms, (i.e. Android, Web, etc). </p>
+
+<a href="#protocol-buffers" id="protocol-buffers" style="color: inherit; text-decoration: none;">
+  <h3>Protocol Buffers</h3>
+</a>
+<p>In order to ensure a deterministic byte array cross platforms Protocol Buffers are highly recommend as the means of going to and from byte arrays. All &quot;protobuf&quot; objects come with built encoding and decoding helpers to assist.</p>
+
+<a href="#functionality" id="functionality" style="color: inherit; text-decoration: none;">
+  <h2>Functionality</h2>
+</a>
+
+<a href="#generateecckeypair" id="generateecckeypair" style="color: inherit; text-decoration: none;">
+  <h3>generateEccKeyPair</h3>
+</a>
+<p>Generates <code>secp256r1</code> private and public keys.</p>
+<pre><code class="language-typescript"><span class="hl-0">(</span><span class="hl-1">encoding</span><span class="hl-0">: </span><span class="hl-2">&#39;base58&#39;</span><span class="hl-0"> | </span><span class="hl-2">&#39;pem&#39;</span><span class="hl-0"> = </span><span class="hl-2">&#39;pem&#39;</span><span class="hl-0">) </span><span class="hl-3">=&gt;</span><span class="hl-0"> </span><span class="hl-4">Promise</span><span class="hl-0">&lt;{ </span><span class="hl-5">id</span><span class="hl-0">: </span><span class="hl-1">string</span><span class="hl-0">, </span><span class="hl-5">privateKey</span><span class="hl-0">: </span><span class="hl-1">string</span><span class="hl-0">; </span><span class="hl-5">publicKey</span><span class="hl-0">: </span><span class="hl-1">string</span><span class="hl-0">}&gt;;</span>
 </code></pre>
-				<ul>
-					<li>arguments<ul>
-							<li>encoding<ul>
-									<li>optional</li>
-									<li>the format the key should be encoded in</li>
-									<li>&#39;base58&#39; or &#39;pem&#39;</li>
-									<li>defaults to &#39;pem&#39;</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>returns<ul>
-							<li>Promise resolving to a KeyPair object containing the encoded public and private keys and a unique identifier for the pair</li>
-						</ul>
-					</li>
-				</ul>
-				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
-					<h4>Usage</h4>
-				</a>
-				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">generateEccKeyPair</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;library-crypto-typescript&#039;</span><span style="color: #000000">;</span>
+<ul>
+<li>arguments<ul>
+<li>encoding<ul>
+<li>optional</li>
+<li>the format the key should be encoded in</li>
+<li>&#39;base58&#39; or &#39;pem&#39;</li>
+<li>defaults to &#39;pem&#39;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>returns<ul>
+<li>Promise resolving to a KeyPair object containing the encoded public and private keys and a unique identifier for the pair</li>
+</ul>
+</li>
+</ul>
 
-<span style="color: #008000">// using async/await</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">id</span><span style="color: #000000">, </span><span style="color: #0070C1">privateKey</span><span style="color: #000000">, </span><span style="color: #0070C1">publicKey</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">generateEccKeyPair</span><span style="color: #000000">();</span>
-
-<span style="color: #008000">// using a promise</span>
-<span style="color: #795E26">generateEccKeyPair</span><span style="color: #000000">().</span><span style="color: #795E26">then</span><span style="color: #000000">(({ </span><span style="color: #001080">id</span><span style="color: #000000">, </span><span style="color: #001080">privateKey</span><span style="color: #000000">, </span><span style="color: #001080">publicKey</span><span style="color: #000000"> }) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">  </span><span style="color: #008000">// do stuff</span>
-<span style="color: #000000">});</span>
+<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+  <h4>Usage</h4>
+</a>
+<pre><code class="language-typescript"><span class="hl-6">import</span><span class="hl-0"> { </span><span class="hl-1">generateEccKeyPair</span><span class="hl-0"> } </span><span class="hl-6">from</span><span class="hl-0"> </span><span class="hl-2">&#39;library-crypto-typescript&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-7">// using async/await</span><br/><span class="hl-3">const</span><span class="hl-0"> { </span><span class="hl-8">id</span><span class="hl-0">, </span><span class="hl-8">privateKey</span><span class="hl-0">, </span><span class="hl-8">publicKey</span><span class="hl-0"> } = </span><span class="hl-6">await</span><span class="hl-0"> </span><span class="hl-9">generateEccKeyPair</span><span class="hl-0">();</span><br/><br/><span class="hl-7">// using a promise</span><br/><span class="hl-9">generateEccKeyPair</span><span class="hl-0">().</span><span class="hl-9">then</span><span class="hl-0">(({ </span><span class="hl-1">id</span><span class="hl-0">, </span><span class="hl-1">privateKey</span><span class="hl-0">, </span><span class="hl-1">publicKey</span><span class="hl-0"> }) </span><span class="hl-3">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-7">// do stuff</span><br/><span class="hl-0">});</span>
 </code></pre>
-				<a href="#generatersakeypair" id="generatersakeypair" style="color: inherit; text-decoration: none;">
-					<h3>generateRsaKeyPair</h3>
-				</a>
-				<p>Generates <code>RSA</code> private and public keys.</p>
-				<pre><code class="language-typescript"><span style="color: #000000">(</span><span style="color: #001080">encoding</span><span style="color: #000000">: </span><span style="color: #A31515">&#039;base58&#039;</span><span style="color: #000000"> | </span><span style="color: #A31515">&#039;pem&#039;</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;pem&#039;</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">&lt;{ id: </span><span style="color: #001080">string</span><span style="color: #000000">, privateKey: </span><span style="color: #001080">string</span><span style="color: #000000">; publicKey: </span><span style="color: #001080">string</span><span style="color: #000000">}&gt;</span>
 
+<a href="#generatersakeypair" id="generatersakeypair" style="color: inherit; text-decoration: none;">
+  <h3>generateRsaKeyPair</h3>
+</a>
+<p>Generates <code>RSA</code> private and public keys.</p>
+<pre><code class="language-typescript"><span class="hl-0">(</span><span class="hl-1">encoding</span><span class="hl-0">: </span><span class="hl-2">&#39;base58&#39;</span><span class="hl-0"> | </span><span class="hl-2">&#39;pem&#39;</span><span class="hl-0"> = </span><span class="hl-2">&#39;pem&#39;</span><span class="hl-0">) </span><span class="hl-3">=&gt;</span><span class="hl-0"> </span><span class="hl-4">Promise</span><span class="hl-0">&lt;{ </span><span class="hl-5">id</span><span class="hl-0">: </span><span class="hl-1">string</span><span class="hl-0">, </span><span class="hl-5">privateKey</span><span class="hl-0">: </span><span class="hl-1">string</span><span class="hl-0">; </span><span class="hl-5">publicKey</span><span class="hl-0">: </span><span class="hl-1">string</span><span class="hl-0">}&gt;</span><br/>
 </code></pre>
-				<ul>
-					<li>arguments<ul>
-							<li>encoding<ul>
-									<li>optional</li>
-									<li>the format the key should be encoded in</li>
-									<li>&#39;base58&#39; or &#39;pem&#39;</li>
-									<li>defaults to &#39;pem&#39;</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>returns<ul>
-							<li>Promise resolving to a KeyPair object containing the encoded public and private keys and a unique identifier for the pair</li>
-						</ul>
-					</li>
-				</ul>
-				<a href="#usage-1" id="usage-1" style="color: inherit; text-decoration: none;">
-					<h4>Usage</h4>
-				</a>
-				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">generateRsaKeyPair</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;library-crypto-typescript&#039;</span><span style="color: #000000">;</span>
+<ul>
+<li>arguments<ul>
+<li>encoding<ul>
+<li>optional</li>
+<li>the format the key should be encoded in</li>
+<li>&#39;base58&#39; or &#39;pem&#39;</li>
+<li>defaults to &#39;pem&#39;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>returns<ul>
+<li>Promise resolving to a KeyPair object containing the encoded public and private keys and a unique identifier for the pair</li>
+</ul>
+</li>
+</ul>
 
-<span style="color: #008000">// using async/await</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">id</span><span style="color: #000000">, </span><span style="color: #0070C1">privateKey</span><span style="color: #000000">, </span><span style="color: #0070C1">publicKey</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">generateRsaKeyPair</span><span style="color: #000000">();</span>
-
-<span style="color: #008000">// using a promise</span>
-<span style="color: #795E26">generateRsaKeyPair</span><span style="color: #000000">().</span><span style="color: #795E26">then</span><span style="color: #000000">(({ </span><span style="color: #001080">id</span><span style="color: #000000">, </span><span style="color: #001080">privateKey</span><span style="color: #000000">, </span><span style="color: #001080">publicKey</span><span style="color: #000000"> }) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">  </span><span style="color: #008000">// do stuff</span>
-<span style="color: #000000">});</span>
+<a href="#usage-1" id="usage-1" style="color: inherit; text-decoration: none;">
+  <h4>Usage</h4>
+</a>
+<pre><code class="language-typescript"><span class="hl-6">import</span><span class="hl-0"> { </span><span class="hl-1">generateRsaKeyPair</span><span class="hl-0"> } </span><span class="hl-6">from</span><span class="hl-0"> </span><span class="hl-2">&#39;library-crypto-typescript&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-7">// using async/await</span><br/><span class="hl-3">const</span><span class="hl-0"> { </span><span class="hl-8">id</span><span class="hl-0">, </span><span class="hl-8">privateKey</span><span class="hl-0">, </span><span class="hl-8">publicKey</span><span class="hl-0"> } = </span><span class="hl-6">await</span><span class="hl-0"> </span><span class="hl-9">generateRsaKeyPair</span><span class="hl-0">();</span><br/><br/><span class="hl-7">// using a promise</span><br/><span class="hl-9">generateRsaKeyPair</span><span class="hl-0">().</span><span class="hl-9">then</span><span class="hl-0">(({ </span><span class="hl-1">id</span><span class="hl-0">, </span><span class="hl-1">privateKey</span><span class="hl-0">, </span><span class="hl-1">publicKey</span><span class="hl-0"> }) </span><span class="hl-3">=&gt;</span><span class="hl-0"> {</span><br/><span class="hl-0">  </span><span class="hl-7">// do stuff</span><br/><span class="hl-0">});</span>
 </code></pre>
-				<a href="#signbytes" id="signbytes" style="color: inherit; text-decoration: none;">
-					<h3>signBytes</h3>
-				</a>
-				<p>Signs bytes with a <code>secp256r1</code> private key.</p>
-				<pre><code class="language-typescript"><span style="color: #000000">(</span><span style="color: #001080">data</span><span style="color: #000000">: </span><span style="color: #267F99">Uint8Array</span><span style="color: #000000">, </span><span style="color: #001080">privateKey</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">string</span><span style="color: #000000">;</span>
 
+<a href="#signbytes" id="signbytes" style="color: inherit; text-decoration: none;">
+  <h3>signBytes</h3>
+</a>
+<p>Signs bytes with a <code>secp256r1</code> private key.</p>
+<pre><code class="language-typescript"><span class="hl-0">(</span><span class="hl-1">data</span><span class="hl-0">: </span><span class="hl-4">Uint8Array</span><span class="hl-0">, </span><span class="hl-1">privateKey</span><span class="hl-0">: </span><span class="hl-4">string</span><span class="hl-0">) </span><span class="hl-3">=&gt;</span><span class="hl-0"> </span><span class="hl-1">string</span><span class="hl-0">;</span><br/>
 </code></pre>
-				<ul>
-					<li>arguments<ul>
-							<li>data<ul>
-									<li>an Uint8Array array</li>
-								</ul>
-							</li>
-							<li>privateKey<ul>
-									<li>a pem or base58-encoded private key</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>returns<ul>
-							<li>a signature encoded as a base64 string</li>
-						</ul>
-					</li>
-				</ul>
-				<a href="#usage-2" id="usage-2" style="color: inherit; text-decoration: none;">
-					<h4>Usage</h4>
-				</a>
-				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">generateEccKeyPair</span><span style="color: #000000">, </span><span style="color: #001080">signBytes</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;library-crypto-typescript&#039;</span><span style="color: #000000">;</span>
+<ul>
+<li>arguments<ul>
+<li>data<ul>
+<li>an Uint8Array array</li>
+</ul>
+</li>
+<li>privateKey<ul>
+<li>a pem or base58-encoded private key</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>returns<ul>
+<li>a signature encoded as a base64 string</li>
+</ul>
+</li>
+</ul>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">privateKey</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">generateEccKeyPair</span><span style="color: #000000">();</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">data</span><span style="color: #000000">: </span><span style="color: #267F99">UnsignedString</span><span style="color: #000000"> = {</span>
-<span style="color: #000000">  </span><span style="color: #001080">data:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Hello World&#039;</span>
-<span style="color: #000000">};</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">dataBytes</span><span style="color: #000000"> = </span><span style="color: #001080">UnsignedString</span><span style="color: #000000">.</span><span style="color: #795E26">encode</span><span style="color: #000000">(</span><span style="color: #001080">data</span><span style="color: #000000">).</span><span style="color: #795E26">finish</span><span style="color: #000000">();</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">signature</span><span style="color: #000000"> = </span><span style="color: #795E26">signBytes</span><span style="color: #000000">(</span><span style="color: #001080">dataBytes</span><span style="color: #000000">, </span><span style="color: #001080">privateKey</span><span style="color: #000000">);</span>
+<a href="#usage-2" id="usage-2" style="color: inherit; text-decoration: none;">
+  <h4>Usage</h4>
+</a>
+<pre><code class="language-typescript"><span class="hl-6">import</span><span class="hl-0"> { </span><span class="hl-1">generateEccKeyPair</span><span class="hl-0">, </span><span class="hl-1">signBytes</span><span class="hl-0"> } </span><span class="hl-6">from</span><span class="hl-0"> </span><span class="hl-2">&#39;library-crypto-typescript&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> { </span><span class="hl-8">privateKey</span><span class="hl-0"> } = </span><span class="hl-6">await</span><span class="hl-0"> </span><span class="hl-9">generateEccKeyPair</span><span class="hl-0">();</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">data</span><span class="hl-0">: </span><span class="hl-4">UnsignedString</span><span class="hl-0"> = {</span><br/><span class="hl-0">  </span><span class="hl-1">data:</span><span class="hl-0"> </span><span class="hl-2">&#39;Hello World&#39;</span><br/><span class="hl-0">};</span><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">dataBytes</span><span class="hl-0"> = </span><span class="hl-1">UnsignedString</span><span class="hl-0">.</span><span class="hl-9">encode</span><span class="hl-0">(</span><span class="hl-1">data</span><span class="hl-0">).</span><span class="hl-9">finish</span><span class="hl-0">();</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">signature</span><span class="hl-0"> = </span><span class="hl-9">signBytes</span><span class="hl-0">(</span><span class="hl-1">dataBytes</span><span class="hl-0">, </span><span class="hl-1">privateKey</span><span class="hl-0">);</span>
 </code></pre>
-				<a href="#verifybytes" id="verifybytes" style="color: inherit; text-decoration: none;">
-					<h3>verifyBytes</h3>
-				</a>
-				<p>Verifies a signature with a <code>secp256r1</code> private key using the corresponding public key.</p>
-				<pre><code class="language-typescript"><span style="color: #000000">(</span><span style="color: #001080">signature</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #001080">data</span><span style="color: #000000">: </span><span style="color: #267F99">Uint8Array</span><span style="color: #000000">, </span><span style="color: #001080">publicKey</span><span style="color: #000000">: </span><span style="color: #267F99">PublicKeyInfo</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">boolean</span><span style="color: #000000">;</span>
+
+<a href="#verifybytes" id="verifybytes" style="color: inherit; text-decoration: none;">
+  <h3>verifyBytes</h3>
+</a>
+<p>Verifies a signature with a <code>secp256r1</code> private key using the corresponding public key.</p>
+<pre><code class="language-typescript"><span class="hl-0">(</span><span class="hl-1">signature</span><span class="hl-0">: </span><span class="hl-4">string</span><span class="hl-0">, </span><span class="hl-1">data</span><span class="hl-0">: </span><span class="hl-4">Uint8Array</span><span class="hl-0">, </span><span class="hl-1">publicKey</span><span class="hl-0">: </span><span class="hl-4">PublicKeyInfo</span><span class="hl-0">) </span><span class="hl-3">=&gt;</span><span class="hl-0"> </span><span class="hl-1">boolean</span><span class="hl-0">;</span>
 </code></pre>
-				<ul>
-					<li>arguments<ul>
-							<li>signature<ul>
-									<li>a cryptographic signature encoded as a base64 string</li>
-								</ul>
-							</li>
-							<li>data<ul>
-									<li>an Uint8Array array</li>
-									<li>signed by the private key</li>
-								</ul>
-							</li>
-							<li>publicKey<ul>
-									<li>a PublicKeyInfo object</li>
-									<li>includes a pem or base58-encoded public key</li>
-									<li>includes key encoding information</li>
-									<li>should correspond to the private key that signed the data</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>returns<ul>
-							<li>true if the siganture is valid, false if it is not valid</li>
-						</ul>
-					</li>
-				</ul>
-				<a href="#usage-3" id="usage-3" style="color: inherit; text-decoration: none;">
-					<h4>Usage</h4>
-				</a>
-				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">generateEccKeyPair</span><span style="color: #000000">, </span><span style="color: #001080">signBytes</span><span style="color: #000000">, </span><span style="color: #001080">verifyBytes</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;library-crypto-typescript&#039;</span><span style="color: #000000">;</span>
+<ul>
+<li>arguments<ul>
+<li>signature<ul>
+<li>a cryptographic signature encoded as a base64 string</li>
+</ul>
+</li>
+<li>data<ul>
+<li>an Uint8Array array</li>
+<li>signed by the private key</li>
+</ul>
+</li>
+<li>publicKey<ul>
+<li>a PublicKeyInfo object</li>
+<li>includes a pem or base58-encoded public key</li>
+<li>includes key encoding information</li>
+<li>should correspond to the private key that signed the data</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>returns<ul>
+<li>true if the siganture is valid, false if it is not valid</li>
+</ul>
+</li>
+</ul>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">privateKey</span><span style="color: #000000">, </span><span style="color: #0070C1">publicKey</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">generateEccKeyPair</span><span style="color: #000000">();</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">data</span><span style="color: #000000">: </span><span style="color: #267F99">UnsignedString</span><span style="color: #000000"> = {</span>
-<span style="color: #000000">  </span><span style="color: #001080">data:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Hello World&#039;</span>
-<span style="color: #000000">};</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">dataBytes</span><span style="color: #000000"> = </span><span style="color: #001080">UnsignedString</span><span style="color: #000000">.</span><span style="color: #795E26">encode</span><span style="color: #000000">(</span><span style="color: #001080">data</span><span style="color: #000000">).</span><span style="color: #795E26">finish</span><span style="color: #000000">();</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">signature</span><span style="color: #000000"> = </span><span style="color: #795E26">signBytes</span><span style="color: #000000">(</span><span style="color: #001080">dataBytes</span><span style="color: #000000">, </span><span style="color: #001080">privateKey</span><span style="color: #000000">);</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">publicKeyInfo</span><span style="color: #000000">: </span><span style="color: #267F99">PublicKeyInfo</span><span style="color: #000000"> = {</span>
-<span style="color: #000000">  </span><span style="color: #001080">publicKey</span><span style="color: #000000">,</span>
-<span style="color: #000000">  </span><span style="color: #001080">encoding:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;pem&#039;</span>
-<span style="color: #000000">}</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">isValid</span><span style="color: #000000"> = </span><span style="color: #795E26">verifyBytes</span><span style="color: #000000">(</span><span style="color: #001080">signature</span><span style="color: #000000">, </span><span style="color: #001080">dataBytes</span><span style="color: #000000">, </span><span style="color: #001080">publicKeyInfo</span><span style="color: #000000">);</span>
+<a href="#usage-3" id="usage-3" style="color: inherit; text-decoration: none;">
+  <h4>Usage</h4>
+</a>
+<pre><code class="language-typescript"><span class="hl-6">import</span><span class="hl-0"> { </span><span class="hl-1">generateEccKeyPair</span><span class="hl-0">, </span><span class="hl-1">signBytes</span><span class="hl-0">, </span><span class="hl-1">verifyBytes</span><span class="hl-0"> } </span><span class="hl-6">from</span><span class="hl-0"> </span><span class="hl-2">&#39;library-crypto-typescript&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> { </span><span class="hl-8">privateKey</span><span class="hl-0">, </span><span class="hl-8">publicKey</span><span class="hl-0"> } = </span><span class="hl-6">await</span><span class="hl-0"> </span><span class="hl-9">generateEccKeyPair</span><span class="hl-0">();</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">data</span><span class="hl-0">: </span><span class="hl-4">UnsignedString</span><span class="hl-0"> = {</span><br/><span class="hl-0">  </span><span class="hl-1">data:</span><span class="hl-0"> </span><span class="hl-2">&#39;Hello World&#39;</span><br/><span class="hl-0">};</span><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">dataBytes</span><span class="hl-0"> = </span><span class="hl-1">UnsignedString</span><span class="hl-0">.</span><span class="hl-9">encode</span><span class="hl-0">(</span><span class="hl-1">data</span><span class="hl-0">).</span><span class="hl-9">finish</span><span class="hl-0">();</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">signature</span><span class="hl-0"> = </span><span class="hl-9">signBytes</span><span class="hl-0">(</span><span class="hl-1">dataBytes</span><span class="hl-0">, </span><span class="hl-1">privateKey</span><span class="hl-0">);</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">publicKeyInfo</span><span class="hl-0">: </span><span class="hl-4">PublicKeyInfo</span><span class="hl-0"> = {</span><br/><span class="hl-0">  </span><span class="hl-1">publicKey</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-1">encoding:</span><span class="hl-0"> </span><span class="hl-2">&#39;pem&#39;</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">isValid</span><span class="hl-0"> = </span><span class="hl-9">verifyBytes</span><span class="hl-0">(</span><span class="hl-1">signature</span><span class="hl-0">, </span><span class="hl-1">dataBytes</span><span class="hl-0">, </span><span class="hl-1">publicKeyInfo</span><span class="hl-0">);</span>
 </code></pre>
-				<a href="#encryptbytes" id="encryptbytes" style="color: inherit; text-decoration: none;">
-					<h3>encryptBytes</h3>
-				</a>
-				<p>Encrypts data with a single-use AES key. Returns an object contianing the encrypted data encoded as a base64 string along with information about the AES key, encrypted with an RSA public key and encoded as base64 strings</p>
-				<pre><code class="language-typescript"><span style="color: #000000">(</span>
-<span style="color: #000000">  </span><span style="color: #001080">did</span><span style="color: #000000">: </span><span style="color: #001080">string</span><span style="color: #000000">,</span>
-<span style="color: #000000">  </span><span style="color: #001080">publicKeyInfo</span><span style="color: #000000">: </span><span style="color: #001080">PublicKeyInfo</span><span style="color: #000000">,</span>
-<span style="color: #000000">  </span><span style="color: #001080">data</span><span style="color: #000000">: </span><span style="color: #267F99">Uint8Array</span>
-<span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> { data: </span><span style="color: #001080">string</span><span style="color: #000000">, key: { iv: </span><span style="color: #001080">string</span><span style="color: #000000">, key: </span><span style="color: #001080">string</span><span style="color: #000000">, algorithm: </span><span style="color: #001080">string</span><span style="color: #000000">, did: </span><span style="color: #001080">string</span><span style="color: #000000"> } };</span>
+
+<a href="#encryptbytes" id="encryptbytes" style="color: inherit; text-decoration: none;">
+  <h3>encryptBytes</h3>
+</a>
+<p>Encrypts data with a single-use AES key. Returns an object contianing the encrypted data encoded as a base64 string along with information about the AES key, encrypted with an RSA public key and encoded as base64 strings</p>
+<pre><code class="language-typescript"><span class="hl-0">(</span><br/><span class="hl-0">  </span><span class="hl-1">did</span><span class="hl-0">: </span><span class="hl-1">string</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-1">publicKeyInfo</span><span class="hl-0">: </span><span class="hl-1">PublicKeyInfo</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-1">data</span><span class="hl-0">: </span><span class="hl-1">Uint8Array</span><br/><span class="hl-0">) </span><span class="hl-3">=&gt;</span><span class="hl-0"> { </span><span class="hl-5">data</span><span class="hl-0">: </span><span class="hl-1">string</span><span class="hl-0">, </span><span class="hl-5">key</span><span class="hl-0">: { </span><span class="hl-5">iv</span><span class="hl-0">: </span><span class="hl-1">string</span><span class="hl-0">, </span><span class="hl-5">key</span><span class="hl-0">: </span><span class="hl-1">string</span><span class="hl-0">, </span><span class="hl-5">algorithm</span><span class="hl-0">: </span><span class="hl-1">string</span><span class="hl-0">, </span><span class="hl-5">did</span><span class="hl-0">: </span><span class="hl-1">string</span><span class="hl-0"> } };</span>
 </code></pre>
-				<ul>
-					<li>arguments<ul>
-							<li>did<ul>
-									<li>a did (with fragment) which resolves to the public key</li>
-								</ul>
-							</li>
-							<li>publicKeyInfo<ul>
-									<li>a PublicKeyInfo object</li>
-									<li>includes a pem or base58 encoded RSA public key</li>
-									<li>includes key encoding information</li>
-								</ul>
-							</li>
-							<li>data<ul>
-									<li>an Uint8Array array</li>
-									<li>the data to encrypt</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>returns<ul>
-							<li>EncryptedData<ul>
-									<li>data<ul>
-											<li>the encrypted data, encoded as a base64 string</li>
-										</ul>
-									</li>
-									<li>key<ul>
-											<li>information to allow the recipient to decrypt the encrypted data</li>
-											<li>iv<ul>
-													<li>the initial vector of the AES key, encrypted with the public key and encoded as a base64 string</li>
-												</ul>
-											</li>
-											<li>key<ul>
-													<li>the AES key, encrypted with the public key and encoded as a base64 string</li>
-												</ul>
-											</li>
-											<li>algorithm<ul>
-													<li>the exact algorithm used to create the AES key, encrypted with the public key and encoded as a base64 string</li>
-												</ul>
-											</li>
-											<li>did<ul>
-													<li>did + fragment which resolves to the public key used to encrypt <code>iv</code>, <code>key</code>, and <code>algorithm</code></li>
-												</ul>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<a href="#usage-4" id="usage-4" style="color: inherit; text-decoration: none;">
-					<h3>Usage</h3>
-				</a>
-				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">generateRsaKeyPair</span><span style="color: #000000">, </span><span style="color: #001080">encryptBytes</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;library-crypto-typescript&#039;</span><span style="color: #000000">;</span>
+<ul>
+<li>arguments<ul>
+<li>did<ul>
+<li>a did (with fragment) which resolves to the public key</li>
+</ul>
+</li>
+<li>publicKeyInfo<ul>
+<li>a PublicKeyInfo object</li>
+<li>includes a pem or base58 encoded RSA public key</li>
+<li>includes key encoding information</li>
+</ul>
+</li>
+<li>data<ul>
+<li>an Uint8Array array</li>
+<li>the data to encrypt</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>returns<ul>
+<li>EncryptedData<ul>
+<li>data<ul>
+<li>the encrypted data, encoded as a base64 string</li>
+</ul>
+</li>
+<li>key<ul>
+<li>information to allow the recipient to decrypt the encrypted data</li>
+<li>iv<ul>
+<li>the initial vector of the AES key, encrypted with the public key and encoded as a base64 string</li>
+</ul>
+</li>
+<li>key<ul>
+<li>the AES key, encrypted with the public key and encoded as a base64 string</li>
+</ul>
+</li>
+<li>algorithm<ul>
+<li>the exact algorithm used to create the AES key, encrypted with the public key and encoded as a base64 string</li>
+</ul>
+</li>
+<li>did<ul>
+<li>did + fragment which resolves to the public key used to encrypt <code>iv</code>, <code>key</code>, and <code>algorithm</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">publicKey</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">generateRsaKeyPair</span><span style="color: #000000">();</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">publicKeyInfo</span><span style="color: #000000">: </span><span style="color: #267F99">PublicKeyInfo</span><span style="color: #000000"> = {</span>
-<span style="color: #000000">  </span><span style="color: #001080">publicKey</span><span style="color: #000000">,</span>
-<span style="color: #000000">  </span><span style="color: #001080">encoding:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;pem&#039;</span>
-<span style="color: #000000">}</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">data</span><span style="color: #000000">: </span><span style="color: #267F99">UnsignedString</span><span style="color: #000000"> = {</span>
-<span style="color: #000000">  </span><span style="color: #001080">data:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Hello World&#039;</span>
-<span style="color: #000000">};</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">dataBytes</span><span style="color: #000000"> = </span><span style="color: #001080">UnsignedString</span><span style="color: #000000">.</span><span style="color: #795E26">encode</span><span style="color: #000000">(</span><span style="color: #001080">data</span><span style="color: #000000">).</span><span style="color: #795E26">finish</span><span style="color: #000000">();</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">encryptedData</span><span style="color: #000000"> = </span><span style="color: #795E26">encryptBytes</span><span style="color: #000000">(</span><span style="color: #001080">did</span><span style="color: #000000">, </span><span style="color: #001080">dataBytes</span><span style="color: #000000">, </span><span style="color: #001080">publicKeyInfo</span><span style="color: #000000">);</span>
+<a href="#usage-4" id="usage-4" style="color: inherit; text-decoration: none;">
+  <h3>Usage</h3>
+</a>
+<pre><code class="language-typescript"><span class="hl-6">import</span><span class="hl-0"> { </span><span class="hl-1">generateRsaKeyPair</span><span class="hl-0">, </span><span class="hl-1">encryptBytes</span><span class="hl-0"> } </span><span class="hl-6">from</span><span class="hl-0"> </span><span class="hl-2">&#39;library-crypto-typescript&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> { </span><span class="hl-8">publicKey</span><span class="hl-0"> } = </span><span class="hl-6">await</span><span class="hl-0"> </span><span class="hl-9">generateRsaKeyPair</span><span class="hl-0">();</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">publicKeyInfo</span><span class="hl-0">: </span><span class="hl-4">PublicKeyInfo</span><span class="hl-0"> = {</span><br/><span class="hl-0">  </span><span class="hl-1">publicKey</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-1">encoding:</span><span class="hl-0"> </span><span class="hl-2">&#39;pem&#39;</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">data</span><span class="hl-0">: </span><span class="hl-4">UnsignedString</span><span class="hl-0"> = {</span><br/><span class="hl-0">  </span><span class="hl-1">data:</span><span class="hl-0"> </span><span class="hl-2">&#39;Hello World&#39;</span><br/><span class="hl-0">};</span><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">dataBytes</span><span class="hl-0"> = </span><span class="hl-1">UnsignedString</span><span class="hl-0">.</span><span class="hl-9">encode</span><span class="hl-0">(</span><span class="hl-1">data</span><span class="hl-0">).</span><span class="hl-9">finish</span><span class="hl-0">();</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">encryptedData</span><span class="hl-0"> = </span><span class="hl-9">encryptBytes</span><span class="hl-0">(</span><span class="hl-1">did</span><span class="hl-0">, </span><span class="hl-1">dataBytes</span><span class="hl-0">, </span><span class="hl-1">publicKeyInfo</span><span class="hl-0">);</span>
 </code></pre>
-				<a href="#decryptbytes" id="decryptbytes" style="color: inherit; text-decoration: none;">
-					<h3>decryptBytes</h3>
-				</a>
-				<p>Decrypts data encrypted with an <code>RSA</code> public key using the corresponding private key.</p>
-				<pre><code class="language-typescript"><span style="color: #000000">(</span>
-<span style="color: #000000">  </span><span style="color: #001080">privateKey</span><span style="color: #000000">: </span><span style="color: #001080">string</span><span style="color: #000000">,</span>
-<span style="color: #000000">  </span><span style="color: #001080">encryptedData</span><span style="color: #000000">: { </span><span style="color: #001080">data:</span><span style="color: #000000"> </span><span style="color: #001080">string</span><span style="color: #000000">, </span><span style="color: #001080">key:</span><span style="color: #000000"> { </span><span style="color: #001080">iv:</span><span style="color: #000000"> </span><span style="color: #001080">string</span><span style="color: #000000">, </span><span style="color: #001080">key:</span><span style="color: #000000"> </span><span style="color: #001080">string</span><span style="color: #000000">, </span><span style="color: #001080">algorithm:</span><span style="color: #000000"> </span><span style="color: #001080">string</span><span style="color: #000000">, </span><span style="color: #001080">did:</span><span style="color: #000000"> </span><span style="color: #001080">string</span><span style="color: #000000"> } }</span>
-<span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">any</span><span style="color: #000000">;</span>
+
+<a href="#decryptbytes" id="decryptbytes" style="color: inherit; text-decoration: none;">
+  <h3>decryptBytes</h3>
+</a>
+<p>Decrypts data encrypted with an <code>RSA</code> public key using the corresponding private key.</p>
+<pre><code class="language-typescript"><span class="hl-0">(</span><br/><span class="hl-0">  </span><span class="hl-1">privateKey</span><span class="hl-0">: </span><span class="hl-1">string</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-1">encryptedData</span><span class="hl-0">: { </span><span class="hl-1">data:</span><span class="hl-0"> </span><span class="hl-1">string</span><span class="hl-0">, </span><span class="hl-1">key:</span><span class="hl-0"> { </span><span class="hl-1">iv:</span><span class="hl-0"> </span><span class="hl-1">string</span><span class="hl-0">, </span><span class="hl-1">key:</span><span class="hl-0"> </span><span class="hl-1">string</span><span class="hl-0">, </span><span class="hl-1">algorithm:</span><span class="hl-0"> </span><span class="hl-1">string</span><span class="hl-0">, </span><span class="hl-1">did:</span><span class="hl-0"> </span><span class="hl-1">string</span><span class="hl-0"> } }</span><br/><span class="hl-0">) </span><span class="hl-3">=&gt;</span><span class="hl-0"> </span><span class="hl-1">any</span><span class="hl-0">;</span>
 </code></pre>
-				<ul>
-					<li>arguments<ul>
-							<li>privateKey<ul>
-									<li>a pem or base58 RSA private key</li>
-									<li>should correspond to the public key used to encrypt the AES key contained in <code>encryptedData</code></li>
-								</ul>
-							</li>
-							<li>encryptedData<ul>
-									<li>an object containing the encrypted data and information to decrypt it</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>returns<ul>
-							<li>the decrypted data in the form a byte array</li>
-						</ul>
-					</li>
-				</ul>
-				<a href="#usage-5" id="usage-5" style="color: inherit; text-decoration: none;">
-					<h4>Usage</h4>
-				</a>
-				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">generateRsaKeyPair</span><span style="color: #000000">, </span><span style="color: #001080">encryptBytes</span><span style="color: #000000">, </span><span style="color: #001080">decryptBytes</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;library-crypto-typescript&#039;</span><span style="color: #000000">;</span>
+<ul>
+<li>arguments<ul>
+<li>privateKey<ul>
+<li>a pem or base58 RSA private key</li>
+<li>should correspond to the public key used to encrypt the AES key contained in <code>encryptedData</code></li>
+</ul>
+</li>
+<li>encryptedData<ul>
+<li>an object containing the encrypted data and information to decrypt it</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>returns<ul>
+<li>the decrypted data in the form a byte array</li>
+</ul>
+</li>
+</ul>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">privateKey</span><span style="color: #000000">, </span><span style="color: #0070C1">publicKey</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">generateRsaKeyPair</span><span style="color: #000000">();</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">publicKeyInfo</span><span style="color: #000000">: </span><span style="color: #267F99">PublicKeyInfo</span><span style="color: #000000"> = {</span>
-<span style="color: #000000">  </span><span style="color: #001080">publicKey</span><span style="color: #000000">,</span>
-<span style="color: #000000">  </span><span style="color: #001080">encoding:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;pem&#039;</span>
-<span style="color: #000000">}</span>
-
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">data</span><span style="color: #000000">: </span><span style="color: #267F99">UnsignedString</span><span style="color: #000000"> = {</span>
-<span style="color: #000000">  </span><span style="color: #001080">data:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Hello World&#039;</span>
-<span style="color: #000000">};</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">dataBytes</span><span style="color: #000000"> = </span><span style="color: #001080">UnsignedString</span><span style="color: #000000">.</span><span style="color: #795E26">encode</span><span style="color: #000000">(</span><span style="color: #001080">data</span><span style="color: #000000">).</span><span style="color: #795E26">finish</span><span style="color: #000000">();</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">encryptedData</span><span style="color: #000000"> = </span><span style="color: #795E26">encryptBytes</span><span style="color: #000000">(</span><span style="color: #001080">did</span><span style="color: #000000">, </span><span style="color: #001080">publicKeyInfo</span><span style="color: #000000">, </span><span style="color: #001080">data</span><span style="color: #000000">);</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">decryptedData</span><span style="color: #000000"> = </span><span style="color: #795E26">decryptBytes</span><span style="color: #000000">(</span><span style="color: #001080">privateKey</span><span style="color: #000000">, </span><span style="color: #001080">encryptedData</span><span style="color: #000000">);</span>
+<a href="#usage-5" id="usage-5" style="color: inherit; text-decoration: none;">
+  <h4>Usage</h4>
+</a>
+<pre><code class="language-typescript"><span class="hl-6">import</span><span class="hl-0"> { </span><span class="hl-1">generateRsaKeyPair</span><span class="hl-0">, </span><span class="hl-1">encryptBytes</span><span class="hl-0">, </span><span class="hl-1">decryptBytes</span><span class="hl-0"> } </span><span class="hl-6">from</span><span class="hl-0"> </span><span class="hl-2">&#39;library-crypto-typescript&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> { </span><span class="hl-8">privateKey</span><span class="hl-0">, </span><span class="hl-8">publicKey</span><span class="hl-0"> } = </span><span class="hl-6">await</span><span class="hl-0"> </span><span class="hl-9">generateRsaKeyPair</span><span class="hl-0">();</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">publicKeyInfo</span><span class="hl-0">: </span><span class="hl-4">PublicKeyInfo</span><span class="hl-0"> = {</span><br/><span class="hl-0">  </span><span class="hl-1">publicKey</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-1">encoding:</span><span class="hl-0"> </span><span class="hl-2">&#39;pem&#39;</span><br/><span class="hl-0">}</span><br/><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">data</span><span class="hl-0">: </span><span class="hl-4">UnsignedString</span><span class="hl-0"> = {</span><br/><span class="hl-0">  </span><span class="hl-1">data:</span><span class="hl-0"> </span><span class="hl-2">&#39;Hello World&#39;</span><br/><span class="hl-0">};</span><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">dataBytes</span><span class="hl-0"> = </span><span class="hl-1">UnsignedString</span><span class="hl-0">.</span><span class="hl-9">encode</span><span class="hl-0">(</span><span class="hl-1">data</span><span class="hl-0">).</span><span class="hl-9">finish</span><span class="hl-0">();</span><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">encryptedData</span><span class="hl-0"> = </span><span class="hl-9">encryptBytes</span><span class="hl-0">(</span><span class="hl-1">did</span><span class="hl-0">, </span><span class="hl-1">publicKeyInfo</span><span class="hl-0">, </span><span class="hl-1">data</span><span class="hl-0">);</span><br/><span class="hl-3">const</span><span class="hl-0"> </span><span class="hl-8">decryptedData</span><span class="hl-0"> = </span><span class="hl-9">decryptBytes</span><span class="hl-0">(</span><span class="hl-1">privateKey</span><span class="hl-0">, </span><span class="hl-1">encryptedData</span><span class="hl-0">);</span>
 </code></pre>
-			</div>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
-				<ul>
-					<li class=" ">
-						<a href="modules.html">Exports</a>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-					<li class=" tsd-kind-class">
-						<a href="classes/cryptoerror.html" class="tsd-kind-icon">Crypto<wbr>Error</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#decryptbytes" class="tsd-kind-icon">decrypt<wbr>Bytes</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#detectencodingtype" class="tsd-kind-icon">detect<wbr>Encoding<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#encryptbytes" class="tsd-kind-icon">encrypt<wbr>Bytes</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#encryptbyteshelper" class="tsd-kind-icon">encrypt<wbr>Bytes<wbr>Helper</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#generateecckeypair" class="tsd-kind-icon">generate<wbr>Ecc<wbr>Key<wbr>Pair</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#generatersakeypair" class="tsd-kind-icon">generate<wbr>Rsa<wbr>Key<wbr>Pair</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#signbytes" class="tsd-kind-icon">sign<wbr>Bytes</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#validatepublickey" class="tsd-kind-icon">validate<wbr>Public<wbr>Key</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#verifybytes" class="tsd-kind-icon">verify<wbr>Bytes</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#verifybyteshelper" class="tsd-kind-icon">verify<wbr>Bytes<wbr>Helper</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-</div>
-<footer class="with-border-bottom">
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-			</ul>
-		</div>
-	</div>
-</footer>
+</div></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected"><a href="modules.html">@unumid/library-<wbr/>crypto</a>
+<ul></ul></li></ul></div></details></nav>
+<nav class="tsd-navigation secondary menu-sticky">
+<ul>
+<li class="tsd-kind-class"><a href="classes/CryptoError.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-128-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-128-text"></path></svg>Crypto<wbr/>Error</a></li>
+<li class="tsd-kind-function"><a href="functions/decryptBytes.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-64-path"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)" id="icon-64-text"></path></svg>decrypt<wbr/>Bytes</a></li>
+<li class="tsd-kind-function"><a href="functions/detectEncodingType.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>detect<wbr/>Encoding<wbr/>Type</a></li>
+<li class="tsd-kind-function"><a href="functions/encryptBytes.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>encrypt<wbr/>Bytes</a></li>
+<li class="tsd-kind-function"><a href="functions/encryptBytesHelper.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>encrypt<wbr/>Bytes<wbr/>Helper</a></li>
+<li class="tsd-kind-function"><a href="functions/generateEccKeyPair.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>generate<wbr/>Ecc<wbr/>Key<wbr/>Pair</a></li>
+<li class="tsd-kind-function"><a href="functions/generateRsaKeyPair.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>generate<wbr/>Rsa<wbr/>Key<wbr/>Pair</a></li>
+<li class="tsd-kind-function"><a href="functions/signBytes.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>sign<wbr/>Bytes</a></li>
+<li class="tsd-kind-function"><a href="functions/validatePublicKey.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>validate<wbr/>Public<wbr/>Key</a></li>
+<li class="tsd-kind-function"><a href="functions/verifyBytes.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>verify<wbr/>Bytes</a></li>
+<li class="tsd-kind-function"><a href="functions/verifyBytesHelper.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-64-path"></use><use href="#icon-64-text"></use></svg>verify<wbr/>Bytes<wbr/>Helper</a></li></ul></nav></div></div>
 <div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
-<div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-</body>
-</html>
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="assets/main.js"></script></body></html>
