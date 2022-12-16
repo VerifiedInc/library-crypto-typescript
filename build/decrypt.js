@@ -59,12 +59,6 @@ function _decryptBytes(privateKey, encryptedData, encoding) {
         var decryptedIv = crypto_1.privateDecrypt(privateKeyObj, decodedEncryptedIv);
         var decryptedKey = crypto_1.privateDecrypt(privateKeyObj, decodedEncryptedKey);
         var decryptedAlgorithm = crypto_1.privateDecrypt(privateKeyObj, decodedEncryptedAlgorithm);
-        // // create aes key
-        // const decipher = createDecipheriv(decryptedAlgorithm.toString(), decryptedKey, decryptedIv);
-        // // decrypt data with aes key
-        // const decrypted1 = decipher.update(decodedEncryptedData);
-        // const decrypted2 = decipher.final();
-        // const decrypted = Buffer.concat([decrypted1, decrypted2]);
         // create aes instance with decrypted aes key, iv, and algorithm
         var aes = new aes_1.Aes(decryptedKey, decryptedIv, decryptedAlgorithm.toString());
         // decrypt data with aes
