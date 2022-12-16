@@ -1,11 +1,14 @@
 import { publicEncrypt, randomBytes, createCipheriv, createDecipheriv, Cipher } from 'crypto';
 
-export class Aes {
+/**
+ * Class to handle aes encryption and decryption with string inputs.
+ */
+export class AesString {
     key: Buffer;
     iv: Buffer;
     algorithm: string;
 
-    constructor (key: Buffer = randomBytes(32), iv: Buffer = randomBytes(16), algorithm = 'aes-256-cbc') {
+    constructor (key: Buffer = randomBytes(32), iv: Buffer = randomBytes(32), algorithm = 'aes-256-cbc') {
       this.key = key;
       this.iv = iv;
       this.algorithm = algorithm;

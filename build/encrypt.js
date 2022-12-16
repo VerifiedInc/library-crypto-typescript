@@ -6,6 +6,7 @@ var types_1 = require("@unumid/types");
 var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
 var utils_1 = require("./utils");
+var aes_1 = require("./aes");
 /**
  *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
  *
@@ -45,15 +46,23 @@ function encryptBytesHelper(did, publicKey, data, encoding, rsaPadding) {
         var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
         // node can only encrypt with pem-encoded keys
         var publicKeyPem = helpers_1.derToPem(decodedPublicKey, 'public');
-        // create aes key for encryption
+        // // create aes key for encryption
+        // const key = randomBytes(32);
+        // const iv = randomBytes(16);
+        // const algorithm = 'aes-256-cbc';
+        // const cipher = createCipheriv(algorithm, key, iv);
+        // // encrypt data with aes key
+        // const encrypted1 = cipher.update(data);
+        // const encrypted2 = cipher.final();
+        // const encrypted = Buffer.concat([encrypted1, encrypted2]);
+        // const { key, iv, algorithm, encrypted } = aesEncryption(data);
+        // create aes key, iv and Aes instance for encryption
         var key = crypto_1.randomBytes(32);
         var iv = crypto_1.randomBytes(16);
         var algorithm = 'aes-256-cbc';
-        var cipher = crypto_1.createCipheriv(algorithm, key, iv);
+        var aes = new aes_1.Aes(key, iv, algorithm);
         // encrypt data with aes key
-        var encrypted1 = cipher.update(data);
-        var encrypted2 = cipher.final();
-        var encrypted = Buffer.concat([encrypted1, encrypted2]);
+        var encrypted = aes.encrypt(data);
         // we need to use a key object to set non-default padding
         // for interoperability with android/ios/webcrypto cryptography implementations
         var publicKeyObj = {
@@ -82,4 +91,35 @@ function encryptBytesHelper(did, publicKey, data, encoding, rsaPadding) {
     }
 }
 exports.encryptBytesHelper = encryptBytesHelper;
+// /**
+//  * Function used to encrypt a byte array with aes.
+//  * @returns
+//  */
+// export function aesEncryption (data: Uint8Array): {key: Buffer, iv: Buffer, algorithm: string, encrypted: Buffer} {
+//   // create aes key for encryption
+//   const key = randomBytes(32);
+//   const iv = randomBytes(16);
+//   const algorithm = 'aes-256-cbc';
+//   // const cipher = createCipheriv(algorithm, key, iv);
+//   // return aesEncryptionHelper(data, key);
+//   const aes = new Aes(key, iv, algorithm);
+//   // encrypt data with aes key
+//   const encrypted = aes.encrypt(data);
+// }
+// export function aesEncryptionHelper (data: Uint8Array, key: Buffer): {key: Buffer, iv: Buffer, algorithm: string, encrypted: Buffer} {
+//   // create aes iv for encryption
+//   const iv = randomBytes(16);
+//   const algorithm = 'aes-256-cbc';
+//   const cipher = createCipheriv(algorithm, key, iv);
+//   // encrypt data with aes key
+//   const encrypted1 = cipher.update(data);
+//   const encrypted2 = cipher.final();
+//   const encrypted = Buffer.concat([encrypted1, encrypted2]);
+//   return {
+//     key,
+//     iv,
+//     algorithm,
+//     encrypted
+//   };
+// }
 //# sourceMappingURL=encrypt.js.map
