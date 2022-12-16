@@ -21,7 +21,7 @@ function decryptBytes(privateKey, encryptedData) {
         throw new CryptoError_1.CryptoError('Private key is missing');
     }
     // detect key encoding type
-    var encoding = utils_1.detectEncodingType(privateKey);
+    var encoding = (0, utils_1.detectEncodingType)(privateKey);
     return _decryptBytes(privateKey, encryptedData, encoding);
 }
 exports.decryptBytes = decryptBytes;
@@ -41,9 +41,9 @@ function _decryptBytes(privateKey, encryptedData, encoding) {
         var data = encryptedData.data;
         var _a = encryptedData.key, iv = _a.iv, key = _a.key, algorithm = _a.algorithm;
         // decode the private key, if necessary
-        var decodedPrivateKey = helpers_1.decodeKey(privateKey, encoding);
+        var decodedPrivateKey = (0, helpers_1.decodeKey)(privateKey, encoding);
         // node can only decrypt with pem-encoded keys
-        var privateKeyPem = helpers_1.derToPem(decodedPrivateKey, 'private');
+        var privateKeyPem = (0, helpers_1.derToPem)(decodedPrivateKey, 'private');
         // decode aes key info and encrypted data from base64 to Buffers
         var decodedEncryptedIv = Buffer.from(iv, 'base64');
         var decodedEncryptedKey = Buffer.from(key, 'base64');
@@ -53,12 +53,12 @@ function _decryptBytes(privateKey, encryptedData, encoding) {
         // for interoperability with android/ios/webcrypto cryptography implementations
         var privateKeyObj = {
             key: privateKeyPem,
-            padding: utils_1.getPadding(encryptedData.rsaPadding || types_1.RSAPadding.PKCS)
+            padding: (0, utils_1.getPadding)(encryptedData.rsaPadding || types_1.RSAPadding.PKCS)
         };
         // decrypt aes key info with private key
-        var decryptedIv = crypto_1.privateDecrypt(privateKeyObj, decodedEncryptedIv);
-        var decryptedKey = crypto_1.privateDecrypt(privateKeyObj, decodedEncryptedKey);
-        var decryptedAlgorithm = crypto_1.privateDecrypt(privateKeyObj, decodedEncryptedAlgorithm);
+        var decryptedIv = (0, crypto_1.privateDecrypt)(privateKeyObj, decodedEncryptedIv);
+        var decryptedKey = (0, crypto_1.privateDecrypt)(privateKeyObj, decodedEncryptedKey);
+        var decryptedAlgorithm = (0, crypto_1.privateDecrypt)(privateKeyObj, decodedEncryptedAlgorithm);
         // create aes instance with decrypted aes key, iv, and algorithm
         var aes = new aes_1.Aes(decryptedKey, decryptedIv, decryptedAlgorithm.toString());
         // decrypt data with aes

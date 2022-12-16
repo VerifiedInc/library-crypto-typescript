@@ -1,4 +1,5 @@
 /// <reference types="node" />
+/// <reference types="node" />
 /**
  * Class to handle aes encryption and decryption with string inputs.
  */

@@ -1,4 +1,5 @@
 /// <reference types="node" />
+/// <reference types="node" />
 export declare class Aes {
     key: Buffer;
     iv: Buffer;

@@ -40,7 +40,7 @@ function verifyBytesHelper(signature, bytes, publicKey, encoding) {
     if (encoding === void 0) { encoding = 'pem'; }
     try {
         // decode public key if necessary
-        var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
+        var decodedPublicKey = (0, helpers_1.decodeKey)(publicKey, encoding);
         // decode signature from base58 to a Buffer
         var signatureBytes = Buffer.from(signature, 'base64');
         // if we pass the key to crypto.verify as a buffer, it will assume pem format

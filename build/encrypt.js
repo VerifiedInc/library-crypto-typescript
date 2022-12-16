@@ -43,12 +43,12 @@ function encryptBytesHelper(did, publicKey, data, encoding, rsaPadding) {
     if (rsaPadding === void 0) { rsaPadding = types_1.RSAPadding.PKCS; }
     try {
         // decode the public key, if necessary
-        var decodedPublicKey = helpers_1.decodeKey(publicKey, encoding);
+        var decodedPublicKey = (0, helpers_1.decodeKey)(publicKey, encoding);
         // node can only encrypt with pem-encoded keys
-        var publicKeyPem = helpers_1.derToPem(decodedPublicKey, 'public');
+        var publicKeyPem = (0, helpers_1.derToPem)(decodedPublicKey, 'public');
         // create aes key, iv and Aes instance for encryption
-        var key = crypto_1.randomBytes(32);
-        var iv = crypto_1.randomBytes(16);
+        var key = (0, crypto_1.randomBytes)(32);
+        var iv = (0, crypto_1.randomBytes)(16);
         var algorithm = 'aes-256-cbc';
         var aes = new aes_1.Aes(key, iv, algorithm);
         // encrypt data with aes key
@@ -57,12 +57,12 @@ function encryptBytesHelper(did, publicKey, data, encoding, rsaPadding) {
         // for interoperability with android/ios/webcrypto cryptography implementations
         var publicKeyObj = {
             key: publicKeyPem,
-            padding: utils_1.getPadding(rsaPadding)
+            padding: (0, utils_1.getPadding)(rsaPadding)
         };
         // encrypt aes key with public key
-        var encryptedIv = crypto_1.publicEncrypt(publicKeyObj, iv);
-        var encryptedKey = crypto_1.publicEncrypt(publicKeyObj, key);
-        var encryptedAlgo = crypto_1.publicEncrypt(publicKeyObj, Buffer.from(algorithm));
+        var encryptedIv = (0, crypto_1.publicEncrypt)(publicKeyObj, iv);
+        var encryptedKey = (0, crypto_1.publicEncrypt)(publicKeyObj, key);
+        var encryptedAlgo = (0, crypto_1.publicEncrypt)(publicKeyObj, Buffer.from(algorithm));
         // return EncryptedData object with encrypted data and aes key info
         return {
             data: encrypted.toString('base64'),
