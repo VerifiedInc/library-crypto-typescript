@@ -7,5 +7,6 @@ import { decryptBytes } from './decrypt';
 import { validatePublicKey } from './validatePublicKey';
 import { CryptoError } from './types/CryptoError';
 import { detectEncodingType } from './utils';
-export { generateEccKeyPair, generateRsaKeyPair, signBytes, verifyBytesHelper, verifyBytes, encryptBytesHelper, encryptBytes, decryptBytes, validatePublicKey, detectEncodingType, CryptoError };
+import { Aes } from './aes';
+export { generateEccKeyPair, generateRsaKeyPair, signBytes, verifyBytesHelper, verifyBytes, encryptBytesHelper, encryptBytes, decryptBytes, validatePublicKey, Aes, detectEncodingType, CryptoError };
 //# sourceMappingURL=index.d.ts.map

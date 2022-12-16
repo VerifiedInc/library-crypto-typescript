@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Aes = void 0;
 var crypto_1 = require("crypto");
+/**
+ * Class to facilitate encryption and decryption of data using AES.
+ */
 var Aes = /** @class */ (function () {
     function Aes(key, iv, algorithm) {
         if (key === void 0) { key = (0, crypto_1.randomBytes)(32); }
@@ -11,6 +14,11 @@ var Aes = /** @class */ (function () {
         this.iv = iv;
         this.algorithm = algorithm;
     }
+    /**
+     * Encrypts input Uint8Array using AES.
+     * @param data
+     * @returns Buffer
+     */
     Aes.prototype.encrypt = function (data) {
         // create aes cipher
         var cipher = (0, crypto_1.createCipheriv)(this.algorithm, this.key, this.iv);
@@ -20,6 +28,11 @@ var Aes = /** @class */ (function () {
         var encrypted = Buffer.concat([encrypted1, encrypted2]);
         return encrypted;
     };
+    /**
+     * Decrypts input Uint8Array using AES.
+     * @param data
+     * @returns Buffer
+     */
     Aes.prototype.decrypt = function (data) {
         // create aes cipher
         var decipher = (0, crypto_1.createDecipheriv)(this.algorithm, this.key, this.iv);

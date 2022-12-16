@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CryptoError = exports.detectEncodingType = exports.validatePublicKey = exports.decryptBytes = exports.encryptBytes = exports.encryptBytesHelper = exports.verifyBytes = exports.verifyBytesHelper = exports.signBytes = exports.generateRsaKeyPair = exports.generateEccKeyPair = void 0;
+exports.CryptoError = exports.detectEncodingType = exports.Aes = exports.validatePublicKey = exports.decryptBytes = exports.encryptBytes = exports.encryptBytesHelper = exports.verifyBytes = exports.verifyBytesHelper = exports.signBytes = exports.generateRsaKeyPair = exports.generateEccKeyPair = void 0;
 var generateEccKeyPair_1 = require("./generateEccKeyPair");
 Object.defineProperty(exports, "generateEccKeyPair", { enumerable: true, get: function () { return generateEccKeyPair_1.generateEccKeyPair; } });
 var generateRsaKeyPair_1 = require("./generateRsaKeyPair");
@@ -21,4 +21,6 @@ var CryptoError_1 = require("./types/CryptoError");
 Object.defineProperty(exports, "CryptoError", { enumerable: true, get: function () { return CryptoError_1.CryptoError; } });
 var utils_1 = require("./utils");
 Object.defineProperty(exports, "detectEncodingType", { enumerable: true, get: function () { return utils_1.detectEncodingType; } });
+var aes_1 = require("./aes");
+Object.defineProperty(exports, "Aes", { enumerable: true, get: function () { return aes_1.Aes; } });
 //# sourceMappingURL=index.js.map

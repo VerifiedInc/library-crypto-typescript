@@ -1,5 +1,8 @@
-import { publicEncrypt, randomBytes, createCipheriv, createDecipheriv, Cipher } from 'crypto';
+import { randomBytes, createCipheriv, createDecipheriv } from 'crypto';
 
+/**
+ * Class to facilitate encryption and decryption of data using AES.
+ */
 export class Aes {
     key: Buffer;
     iv: Buffer;
@@ -11,6 +14,11 @@ export class Aes {
       this.algorithm = algorithm;
     }
 
+    /**
+     * Encrypts input Uint8Array using AES.
+     * @param data Uint8Array
+     * @returns Buffer
+     */
     encrypt (data: Uint8Array): Buffer {
       // create aes cipher
       const cipher = createCipheriv(this.algorithm, this.key, this.iv);
@@ -23,6 +31,11 @@ export class Aes {
       return encrypted;
     }
 
+    /**
+     * Decrypts input Uint8Array using AES.
+     * @param data Uint8Array
+     * @returns Buffer
+     */
     decrypt (data: Uint8Array): Buffer {
       // create aes cipher
       const decipher = createDecipheriv(this.algorithm, this.key, this.iv);
