@@ -5,6 +5,7 @@ import { EncryptedData, EncryptedKey, RSAPadding } from '@unumid/types';
 import { decodeKey, derToPem } from './helpers';
 import { CryptoError } from './types/CryptoError';
 import { detectEncodingType, getPadding } from './utils';
+import { Aes } from './aes';
 
 /**
  * Used to decrypt a byte array. Exposed for use with Protobuf's byte arrays.
@@ -47,7 +48,7 @@ function _decryptBytes (privateKey: string, encryptedData: EncryptedData, encodi
     // node can only decrypt with pem-encoded keys
     const privateKeyPem = derToPem(decodedPrivateKey, 'private');
 
-    // decode aes key info and encrypted data from base58 to Buffers
+    // decode aes key info and encrypted data from base64 to Buffers
     const decodedEncryptedIv = Buffer.from(iv, 'base64');
     const decodedEncryptedKey = Buffer.from(key, 'base64');
     const decodedEncryptedAlgorithm = Buffer.from(algorithm, 'base64');
@@ -65,13 +66,11 @@ function _decryptBytes (privateKey: string, encryptedData: EncryptedData, encodi
     const decryptedKey = privateDecrypt(privateKeyObj, decodedEncryptedKey);
     const decryptedAlgorithm = privateDecrypt(privateKeyObj, decodedEncryptedAlgorithm);
 
-    // create aes key
-    const decipher = createDecipheriv(decryptedAlgorithm.toString(), decryptedKey, decryptedIv);
+    // create aes instance with decrypted aes key, iv, and algorithm
+    const aes = new Aes(decryptedKey, decryptedIv, decryptedAlgorithm.toString());
 
-    // decrypt data with aes key
-    const decrypted1 = decipher.update(decodedEncryptedData);
-    const decrypted2 = decipher.final();
-    const decrypted = Buffer.concat([decrypted1, decrypted2]);
+    // decrypt data with aes
+    const decrypted = aes.decrypt(decodedEncryptedData);
 
     return decrypted;
   } catch (e) {

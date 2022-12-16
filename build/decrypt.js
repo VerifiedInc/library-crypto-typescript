@@ -6,6 +6,7 @@ var types_1 = require("@unumid/types");
 var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
 var utils_1 = require("./utils");
+var aes_1 = require("./aes");
 /**
  * Used to decrypt a byte array. Exposed for use with Protobuf's byte arrays.
  *
@@ -43,7 +44,7 @@ function _decryptBytes(privateKey, encryptedData, encoding) {
         var decodedPrivateKey = (0, helpers_1.decodeKey)(privateKey, encoding);
         // node can only decrypt with pem-encoded keys
         var privateKeyPem = (0, helpers_1.derToPem)(decodedPrivateKey, 'private');
-        // decode aes key info and encrypted data from base58 to Buffers
+        // decode aes key info and encrypted data from base64 to Buffers
         var decodedEncryptedIv = Buffer.from(iv, 'base64');
         var decodedEncryptedKey = Buffer.from(key, 'base64');
         var decodedEncryptedAlgorithm = Buffer.from(algorithm, 'base64');
@@ -58,12 +59,10 @@ function _decryptBytes(privateKey, encryptedData, encoding) {
         var decryptedIv = (0, crypto_1.privateDecrypt)(privateKeyObj, decodedEncryptedIv);
         var decryptedKey = (0, crypto_1.privateDecrypt)(privateKeyObj, decodedEncryptedKey);
         var decryptedAlgorithm = (0, crypto_1.privateDecrypt)(privateKeyObj, decodedEncryptedAlgorithm);
-        // create aes key
-        var decipher = (0, crypto_1.createDecipheriv)(decryptedAlgorithm.toString(), decryptedKey, decryptedIv);
-        // decrypt data with aes key
-        var decrypted1 = decipher.update(decodedEncryptedData);
-        var decrypted2 = decipher.final();
-        var decrypted = Buffer.concat([decrypted1, decrypted2]);
+        // create aes instance with decrypted aes key, iv, and algorithm
+        var aes = new aes_1.Aes(decryptedKey, decryptedIv, decryptedAlgorithm.toString());
+        // decrypt data with aes
+        var decrypted = aes.decrypt(decodedEncryptedData);
         return decrypted;
     }
     catch (e) {

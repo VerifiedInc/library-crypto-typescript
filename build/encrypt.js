@@ -6,6 +6,7 @@ var types_1 = require("@unumid/types");
 var helpers_1 = require("./helpers");
 var CryptoError_1 = require("./types/CryptoError");
 var utils_1 = require("./utils");
+var aes_1 = require("./aes");
 /**
  *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
  *
@@ -45,15 +46,13 @@ function encryptBytesHelper(did, publicKey, data, encoding, rsaPadding) {
         var decodedPublicKey = (0, helpers_1.decodeKey)(publicKey, encoding);
         // node can only encrypt with pem-encoded keys
         var publicKeyPem = (0, helpers_1.derToPem)(decodedPublicKey, 'public');
-        // create aes key for encryption
+        // create aes key, iv and Aes instance for encryption
         var key = (0, crypto_1.randomBytes)(32);
         var iv = (0, crypto_1.randomBytes)(16);
         var algorithm = 'aes-256-cbc';
-        var cipher = (0, crypto_1.createCipheriv)(algorithm, key, iv);
+        var aes = new aes_1.Aes(key, iv, algorithm);
         // encrypt data with aes key
-        var encrypted1 = cipher.update(data);
-        var encrypted2 = cipher.final();
-        var encrypted = Buffer.concat([encrypted1, encrypted2]);
+        var encrypted = aes.encrypt(data);
         // we need to use a key object to set non-default padding
         // for interoperability with android/ios/webcrypto cryptography implementations
         var publicKeyObj = {

@@ -5,6 +5,7 @@ import { decodeKey, derToPem } from './helpers';
 import { CryptoError } from './types/CryptoError';
 import { getPadding } from './utils';
 import { PublicKeyInfo } from '@unumid/types/build/protos/crypto';
+import { Aes } from './aes';
 
 /**
  *  Used to encrypt a byte array. Exposed for use with Protobuf's byte arrays.
@@ -58,16 +59,14 @@ export function encryptBytesHelper (
     // node can only encrypt with pem-encoded keys
     const publicKeyPem = derToPem(decodedPublicKey, 'public');
 
-    // create aes key for encryption
+    // create aes key, iv and Aes instance for encryption
     const key = randomBytes(32);
     const iv = randomBytes(16);
     const algorithm = 'aes-256-cbc';
-    const cipher = createCipheriv(algorithm, key, iv);
+    const aes = new Aes(key, iv, algorithm);
 
     // encrypt data with aes key
-    const encrypted1 = cipher.update(data);
-    const encrypted2 = cipher.final();
-    const encrypted = Buffer.concat([encrypted1, encrypted2]);
+    const encrypted = aes.encrypt(data);
 
     // we need to use a key object to set non-default padding
     // for interoperability with android/ios/webcrypto cryptography implementations
