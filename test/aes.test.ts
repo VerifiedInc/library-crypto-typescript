@@ -10,8 +10,9 @@ import { derToPem, decodeKey } from '../src/helpers';
 import { CryptoError } from '../src/types/CryptoError';
 
 describe('aes', () => {
+  const stringValue = 'Hello World';
   const data: UnsignedString = {
-    data: 'Hello World'
+    data: stringValue
   };
   const dataBytes = UnsignedString.encode(data).finish();
 
@@ -87,57 +88,7 @@ describe('aes', () => {
 
       const decryptedUnsignedString: UnsignedString = UnsignedString.decode(decryptedData);
       expect(decryptedUnsignedString).toEqual(data);
+      expect(decryptedUnsignedString.data).toEqual(stringValue);
     });
   });
-
-  // describe('exception handling', () => {
-  //   const encoding = 'base58';
-  //   beforeAll(async () => {
-  //     const keypair = await generateRsaKeyPair(encoding);
-  //     publicKey = keypair.publicKey;
-  //   });
-
-  //   afterEach(() => {
-  //     jest.restoreAllMocks();
-  //   });
-
-  //   it('throws CryptoError exception if the input is invalid', async () => {
-  //     try {
-  //       encryptBytesHelper(subjectDid, publicKey, dataBytes, 'pem');
-  //       fail();
-  //     } catch (e) {
-  //       expect(e).toBeInstanceOf(CryptoError);
-  //     }
-  //   });
-
-  //   it('throws CryptoError exception if the public key is missing', async () => {
-  //     const publicKeyInfo: PublicKeyInfo = {
-  //       publicKey: undefined,
-  //       encoding: 'pem',
-  //       rsaPadding: RSAPadding.PKCS
-  //     };
-
-  //     try {
-  //       encryptBytes(subjectDid, publicKeyInfo, dataBytes);
-  //       fail();
-  //     } catch (e) {
-  //       expect(e).toBeInstanceOf(CryptoError);
-  //     }
-  //   });
-
-  //   it('throws CryptoError exception if the public key encoding is missing', async () => {
-  //     const publicKeyInfo: PublicKeyInfo = {
-  //       publicKey,
-  //       encoding: undefined,
-  //       rsaPadding: RSAPadding.PKCS
-  //     };
-
-  //     try {
-  //       encryptBytes(subjectDid, publicKeyInfo, dataBytes);
-  //       fail();
-  //     } catch (e) {
-  //       expect(e).toBeInstanceOf(CryptoError);
-  //     }
-  //   });
-  // });
 });
