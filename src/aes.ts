@@ -16,7 +16,7 @@ export class Aes {
 
     /**
      * Encrypts input Uint8Array using AES.
-     * @param data
+     * @param data Uint8Array
      * @returns Buffer
      */
     encrypt (data: Uint8Array): Buffer {
@@ -33,7 +33,7 @@ export class Aes {
 
     /**
      * Decrypts input Uint8Array using AES.
-     * @param data
+     * @param data Uint8Array
      * @returns Buffer
      */
     decrypt (data: Uint8Array): Buffer {
