@@ -1,4 +1,4 @@
-import { publicEncrypt, randomBytes, createCipheriv, createDecipheriv, Cipher } from 'crypto';
+import { randomBytes, createCipheriv, createDecipheriv } from 'crypto';
 
 export class Aes {
     key: Buffer;
