@@ -7,6 +7,7 @@ import { decryptBytes } from './decrypt';
 import { validatePublicKey } from './validatePublicKey';
 import { CryptoError } from './types/CryptoError';
 import { detectEncodingType } from './utils';
+import { Aes } from './aes';
 
 export {
   // functions
@@ -19,6 +20,8 @@ export {
   encryptBytes,
   decryptBytes,
   validatePublicKey,
+  // classes
+  Aes,
   // utils
   detectEncodingType,
   // types
