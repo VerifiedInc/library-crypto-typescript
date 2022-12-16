@@ -76,7 +76,7 @@ describe('aes', () => {
       const mockFinal = jest.fn(() => Buffer.from(stringify(data)));
       (crypto.createDecipheriv as jest.Mock).mockReturnValueOnce({ update: mockUpdate, final: mockFinal });
       aes.decrypt(encryptedData);
-      expect(mockUpdate).toBeCalledWith(dataBytes);
+      expect(mockUpdate).toBeCalledWith(encryptedData);
       expect(mockFinal).toBeCalled();
     });
 
