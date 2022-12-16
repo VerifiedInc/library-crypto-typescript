@@ -16,7 +16,7 @@ var Aes = /** @class */ (function () {
     }
     /**
      * Encrypts input Uint8Array using AES.
-     * @param data
+     * @param data Uint8Array
      * @returns Buffer
      */
     Aes.prototype.encrypt = function (data) {
@@ -30,7 +30,7 @@ var Aes = /** @class */ (function () {
     };
     /**
      * Decrypts input Uint8Array using AES.
-     * @param data
+     * @param data Uint8Array
      * @returns Buffer
      */
     Aes.prototype.decrypt = function (data) {

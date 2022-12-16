@@ -10,13 +10,13 @@ export declare class Aes {
     constructor(key?: Buffer, iv?: Buffer, algorithm?: string);
     /**
      * Encrypts input Uint8Array using AES.
-     * @param data
+     * @param data Uint8Array
      * @returns Buffer
      */
     encrypt(data: Uint8Array): Buffer;
     /**
      * Decrypts input Uint8Array using AES.
-     * @param data
+     * @param data Uint8Array
      * @returns Buffer
      */
     decrypt(data: Uint8Array): Buffer;
