@@ -63,10 +63,10 @@ export function encryptBytesHelper (
     const key = randomBytes(32);
     const iv = randomBytes(16);
     const algorithm = 'aes-256-cbc';
-    const aes = new Aes(key, iv, algorithm);
+    const aes = new Aes(key, algorithm);
 
     // encrypt data with aes key
-    const encrypted = aes.encrypt(data);
+    const encrypted = aes.encrypt(data, iv);
 
     // we need to use a key object to set non-default padding
     // for interoperability with android/ios/webcrypto cryptography implementations

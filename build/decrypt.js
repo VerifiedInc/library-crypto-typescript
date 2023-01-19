@@ -60,9 +60,9 @@ function _decryptBytes(privateKey, encryptedData, encoding) {
         var decryptedKey = (0, crypto_1.privateDecrypt)(privateKeyObj, decodedEncryptedKey);
         var decryptedAlgorithm = (0, crypto_1.privateDecrypt)(privateKeyObj, decodedEncryptedAlgorithm);
         // create aes instance with decrypted aes key, iv, and algorithm
-        var aes = new aes_1.Aes(decryptedKey, decryptedIv, decryptedAlgorithm.toString());
+        var aes = new aes_1.Aes(decryptedKey, decryptedAlgorithm.toString());
         // decrypt data with aes
-        var decrypted = aes.decrypt(decodedEncryptedData);
+        var decrypted = aes.decrypt(decodedEncryptedData, decryptedIv);
         return decrypted;
     }
     catch (e) {

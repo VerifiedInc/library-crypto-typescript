@@ -67,10 +67,10 @@ function _decryptBytes (privateKey: string, encryptedData: EncryptedData, encodi
     const decryptedAlgorithm = privateDecrypt(privateKeyObj, decodedEncryptedAlgorithm);
 
     // create aes instance with decrypted aes key, iv, and algorithm
-    const aes = new Aes(decryptedKey, decryptedIv, decryptedAlgorithm.toString());
+    const aes = new Aes(decryptedKey, decryptedAlgorithm.toString());
 
     // decrypt data with aes
-    const decrypted = aes.decrypt(decodedEncryptedData);
+    const decrypted = aes.decrypt(decodedEncryptedData, decryptedIv);
 
     return decrypted;
   } catch (e) {
