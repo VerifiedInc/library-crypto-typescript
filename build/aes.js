@@ -42,6 +42,14 @@ var Aes = /** @class */ (function () {
         var decrypted = Buffer.concat([decrypted1, decrypted2]);
         return decrypted;
     };
+    /**
+     * Helper function to generate a random byte IV.
+     * @returns Uint8Array
+     */
+    Aes.prototype.generateIv = function (bytes) {
+        if (bytes === void 0) { bytes = 16; }
+        return (0, crypto_1.randomBytes)(bytes);
+    };
     return Aes;
 }());
 exports.Aes = Aes;

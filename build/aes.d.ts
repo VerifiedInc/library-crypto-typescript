@@ -21,5 +21,10 @@ export declare class Aes {
      * @returns Buffer
      */
     decrypt(data: Uint8Array, iv: Uint8Array): Buffer;
+    /**
+     * Helper function to generate a random byte IV.
+     * @returns Uint8Array
+     */
+    generateIv(bytes?: number): Uint8Array;
 }
 //# sourceMappingURL=aes.d.ts.map
