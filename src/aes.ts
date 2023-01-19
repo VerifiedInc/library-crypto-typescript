@@ -50,9 +50,9 @@ export class Aes {
 
     /**
      * Helper function to generate a random byte IV.
-     * @returns Uint8Array
+     * @returns Buffer
      */
-    generateIv (bytes = 16): Uint8Array {
+    generateIv (bytes = 16): Buffer {
       return randomBytes(bytes);
     }
 }

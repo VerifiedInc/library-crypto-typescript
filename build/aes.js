@@ -44,7 +44,7 @@ var Aes = /** @class */ (function () {
     };
     /**
      * Helper function to generate a random byte IV.
-     * @returns Uint8Array
+     * @returns Buffer
      */
     Aes.prototype.generateIv = function (bytes) {
         if (bytes === void 0) { bytes = 16; }
