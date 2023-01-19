@@ -47,4 +47,12 @@ export class Aes {
 
       return decrypted;
     }
+
+    /**
+     * Helper function to generate a random byte IV.
+     * @returns Uint8Array
+     */
+    generateIv (bytes = 16): Uint8Array {
+      return randomBytes(bytes);
+    }
 }

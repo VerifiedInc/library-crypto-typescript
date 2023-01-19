@@ -4,14 +4,15 @@ import stringify from 'fast-json-stable-stringify';
 import { Aes } from '../src/aes';
 
 describe('aes', () => {
+  const aes = new Aes();
+  const ivBytes = aes.generateIv();
+
   const stringValue = 'Hello World';
   const data: UnsignedString = {
     data: stringValue
   };
   const dataBytes = UnsignedString.encode(data).finish();
-  const ivBytes = randomBytes(16);
 
-  const aes = new Aes();
   let encryptedData: Buffer;
 
   describe('encrypt', () => {
