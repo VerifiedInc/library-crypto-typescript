@@ -2,26 +2,26 @@ import { randomBytes, createCipheriv, createDecipheriv } from 'crypto';
 
 /**
  * Class to facilitate encryption and decryption of data using AES.
+ * Note: that the IV attribute is not a class variable because it ought to be unique for each encrypt call for the same class instance (aka same key).
  */
 export class Aes {
     key: Buffer;
-    iv: Buffer;
     algorithm: string;
 
-    constructor (key: Buffer = randomBytes(32), iv: Buffer = randomBytes(16), algorithm = 'aes-256-cbc') {
+    constructor (key: Buffer = randomBytes(32), algorithm = 'aes-256-cbc') {
       this.key = key;
-      this.iv = iv;
       this.algorithm = algorithm;
     }
 
     /**
      * Encrypts input Uint8Array using AES.
      * @param data Uint8Array
+     * @param iv Uint8Array
      * @returns Buffer
      */
-    encrypt (data: Uint8Array): Buffer {
+    encrypt (data: Uint8Array, iv:Uint8Array): Buffer {
       // create aes cipher
-      const cipher = createCipheriv(this.algorithm, this.key, this.iv);
+      const cipher = createCipheriv(this.algorithm, this.key, iv);
 
       // encrypt data with aes cipher
       const encrypted1 = cipher.update(data);
@@ -34,11 +34,12 @@ export class Aes {
     /**
      * Decrypts input Uint8Array using AES.
      * @param data Uint8Array
+     * @param iv Uint8Array
      * @returns Buffer
      */
-    decrypt (data: Uint8Array): Buffer {
+    decrypt (data: Uint8Array, iv:Uint8Array): Buffer {
       // create aes cipher
-      const decipher = createDecipheriv(this.algorithm, this.key, this.iv);
+      const decipher = createDecipheriv(this.algorithm, this.key, iv);
 
       // decrypt data with aes cipher
       const decrypted1 = decipher.update(data);
@@ -46,5 +47,13 @@ export class Aes {
       const decrypted = Buffer.concat([decrypted1, decrypted2]);
 
       return decrypted;
+    }
+
+    /**
+     * Helper function to generate a random byte IV.
+     * @returns Buffer
+     */
+    generateIv (bytes = 16): Buffer {
+      return randomBytes(bytes);
     }
 }

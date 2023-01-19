@@ -50,9 +50,9 @@ function encryptBytesHelper(did, publicKey, data, encoding, rsaPadding) {
         var key = (0, crypto_1.randomBytes)(32);
         var iv = (0, crypto_1.randomBytes)(16);
         var algorithm = 'aes-256-cbc';
-        var aes = new aes_1.Aes(key, iv, algorithm);
+        var aes = new aes_1.Aes(key, algorithm);
         // encrypt data with aes key
-        var encrypted = aes.encrypt(data);
+        var encrypted = aes.encrypt(data, iv);
         // we need to use a key object to set non-default padding
         // for interoperability with android/ios/webcrypto cryptography implementations
         var publicKeyObj = {
