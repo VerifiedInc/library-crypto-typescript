@@ -1,4 +1,4 @@
-import crypto, { randomBytes } from 'crypto';
+import crypto from 'crypto';
 import { UnsignedString } from '@unumid/types';
 import stringify from 'fast-json-stable-stringify';
 import { Aes } from '../src/aes';

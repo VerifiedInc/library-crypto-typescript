@@ -18,6 +18,7 @@ export declare class Aes {
     /**
      * Decrypts input Uint8Array using AES.
      * @param data Uint8Array
+     * @param iv Uint8Array
      * @returns Buffer
      */
     decrypt(data: Uint8Array, iv: Uint8Array): Buffer;
